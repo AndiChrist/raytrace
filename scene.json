@@ -1,0 +1,115 @@
+{
+  "objects": [
+    {
+      "sphere": {
+        "position": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "radius": 5,
+        "color": "green"
+      }
+    },
+    {
+      "sphere": {
+        "position": {
+          "x": 15,
+          "y": 0,
+          "z": 0
+        },
+        "radius": 3,
+        "color": "red"
+      }
+    },
+    {
+      "sphere": {
+        "position": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        },
+        "radius": 20,
+        "color": "blue"
+      }
+    },
+    {
+      "cube": {
+        "min": {
+          "x": 3.5,
+          "y": 3.5,
+          "z": 3.5
+        },
+        "max": {
+          "x": 15,
+          "y": 15,
+          "z": 15
+        },
+        "rotate": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "color": "red"
+      }
+    }
+  ],
+  "lights": [
+    {
+      "pointlight": {
+        "position": {
+          "x": 0,
+          "y": 10,
+          "z": 10
+        },
+        "intensity": {
+          "x": 10,
+          "y": 10,
+          "z": 10
+        }
+      }
+    },
+    {
+      "pointlight": {
+        "position": {
+          "x": -10,
+          "y": -10,
+          "z": 0
+        },
+        "intensity": {
+          "x": 10,
+          "y": 10,
+          "z": 10
+        }
+      }
+    },
+    {
+      "pointlight": {
+        "position": {
+          "x": 0,
+          "y": 10,
+          "z": 0
+        },
+        "intensity": {
+          "x": 10,
+          "y": 10,
+          "z": 10
+        }
+      }
+    },
+    {
+      "pointlight": {
+        "position": {
+          "x": 10,
+          "y": 10,
+          "z": 0
+        },
+        "intensity": {
+          "x": 10,
+          "y": 10,
+          "z": 10
+        }
+      }
+    }
+  ]
+}
