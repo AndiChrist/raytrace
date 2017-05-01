@@ -16,10 +16,10 @@ import static java.lang.Math.min;
  */
 public class Cube implements Object3D {
 
-    Vector3D min;
-    Vector3D max;
-    Vector3D rotate;
-    Pigment pigment = new Pigment(new Vector3D(1,1,0)); // orange
+    private Vector3D min;
+    private Vector3D max;
+    private Vector3D rotate;
+    private Pigment pigment = new Pigment(new Vector3D(1,1,0)); // orange
     {
         pigment.setReference(this);
     }
@@ -53,7 +53,7 @@ public class Cube implements Object3D {
             Field field = Color.class.getField(colorValue);
             color = (Color)field.get(null);
         } catch (Exception e) {
-            color = null; // Not defined
+            color = Color.BLACK; // Not defined
         }
         this.pigment = new Pigment(new Vector3D(color.getRed()/255, color.getGreen()/255, color.getBlue()/255), this);
     }
@@ -127,4 +127,17 @@ public class Cube implements Object3D {
         return max.subtract(min);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("min: ").append(min);
+        sb.append(System.lineSeparator());
+        sb.append("max: ").append(max);
+        sb.append(System.lineSeparator());
+        sb.append("rotate: ").append(rotate);
+        sb.append(System.lineSeparator());
+        sb.append("pigment: ").append(pigment);
+        sb.append(System.lineSeparator());
+        return sb.toString();
+    }
 }

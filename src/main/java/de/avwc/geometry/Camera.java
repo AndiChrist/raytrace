@@ -2,8 +2,9 @@ package de.avwc.geometry;
 
 import de.avwc.main.Main;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
-import static java.lang.Math.tan;
+
 import static java.lang.Math.PI;
+import static java.lang.Math.tan;
 
 /**
  * Created by andichrist on 23.04.17.

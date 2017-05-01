@@ -2,7 +2,6 @@ package de.avwc.util;
 
 import de.avwc.geometry.Camera;
 import de.avwc.main.Main;
-import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 /**

@@ -1,7 +1,6 @@
 package de.avwc.main;
 
 import de.avwc.util.RayTracer;
-import de.avwc.util.Vector3DUtil;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -9,8 +8,6 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.Set;
 
 /**
  * Created by andichrist on 23.04.17.
@@ -26,7 +23,7 @@ public final class Main extends JPanel {
     private BufferedImage canvas;
     private static Main instance = null;
 
-    public Main(int width, int height) {
+    private Main(int width, int height) {
         canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         // make blue canvas
@@ -62,7 +59,7 @@ public final class Main extends JPanel {
 
     }
 
-    public static Main getInstance() {
+    private static Main getInstance() {
         if (Main.instance == null)
             Main.instance = new Main(WIDTH, HEIGHT);
 
@@ -95,7 +92,7 @@ public final class Main extends JPanel {
         frame.pack();
         frame.setVisible(true);
         frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
 

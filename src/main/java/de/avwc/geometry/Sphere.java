@@ -9,18 +9,17 @@ import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Set;
 
-import static java.lang.Math.min;
 import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 /**
  * Created by andichrist on 23.04.17.
  */
 public class Sphere implements Object3D {
 
-    Vector3D center;
-    double radius;
-    Pigment pigment = new Pigment(new Vector3D(0, 1, 0)); // green
-
+    private Vector3D center;
+    private double radius;
+    private Pigment pigment = new Pigment(new Vector3D(0, 1, 0)); // green
     {
         pigment.setReference(this);
     }
@@ -50,7 +49,7 @@ public class Sphere implements Object3D {
             Field field = Color.class.getField(colorValue);
             color = (Color)field.get(null);
         } catch (Exception e) {
-            color = null; // Not defined
+            color = Color.BLACK; // Not defined
         }
         this.pigment = new Pigment(new Vector3D(color.getRed() / 255, color.getGreen() / 255, color.getBlue() / 255), this);
     }
@@ -70,7 +69,7 @@ public class Sphere implements Object3D {
         Iterator iterator = results.iterator();
 
         double result;
-        if (results == null || results.size() == 0) {
+        if (results.size() == 0) {
             result = Double.MAX_VALUE;
         } else if (results.size() == 1) {
             result = (double) iterator.next(); // t0 == t1
@@ -109,4 +108,17 @@ public class Sphere implements Object3D {
     public Vector3D getCentroid() {
         return this.center;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("center: ").append(center);
+        sb.append(System.lineSeparator());
+        sb.append("radius: ").append(radius);
+        sb.append(System.lineSeparator());
+        sb.append("pigment: ").append(pigment);
+        sb.append(System.lineSeparator());
+        return sb.toString();
+    }
+
 }

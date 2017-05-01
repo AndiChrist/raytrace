@@ -16,7 +16,7 @@ import java.io.InputStream;
  */
 public class SceneJSONReader {
 
-    public static final String JSON_FILE = "scene.json";
+    private static final String JSON_FILE = "scene.json";
 
     public SceneJSONReader(Scene scene) throws IOException {
         InputStream fis = new FileInputStream(JSON_FILE);
@@ -24,10 +24,10 @@ public class SceneJSONReader {
         //create JsonReader object
         JsonReader jsonReader = Json.createReader(fis);
 
-        /**
-         * We can create JsonReader from Factory also
-         JsonReaderFactory factory = Json.createReaderFactory(null);
-         jsonReader = factory.createReader(fis);
+        /*
+         * We can create JsonReader from Factory also:
+         * JsonReaderFactory factory = Json.createReaderFactory(null);
+         * jsonReader = factory.createReader(fis);
          */
 
         //get JsonObject from JsonReader
@@ -64,52 +64,48 @@ public class SceneJSONReader {
         }
     }
 
-    private PointLight readPointLight(JsonObject pointLightTest) {
-        JsonObject pointLight = pointLightTest;
-
+    private PointLight readPointLight(JsonObject pointLight) {
         JsonValue pos = pointLight.get("position");
         JsonObject coords = (JsonObject) pos;
-        Integer posx = coords.getInt("x");
-        Integer posy = coords.getInt("y");
-        Integer posz = coords.getInt("z");
+        Double posx = coords.getJsonNumber("x").doubleValue();
+        Double posy = coords.getJsonNumber("y").doubleValue();
+        Double posz = coords.getJsonNumber("z").doubleValue();
 
         Vector3D position = new Vector3D(posx, posy, posz);
 
         JsonValue intense = pointLight.get("intensity");
         JsonObject coordsInt = (JsonObject) intense;
-        Integer intx = coordsInt.getInt("x");
-        Integer inty = coordsInt.getInt("y");
-        Integer intz = coordsInt.getInt("z");
+        Double intx = coordsInt.getJsonNumber("x").doubleValue();
+        Double inty = coordsInt.getJsonNumber("y").doubleValue();
+        Double intz = coordsInt.getJsonNumber("z").doubleValue();
 
         Vector3D intensity = new Vector3D(intx, inty, intz);
 
         return new PointLight(position, intensity);
     }
 
-    private Cube readCube(JsonObject cubeTest) {
-        JsonObject cube = cubeTest;
-
+    private Cube readCube(JsonObject cube) {
         JsonValue minpos = cube.get("min");
         JsonObject coordsMin = (JsonObject) minpos;
-        Integer minx = coordsMin.getInt("x");
-        Integer miny = coordsMin.getInt("y");
-        Integer minz = coordsMin.getInt("z");
+        Double minx = coordsMin.getJsonNumber("x").doubleValue();
+        Double miny = coordsMin.getJsonNumber("y").doubleValue();
+        Double minz = coordsMin.getJsonNumber("z").doubleValue();
 
         Vector3D min = new Vector3D(minx, miny, minz);
 
-        JsonValue maxpos = cube.get("min");
+        JsonValue maxpos = cube.get("max");
         JsonObject coordsMax = (JsonObject) maxpos;
-        Integer maxx = coordsMax.getInt("x");
-        Integer maxy = coordsMax.getInt("y");
-        Integer maxz = coordsMax.getInt("z");
+        Double maxx = coordsMax.getJsonNumber("x").doubleValue();
+        Double maxy = coordsMax.getJsonNumber("y").doubleValue();
+        Double maxz = coordsMax.getJsonNumber("z").doubleValue();
 
         Vector3D max = new Vector3D(maxx, maxy, maxz);
 
         JsonValue rotpos = cube.get("rotate");
         JsonObject coordsRot = (JsonObject) rotpos;
-        Integer rotx = coordsRot.getInt("x");
-        Integer roty = coordsRot.getInt("y");
-        Integer rotz = coordsRot.getInt("z");
+        Double rotx = coordsRot.getJsonNumber("x").doubleValue();
+        Double roty = coordsRot.getJsonNumber("y").doubleValue();
+        Double rotz = coordsRot.getJsonNumber("z").doubleValue();
 
         Vector3D rotate = new Vector3D(rotx, roty, rotz);
 
@@ -118,14 +114,12 @@ public class SceneJSONReader {
         return new Cube(min, max, rotate, color);
     }
 
-    private Sphere readSphere(JsonObject sphereTest) {
-        JsonObject sphere = sphereTest;
-
+    private Sphere readSphere(JsonObject sphere) {
         JsonValue pos = sphere.get("position");
         JsonObject coords = (JsonObject) pos;
-        Integer x = coords.getInt("x");
-        Integer y = coords.getInt("y");
-        Integer z = coords.getInt("z");
+        Double x = coords.getJsonNumber("x").doubleValue();
+        Double y = coords.getJsonNumber("y").doubleValue();
+        Double z = coords.getJsonNumber("z").doubleValue();
 
         Vector3D position = new Vector3D(x, y, z);
         Integer radius = sphere.getInt("radius");

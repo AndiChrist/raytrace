@@ -22,23 +22,23 @@ public class Pigment {
     //private Color specular = Color.DARK_GRAY; // dark gray
     private Vector3D specular = new Vector3D(0.3, 0.3, 0.3); // dark gray
 
-    double phongExponent = 5;
-    double reflectionIndex = 0.5;
+    private double phongExponent = 5;
+    private double reflectionIndex = 0.5;
 
-    public Pigment(Vector3D color) {
+    Pigment(Vector3D color) {
         this.ambient = color;
     }
 
-    public Pigment(Vector3D color, Object3D reference) {
+    Pigment(Vector3D color, Object3D reference) {
         this.ambient = color;
         this.reference = reference;
     }
 
-    public void setReference(Object3D reference) {
+    void setReference(Object3D reference) {
         this.reference = reference;
     }
 
-    public int getRGB(Vector3D position, int depth) {
+    int getRGB(Vector3D position, int depth) {
         if (reference == null)
             return 0;
 
@@ -94,4 +94,13 @@ public class Pigment {
         Color c = new Color((int)Math.round(sum.getX()), (int)Math.round(sum.getY()), (int)Math.round(sum.getZ()));
         return c.getRGB();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ambient: ").append(ambient);
+        sb.append(System.lineSeparator());
+        return sb.toString();
+    }
+
 }
