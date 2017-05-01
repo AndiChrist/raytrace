@@ -1,6 +1,9 @@
 group 'de.avwc'
 version '1.0-SNAPSHOT'
 
+apply plugin: 'application'
+mainClassName = 'de.avwc.main.Main'
+
 apply plugin: 'java'
 
 sourceCompatibility = 1.8
@@ -15,5 +18,6 @@ dependencies {
     // https://mvnrepository.com/artifact/org.glassfish/javax.json
     compile group: 'org.glassfish', name: 'javax.json', version: '1.0.4'
 
+    // https://mvnrepository.com/artifact/junit/junit
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
