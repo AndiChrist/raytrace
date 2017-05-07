@@ -43,7 +43,7 @@ public class Scene {
         if (scene == null) {
             scene = new Scene();
             try {
-                new SceneJSONReader(scene);
+                SceneJSONReader.readSceneJSON(scene);
             } catch (IOException e) {
                 e.printStackTrace();
             }

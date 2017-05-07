@@ -14,7 +14,7 @@ public class SceneJSONReader {
 
     private static final String JSON_FILE = "scene.json";
 
-    public SceneJSONReader(Scene scene) throws IOException {
+    public static void readSceneJSON(Scene scene) throws IOException {
         InputStream fis = new FileInputStream(JSON_FILE);
 
         //create JsonReader object
@@ -24,7 +24,5 @@ public class SceneJSONReader {
         // close file after reading
         fis.close();
     }
-
-
 
 }
