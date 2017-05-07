@@ -19,9 +19,12 @@ public class Cube implements Object3D {
     private Vector3D min;
     private Vector3D max;
     private Vector3D rotate;
-    private Pigment pigment = new Pigment(new Vector3D(1,1,0)); // orange
-    {
-        pigment.setReference(this);
+    private Pigment pigment = new Pigment(new Vector3D(1,1,0), this); // orange
+
+    public Cube(Vector3D min, Vector3D max, Vector3D rotate) {
+        this.min = min;
+        this.max = max;
+        this.rotate = rotate;
     }
 
     public Cube(Vector3D min, Vector3D max, Vector3D rotate, Pigment pigment) {
@@ -29,12 +32,6 @@ public class Cube implements Object3D {
         this.max = max;
         this.rotate = rotate;
         this.pigment = pigment;
-    }
-
-    public Cube(Vector3D min, Vector3D max, Vector3D rotate) {
-        this.min = min;
-        this.max = max;
-        this.rotate = rotate;
     }
 
     public Cube(Vector3D min, Vector3D max, Vector3D rotate, Color color) {
@@ -58,17 +55,8 @@ public class Cube implements Object3D {
         this.pigment = new Pigment(new Vector3D(color.getRed()/255, color.getGreen()/255, color.getBlue()/255), this);
     }
 
-    //@Override
-    public void intersectss(Ray ray) {
-        Vector3D direction = ray.direction;
-        Vector3D origin = ray.origin;
-
-
-    }
-
     @Override
     public double intersect(Ray ray) {
-
         Vector3D direction = ray.direction;
         Vector3D origin = ray.origin;
 
@@ -123,21 +111,19 @@ public class Cube implements Object3D {
         return min.add(size.scalarMultiply(0.5));
     }
 
-    public Vector3D getSize() {
+    private Vector3D getSize() {
         return max.subtract(min);
     }
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("min: ").append(min);
-        sb.append(System.lineSeparator());
-        sb.append("max: ").append(max);
-        sb.append(System.lineSeparator());
-        sb.append("rotate: ").append(rotate);
-        sb.append(System.lineSeparator());
-        sb.append("pigment: ").append(pigment);
-        sb.append(System.lineSeparator());
-        return sb.toString();
+        return "min: " + min +
+                System.lineSeparator() +
+                "max: " + max +
+                System.lineSeparator() +
+                "rotate: " + rotate +
+                System.lineSeparator() +
+                "pigment: " + pigment +
+                System.lineSeparator();
     }
 }

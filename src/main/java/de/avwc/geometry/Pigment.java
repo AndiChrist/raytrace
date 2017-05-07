@@ -34,16 +34,16 @@ public class Pigment {
         this.reference = reference;
     }
 
-    void setReference(Object3D reference) {
-        this.reference = reference;
-    }
+    //void setReference(Object3D reference) {
+    //    this.reference = reference;
+    //}
 
     int getRGB(Vector3D position, int depth) {
         if (reference == null)
             return 0;
 
         Vector3D sum = Vector3D.ZERO;
-        for (Light light : Scene.getScene().getLights()) {
+        for (Light light : Scene.getInstance().getLights()) {
             Vector3D positionToLight = light.getPosition().subtract(position).normalize();
             Ray shadow = new Ray(Vector3DUtil.move(Main.EPSILON, position, positionToLight), positionToLight);
             boolean shadowed = shadow.castShadow();
@@ -97,10 +97,8 @@ public class Pigment {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("ambient: ").append(ambient);
-        sb.append(System.lineSeparator());
-        return sb.toString();
+        return "ambient: " + ambient +
+                System.lineSeparator();
     }
 
 }

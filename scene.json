@@ -23,17 +23,6 @@
       }
     },
     {
-      "sphere": {
-        "position": {
-          "x": 10,
-          "y": 0,
-          "z": 0
-        },
-        "radius": 20,
-        "color": "blue"
-      }
-    },
-    {
       "cube": {
         "min": {
           "x": 3.5,
@@ -51,6 +40,17 @@
           "z": 0
         },
         "color": "yellow"
+      }
+    },
+    {
+      "sphere": {
+        "position": {
+          "x": 10,
+          "y": 0,
+          "z": 0
+        },
+        "radius": 20,
+        "color": "blue"
       }
     }
   ],

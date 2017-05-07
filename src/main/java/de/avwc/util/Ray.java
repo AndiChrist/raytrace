@@ -34,7 +34,7 @@ public class Ray {
         double t = Double.MAX_VALUE - 1;
 
         // find intersection with objects
-        for (Object3D o : Scene.getScene().getObjects()) {
+        for (Object3D o : Scene.getInstance().getObjects()) {
             double t2 = o.intersect(this);
             // new t is between the eye AND object?
             if (t2 > 0 && t2 < t) {
@@ -54,7 +54,7 @@ public class Ray {
         double t = Double.MAX_VALUE - 1;
 
         // find intersection with objects
-        for (Object3D o : Scene.getScene().getObjects()) {
+        for (Object3D o : Scene.getInstance().getObjects()) {
             double t2 = o.intersect(this);
             // new t is between the eye AND object?
             if (t2 > 0 && t2 < t) {

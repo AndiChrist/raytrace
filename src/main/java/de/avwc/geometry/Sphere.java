@@ -19,20 +19,17 @@ public class Sphere implements Object3D {
 
     private Vector3D center;
     private double radius;
-    private Pigment pigment = new Pigment(new Vector3D(0, 1, 0)); // green
-    {
-        pigment.setReference(this);
+    private Pigment pigment = new Pigment(new Vector3D(0, 1, 0), this); // green
+
+    public Sphere(Vector3D center, double radius) {
+        this.center = center;
+        this.radius = radius;
     }
 
     public Sphere(Vector3D center, double radius, Pigment pigment) {
         this.center = center;
         this.radius = radius;
         this.pigment = pigment;
-    }
-
-    public Sphere(Vector3D center, double radius) {
-        this.center = center;
-        this.radius = radius;
     }
 
     public Sphere(Vector3D center, Integer radius, Color color) {
@@ -111,14 +108,12 @@ public class Sphere implements Object3D {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("center: ").append(center);
-        sb.append(System.lineSeparator());
-        sb.append("radius: ").append(radius);
-        sb.append(System.lineSeparator());
-        sb.append("pigment: ").append(pigment);
-        sb.append(System.lineSeparator());
-        return sb.toString();
+        return "center: " + center +
+                System.lineSeparator() +
+                "radius: " + radius +
+                System.lineSeparator() +
+                "pigment: " + pigment +
+                System.lineSeparator();
     }
 
 }
