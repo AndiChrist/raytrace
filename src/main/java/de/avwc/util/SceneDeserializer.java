@@ -50,28 +50,23 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
 
     private static PointLight readPointLight(JsonNode pointLight) {
         JsonNode positionNode = pointLight.get("position");
-        List<Double> positionVector = getVector(positionNode);
-        Vector3D position = new Vector3D(positionVector.get(0), positionVector.get(1), positionVector.get(2));
+        Vector3D position = getVector(positionNode);
 
         JsonNode intensityNode = pointLight.get("intensity");
-        List<Double> intensityVector = getVector(intensityNode);
-        Vector3D intensity = new Vector3D(intensityVector.get(0), intensityVector.get(1), intensityVector.get(2));
+        Vector3D intensity = getVector(intensityNode);
 
         return new PointLight(position, intensity);
     }
 
     private static Cube readCube(JsonNode cube) {
         JsonNode minNode = cube.get("min");
-        List<Double> minVector = getVector(minNode);
-        Vector3D min = new Vector3D(minVector.get(0), minVector.get(1), minVector.get(2));
+        Vector3D min = getVector(minNode);
 
         JsonNode maxNode = cube.get("max");
-        List<Double> maxVector = getVector(maxNode);
-        Vector3D max = new Vector3D(maxVector.get(0), maxVector.get(1), maxVector.get(2));
+        Vector3D max = getVector(maxNode);
 
         JsonNode rotateNode = cube.get("rotate");
-        List<Double> rotateVector = getVector(rotateNode);
-        Vector3D rotate = new Vector3D(rotateVector.get(0), rotateVector.get(1), rotateVector.get(2));
+        Vector3D rotate = getVector(rotateNode);
 
         String color = cube.get("color").textValue();
 
@@ -83,14 +78,12 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
         Integer radius = sphere.get("radius").asInt();
         String pigment = sphere.get("color").asText();
 
-        List<Double> vector = getVector(positionNode);
-
-        Vector3D center = new Vector3D(vector.get(0), vector.get(1), vector.get(2));
-
+        Vector3D center = getVector(positionNode);
+        
         return new Sphere(center, radius, pigment);
     }
 
-    private static List<Double> getVector(JsonNode arrayNode) {
+    private static Vector3D getVector(JsonNode arrayNode) {
         List<Double> result = new ArrayList<>();
         if (arrayNode.isArray()) {
             for (final JsonNode n : arrayNode) {
@@ -98,7 +91,7 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
             }
         }
 
-        return result;
+        return new Vector3D(result.get(0), result.get(1), result.get(2));
     }
 
 }
