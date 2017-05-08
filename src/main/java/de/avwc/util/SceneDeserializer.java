@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import de.avwc.geometry.Cube;
 import de.avwc.geometry.Sphere;
 import de.avwc.light.PointLight;
@@ -13,6 +14,7 @@ import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Created by andichrist on 07.05.17.
@@ -28,7 +30,7 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
         JsonNode lights = node.get("lights");
 
         // Retrieve data from JsonObject and create Scene bean
-        for(JsonNode object3D : objects) {
+        for (JsonNode object3D : objects) {
             for (JsonNode sphere : object3D.get("spheres")) {
                 scene.getObjects().add(readSphere(sphere));
             }
@@ -38,7 +40,7 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
             }
         }
 
-        for(JsonNode light : lights) {
+        for (JsonNode light : lights) {
             for (JsonNode pointlight : light.get("pointlights")) {
                 scene.getLights().add(readPointLight(pointlight));
             }
@@ -47,25 +49,24 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
         return scene;
     }
 
-
     private static PointLight readPointLight(JsonNode pointLight) {
-        JsonNode positionNode = pointLight.get("position");
+        ArrayNode positionNode = (ArrayNode) pointLight.get("position");
         Vector3D position = getVector(positionNode);
 
-        JsonNode intensityNode = pointLight.get("intensity");
+        ArrayNode intensityNode = (ArrayNode) pointLight.get("intensity");
         Vector3D intensity = getVector(intensityNode);
 
         return new PointLight(position, intensity);
     }
 
     private static Cube readCube(JsonNode cube) {
-        JsonNode minNode = cube.get("min");
+        ArrayNode minNode = (ArrayNode) cube.get("min");
         Vector3D min = getVector(minNode);
 
-        JsonNode maxNode = cube.get("max");
+        ArrayNode maxNode = (ArrayNode) cube.get("max");
         Vector3D max = getVector(maxNode);
 
-        JsonNode rotateNode = cube.get("rotate");
+        ArrayNode rotateNode = (ArrayNode) cube.get("rotate");
         Vector3D rotate = getVector(rotateNode);
 
         String color = cube.get("color").textValue();
@@ -74,24 +75,27 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
     }
 
     private static Sphere readSphere(JsonNode sphere) {
-        JsonNode positionNode = sphere.get("position");
+        ArrayNode positionNode = (ArrayNode) sphere.get("position");
         Integer radius = sphere.get("radius").asInt();
         String pigment = sphere.get("color").asText();
 
         Vector3D center = getVector(positionNode);
-        
+
         return new Sphere(center, radius, pigment);
     }
 
-    private static Vector3D getVector(JsonNode arrayNode) {
-        List<Double> result = new ArrayList<>();
-        if (arrayNode.isArray()) {
-            for (final JsonNode n : arrayNode) {
-                result.add(n.asDouble());
+    private static Vector3D getVector(ArrayNode arrayNode) {
+        List<Double> list = new ArrayList<>();
+        if (arrayNode.isArray() && arrayNode.size() == 3) {
+            for (final JsonNode node : arrayNode) {
+                list.add(node.asDouble());
             }
         }
 
-        return new Vector3D(result.get(0), result.get(1), result.get(2));
+        Double[] array = list.stream().toArray(Double[]::new);
+        double[] result = Stream.of(array).mapToDouble(Double::doubleValue).toArray();
+
+        return new Vector3D(result);
     }
 
 }
