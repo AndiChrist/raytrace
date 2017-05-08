@@ -11,6 +11,8 @@ import de.avwc.main.Scene;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by andichrist on 07.05.17.
@@ -48,43 +50,28 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
 
     private static PointLight readPointLight(JsonNode pointLight) {
         JsonNode positionNode = pointLight.get("position");
-        Double posx = positionNode.get("x").asDouble();
-        Double posy = positionNode.get("y").asDouble();
-        Double posz = positionNode.get("z").asDouble();
-
-        Vector3D position = new Vector3D(posx, posy, posz);
+        List<Double> positionVector = getVector(positionNode);
+        Vector3D position = new Vector3D(positionVector.get(0), positionVector.get(1), positionVector.get(2));
 
         JsonNode intensityNode = pointLight.get("intensity");
-        Double intx = intensityNode.get("x").asDouble();
-        Double inty = intensityNode.get("y").asDouble();
-        Double intz = intensityNode.get("z").asDouble();
-
-        Vector3D intensity = new Vector3D(intx, inty, intz);
+        List<Double> intensityVector = getVector(intensityNode);
+        Vector3D intensity = new Vector3D(intensityVector.get(0), intensityVector.get(1), intensityVector.get(2));
 
         return new PointLight(position, intensity);
     }
 
     private static Cube readCube(JsonNode cube) {
         JsonNode minNode = cube.get("min");
-        Double minx = minNode.get("x").asDouble();
-        Double miny = minNode.get("y").asDouble();
-        Double minz = minNode.get("z").asDouble();
-
-        Vector3D min = new Vector3D(minx, miny, minz);
+        List<Double> minVector = getVector(minNode);
+        Vector3D min = new Vector3D(minVector.get(0), minVector.get(1), minVector.get(2));
 
         JsonNode maxNode = cube.get("max");
-        Double maxx = maxNode.get("x").asDouble();
-        Double maxy = maxNode.get("y").asDouble();
-        Double maxz = maxNode.get("z").asDouble();
-
-        Vector3D max = new Vector3D(maxx, maxy, maxz);
+        List<Double> maxVector = getVector(maxNode);
+        Vector3D max = new Vector3D(maxVector.get(0), maxVector.get(1), maxVector.get(2));
 
         JsonNode rotateNode = cube.get("rotate");
-        Double rotx = rotateNode.get("x").asDouble();
-        Double roty = rotateNode.get("y").asDouble();
-        Double rotz = rotateNode.get("z").asDouble();
-
-        Vector3D rotate = new Vector3D(rotx, roty, rotz);
+        List<Double> rotateVector = getVector(rotateNode);
+        Vector3D rotate = new Vector3D(rotateVector.get(0), rotateVector.get(1), rotateVector.get(2));
 
         String color = cube.get("color").textValue();
 
@@ -96,13 +83,22 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
         Integer radius = sphere.get("radius").asInt();
         String pigment = sphere.get("color").asText();
 
-        Double x = positionNode.get("x").asDouble();
-        Double y = positionNode.get("y").asDouble();
-        Double z = positionNode.get("z").asDouble();
+        List<Double> vector = getVector(positionNode);
 
-        Vector3D center = new Vector3D(x, y, z);
+        Vector3D center = new Vector3D(vector.get(0), vector.get(1), vector.get(2));
 
         return new Sphere(center, radius, pigment);
+    }
+
+    private static List<Double> getVector(JsonNode arrayNode) {
+        List<Double> result = new ArrayList<>();
+        if (arrayNode.isArray()) {
+            for (final JsonNode n : arrayNode) {
+                result.add(n.asDouble());
+            }
+        }
+
+        return result;
     }
 
 }
