@@ -27,21 +27,18 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
 
         // Retrieve data from JsonObject and create Scene bean
         for(JsonNode object3D : objects) {
-            JsonNode sphereNode = object3D.get("sphere");
-            if (sphereNode != null) {
-                scene.getObjects().add(readSphere(sphereNode));
+            for (JsonNode sphere : object3D.get("spheres")) {
+                scene.getObjects().add(readSphere(sphere));
             }
 
-            JsonNode cube = object3D.get("cube");
-            if (cube != null) {
+            for (JsonNode cube : object3D.get("cubes")) {
                 scene.getObjects().add(readCube(cube));
             }
         }
 
         for(JsonNode light : lights) {
-            JsonNode pointLightTest = light.get("pointlight");
-            if (pointLightTest != null) {
-                scene.getLights().add(readPointLight(pointLightTest));
+            for (JsonNode pointlight : light.get("pointlights")) {
+                scene.getLights().add(readPointLight(pointlight));
             }
         }
 

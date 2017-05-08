@@ -1,115 +1,109 @@
 {
   "objects": [
     {
-      "sphere": {
-        "position": {
-          "x": 0,
-          "y": 0,
-          "z": 0
+      "spheres": [
+        {
+          "position": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "radius": 5,
+          "color": "green"
         },
-        "radius": 5,
-        "color": "green"
-      }
-    },
-    {
-      "sphere": {
-        "position": {
-          "x": 15,
-          "y": 0,
-          "z": 0
+        {
+          "position": {
+            "x": 15,
+            "y": 0,
+            "z": 0
+          },
+          "radius": 3,
+          "color": "red"
         },
-        "radius": 3,
-        "color": "red"
-      }
-    },
-    {
-      "cube": {
-        "min": {
-          "x": 3.5,
-          "y": 3.5,
-          "z": 3.5
-        },
-        "max": {
-          "x": 15,
-          "y": 15,
-          "z": 15
-        },
-        "rotate": {
-          "x": 0,
-          "y": 0,
-          "z": 0
-        },
-        "color": "yellow"
-      }
-    },
-    {
-      "sphere": {
-        "position": {
-          "x": 10,
-          "y": 0,
-          "z": 0
-        },
-        "radius": 20,
-        "color": "blue"
-      }
+        {
+          "position": {
+            "x": 10,
+            "y": 0,
+            "z": 0
+          },
+          "radius": 20,
+          "color": "blue"
+        }
+      ],
+      "cubes": [
+        {
+          "min": {
+            "x": 3.5,
+            "y": 3.5,
+            "z": 3.5
+          },
+          "max": {
+            "x": 15,
+            "y": 15,
+            "z": 15
+          },
+          "rotate": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+          },
+          "color": "yellow"
+        }
+      ]
     }
   ],
   "lights": [
     {
-      "pointlight": {
-        "position": {
-          "x": 0,
-          "y": 10,
-          "z": 10
+      "pointlights": [
+        {
+          "position": {
+            "x": 0,
+            "y": 10,
+            "z": 10
+          },
+          "intensity": {
+            "x": 10,
+            "y": 10,
+            "z": 10
+          }
         },
-        "intensity": {
-          "x": 10,
-          "y": 10,
-          "z": 10
-        }
-      }
-    },
-    {
-      "pointlight": {
-        "position": {
-          "x": -10,
-          "y": -10,
-          "z": 0
+        {
+          "position": {
+            "x": -10,
+            "y": -10,
+            "z": 0
+          },
+          "intensity": {
+            "x": 10,
+            "y": 10,
+            "z": 10
+          }
         },
-        "intensity": {
-          "x": 10,
-          "y": 10,
-          "z": 10
-        }
-      }
-    },
-    {
-      "pointlight": {
-        "position": {
-          "x": 0,
-          "y": 10,
-          "z": 0
+        {
+          "position": {
+            "x": 0,
+            "y": 10,
+            "z": 0
+          },
+          "intensity": {
+            "x": 10,
+            "y": 10,
+            "z": 10
+          }
         },
-        "intensity": {
-          "x": 10,
-          "y": 10,
-          "z": 10
+        {
+          "position": {
+            "x": 10,
+            "y": 10,
+            "z": 0
+          },
+          "intensity": {
+            "x": 10,
+            "y": 10,
+            "z": 10
+          }
         }
-      }
-    },
-    {
-      "pointlight": {
-        "position": {
-          "x": 10,
-          "y": 10,
-          "z": 0
-        },
-        "intensity": {
-          "x": 10,
-          "y": 10,
-          "z": 10
-        }
-      }
+      ]
     }
   ]
 }
