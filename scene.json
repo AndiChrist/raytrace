@@ -3,50 +3,26 @@
     {
       "spheres": [
         {
-          "position": {
-            "x": 0,
-            "y": 0,
-            "z": 0
-          },
+          "position": [0, 0, 0],
           "radius": 5,
           "color": "green"
         },
         {
-          "position": {
-            "x": 15,
-            "y": 0,
-            "z": 0
-          },
+          "position": [15, 0, 0],
           "radius": 3,
           "color": "red"
         },
         {
-          "position": {
-            "x": 10,
-            "y": 0,
-            "z": 0
-          },
+          "position": [10, 0, 0],
           "radius": 20,
           "color": "blue"
         }
       ],
       "cubes": [
         {
-          "min": {
-            "x": 3.5,
-            "y": 3.5,
-            "z": 3.5
-          },
-          "max": {
-            "x": 15,
-            "y": 15,
-            "z": 15
-          },
-          "rotate": {
-            "x": 0,
-            "y": 0,
-            "z": 0
-          },
+          "min": [3.5, 3.5, 3.5],
+          "max": [15, 15, 15],
+          "rotate": [0, 0, 0],
           "color": "yellow"
         }
       ]
@@ -56,52 +32,20 @@
     {
       "pointlights": [
         {
-          "position": {
-            "x": 0,
-            "y": 10,
-            "z": 10
-          },
-          "intensity": {
-            "x": 10,
-            "y": 10,
-            "z": 10
-          }
+          "position": [0, 10, 10],
+          "intensity": [10, 10, 10]
         },
         {
-          "position": {
-            "x": -10,
-            "y": -10,
-            "z": 0
-          },
-          "intensity": {
-            "x": 10,
-            "y": 10,
-            "z": 10
-          }
+          "position": [-10, -10, 0],
+          "intensity": [10, 10, 10]
         },
         {
-          "position": {
-            "x": 0,
-            "y": 10,
-            "z": 0
-          },
-          "intensity": {
-            "x": 10,
-            "y": 10,
-            "z": 10
-          }
+          "position": [0, 10, 0],
+          "intensity": [10, 10, 10]
         },
         {
-          "position": {
-            "x": 10,
-            "y": 10,
-            "z": 0
-          },
-          "intensity": {
-            "x": 10,
-            "y": 10,
-            "z": 10
-          }
+          "position": [10, 10, 0],
+          "intensity": [10, 10, 10]
         }
       ]
     }
