@@ -45,7 +45,7 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
                 scene.getLights().add(readPointLight(pointlight));
             }
         }
-
+        System.out.println(scene);
         return scene;
     }
 

@@ -1,7 +1,7 @@
 package de.avwc.main;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import de.avwc.geometry.Object3D;
+import de.avwc.geometry.Renderable;
 import de.avwc.light.Light;
 import de.avwc.util.SceneDeserializer;
 import de.avwc.util.SceneJSONReader;
@@ -18,14 +18,14 @@ public class Scene {
 
     private static Scene scene;
 
-    private List<Object3D> objects = new ArrayList<>();
+    private List<Renderable> objects = new ArrayList<>();
     private List<Light> lights = new ArrayList<>();
 
-    public List<Object3D> getObjects() {
+    public List<Renderable> getObjects() {
         return objects;
     }
 
-    public void setObjects(List<Object3D> objects) {
+    public void setObjects(List<Renderable> objects) {
         this.objects = objects;
     }
 
@@ -54,19 +54,11 @@ public class Scene {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Scene Details:\n");
-        for(Object3D o : Scene.getInstance().getObjects()) {
-            sb.append(o.getClass().getName()).append(": ");
-            sb.append(System.lineSeparator());
-            sb.append(o);
-            sb.append(System.lineSeparator());
-
+        for(Renderable o : Scene.getInstance().getObjects()) {
+            sb.append(o.debug());
         }
         for(Light l : Scene.getInstance().getLights()) {
-            sb.append(l.getClass().getName()).append(": ");
-            sb.append(System.lineSeparator());
-            sb.append(l);
-            sb.append(System.lineSeparator());
+            sb.append(l.debug());
         }
 
         return sb.toString();

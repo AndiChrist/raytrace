@@ -23,15 +23,4 @@ public class PointLight implements Light {
     public Vector3D getIntensity(Vector3D fromPosition) {
         return intensity;
     }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("position: ").append(position);
-        sb.append(System.lineSeparator());
-        sb.append("intensity: ").append(intensity);
-        sb.append(System.lineSeparator());
-        return sb.toString();
-    }
-
 }

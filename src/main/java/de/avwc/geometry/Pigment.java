@@ -3,6 +3,7 @@ package de.avwc.geometry;
 import de.avwc.light.Light;
 import de.avwc.main.Main;
 import de.avwc.main.Scene;
+import de.avwc.util.Debuggable;
 import de.avwc.util.Ray;
 import de.avwc.util.RayTracer;
 import de.avwc.util.Vector3DUtil;
@@ -14,7 +15,7 @@ import java.awt.*;
  * Created by andichrist on 23.04.17.
  */
 public class Pigment {
-    private Object3D reference;
+    private Renderable reference;
 
     private Vector3D ambient;
     //private Color diffuse = Color.LIGHT_GRAY; // light gray
@@ -29,12 +30,12 @@ public class Pigment {
         this.ambient = color;
     }
 
-    Pigment(Vector3D color, Object3D reference) {
+    Pigment(Vector3D color, Renderable reference) {
         this.ambient = color;
         this.reference = reference;
     }
 
-    //void setReference(Object3D reference) {
+    //void setReference(Renderable reference) {
     //    this.reference = reference;
     //}
 
@@ -97,8 +98,7 @@ public class Pigment {
 
     @Override
     public String toString() {
-        return "ambient: " + ambient +
-                System.lineSeparator();
+        return "ambient: " + ambient;
     }
 
 }

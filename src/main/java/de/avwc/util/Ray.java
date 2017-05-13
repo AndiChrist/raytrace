@@ -1,6 +1,6 @@
 package de.avwc.util;
 
-import de.avwc.geometry.Object3D;
+import de.avwc.geometry.Renderable;
 import de.avwc.main.Main;
 import de.avwc.main.Scene;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
@@ -19,22 +19,25 @@ public class Ray {
         this.direction = direction.normalize();
     }
 
+    /*
     public Ray(Vector3D fromPoint, Vector3D toPoint, boolean dummy) {
         this.origin = fromPoint;
         this.direction = toPoint.subtract(fromPoint).normalize();
     }
+    */
 
-    // find first Object3D following the ray
+    // find first Renderable following the ray
     public int castPrimary(int depth) {
         if (depth > Main.MAX_RECURSION_DEPTH) {
             return Color.BLACK.getRGB();
         }
 
-        Object3D intersect = null;
+        // which object hits by the ray?
+        Renderable intersect = null;
         double t = Double.MAX_VALUE - 1;
 
         // find intersection with objects
-        for (Object3D o : Scene.getInstance().getObjects()) {
+        for (Renderable o : Scene.getInstance().getObjects()) {
             double t2 = o.intersect(this);
             // new t is between the eye AND object?
             if (t2 > 0 && t2 < t) {
@@ -52,9 +55,9 @@ public class Ray {
 
     public boolean castShadow() {
         double t = Double.MAX_VALUE - 1;
-
+        
         // find intersection with objects
-        for (Object3D o : Scene.getInstance().getObjects()) {
+        for (Renderable o : Scene.getInstance().getObjects()) {
             double t2 = o.intersect(this);
             // new t is between the eye AND object?
             if (t2 > 0 && t2 < t) {
@@ -66,6 +69,6 @@ public class Ray {
     }
 
     private Vector3D getPosition(double t) {
-        return Vector3DUtil.add(origin, direction.scalarMultiply(t));
+        return origin.add(direction.scalarMultiply(t));
     }
 }

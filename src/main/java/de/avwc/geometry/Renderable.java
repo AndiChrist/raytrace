@@ -1,12 +1,13 @@
 package de.avwc.geometry;
 
+import de.avwc.util.Debuggable;
 import de.avwc.util.Ray;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 /**
  * Created by andichrist on 23.04.17.
  */
-public interface Object3D {
+public interface Renderable extends Debuggable {
     double intersect(Ray ray);
 
     Vector3D getNormal(Vector3D position);

@@ -1,5 +1,6 @@
 package de.avwc.geometry;
 
+import de.avwc.util.Debuggable;
 import de.avwc.util.Ray;
 import de.avwc.util.Vector3DUtil;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
@@ -15,7 +16,7 @@ import static java.lang.Math.min;
 /**
  * Created by andichrist on 23.04.17.
  */
-public class Sphere implements Object3D {
+public class Sphere implements Renderable {
 
     private Vector3D center;
     private double radius;
@@ -105,15 +106,4 @@ public class Sphere implements Object3D {
     public Vector3D getCentroid() {
         return this.center;
     }
-
-    @Override
-    public String toString() {
-        return "center: " + center +
-                System.lineSeparator() +
-                "radius: " + radius +
-                System.lineSeparator() +
-                "pigment: " + pigment +
-                System.lineSeparator();
-    }
-
 }

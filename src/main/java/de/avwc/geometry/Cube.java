@@ -1,5 +1,6 @@
 package de.avwc.geometry;
 
+import de.avwc.util.Debuggable;
 import de.avwc.util.Ray;
 import de.avwc.util.Vector3DUtil;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
@@ -14,7 +15,7 @@ import static java.lang.Math.min;
  * AABB (axis-aligned bounding box)
  * Created by andichrist on 24.04.17.
  */
-public class Cube implements Object3D {
+public class Cube implements Renderable {
 
     private Vector3D min;
     private Vector3D max;
@@ -113,17 +114,5 @@ public class Cube implements Object3D {
 
     private Vector3D getSize() {
         return max.subtract(min);
-    }
-
-    @Override
-    public String toString() {
-        return "min: " + min +
-                System.lineSeparator() +
-                "max: " + max +
-                System.lineSeparator() +
-                "rotate: " + rotate +
-                System.lineSeparator() +
-                "pigment: " + pigment +
-                System.lineSeparator();
     }
 }
