@@ -1,5 +1,7 @@
 package de.avwc.gfx;
 
+import de.avwc.util.RayTracer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -62,4 +64,5 @@ public class Display extends JPanel {
     public BufferedImage getCanvas() {
         return canvas;
     }
+
 }

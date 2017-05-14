@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import de.avwc.gfx.Camera;
 import de.avwc.gfx.Cube;
 import de.avwc.gfx.Sphere;
 import de.avwc.gfx.light.PointLight;
@@ -45,6 +46,10 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
                 scene.getLights().add(readPointLight(pointlight));
             }
         }
+
+        JsonNode camera = node.get("camera");
+        scene.setCamera(readCamera(camera));
+
         System.out.println(scene);
         return scene;
     }
@@ -82,6 +87,14 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
         Vector3D center = getVector(positionNode);
 
         return new Sphere(center, radius, pigment);
+    }
+
+    private static Camera readCamera(JsonNode camera) {
+        ArrayNode positionNode = (ArrayNode) camera.get("position");
+
+        Vector3D center = getVector(positionNode);
+
+        return new Camera(center);
     }
 
     private static Vector3D getVector(ArrayNode arrayNode) {

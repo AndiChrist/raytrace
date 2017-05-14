@@ -14,7 +14,7 @@ import java.awt.*;
  * Created by andichrist on 23.04.17.
  */
 public class Pigment {
-    private Renderable reference;
+    private Renderable renderable;
 
     private Vector3D ambient;
     //private Color diffuse = Color.LIGHT_GRAY; // light gray
@@ -29,17 +29,13 @@ public class Pigment {
         this.ambient = color;
     }
 
-    Pigment(Vector3D color, Renderable reference) {
-        this.ambient = color;
-        this.reference = reference;
+    Pigment(Vector3D color, Renderable renderable) {
+        this(color);
+        this.renderable = renderable;
     }
 
-    //void setReference(Renderable reference) {
-    //    this.reference = reference;
-    //}
-
     int getRGB(Vector3D position, int depth) {
-        if (reference == null)
+        if (renderable == null)
             return 0;
 
         Vector3D sum = Vector3D.ZERO;
@@ -53,13 +49,13 @@ public class Pigment {
 
             if (!shadowed) {
                 // diffuse factor
-                Vector3D normal = this.reference.getNormal(position);
+                Vector3D normal = this.renderable.getNormal(position);
                 double NL = Math.max(normal.dotProduct(positionToLight), 0); // angle
                 retValue = retValue.add(Vector3DUtil.multiply(diffuse, light.getIntensity(position)).scalarMultiply(NL));
 
                 // specular factor
                 Vector3D reflection = normal.scalarMultiply(NL*2).subtract(positionToLight).normalize();
-                Vector3D view = RayTracer.camera.getEye().subtract(position).normalize();
+                Vector3D view = Scene.getInstance().getCamera().getEye().subtract(position).normalize();
                 double RV = Math.max(reflection.dotProduct(view), 0); // angle
 
                 retValue = retValue.add(Vector3DUtil.multiply(specular, light.getIntensity(position)).scalarMultiply(Math.pow(RV, phongExponent)));
@@ -72,8 +68,8 @@ public class Pigment {
         }
 
         if (this.reflectionIndex > 0) {
-            Vector3D normal = this.reference.getNormal(position);
-            Vector3D view = RayTracer.camera.getEye().subtract(position).normalize();
+            Vector3D normal = this.renderable.getNormal(position);
+            Vector3D view = Scene.getInstance().getCamera().getEye().subtract(position).normalize();
             double NV = Math.max(normal.dotProduct(view), 0); // angle
 
             Vector3D reflectionRay = normal.scalarMultiply(NV*2).subtract(view).normalize();

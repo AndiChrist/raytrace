@@ -1,6 +1,7 @@
 package de.avwc.main;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import de.avwc.gfx.Camera;
 import de.avwc.gfx.Renderable;
 import de.avwc.gfx.light.Light;
 import de.avwc.util.SceneDeserializer;
@@ -20,6 +21,7 @@ public class Scene {
 
     private List<Renderable> objects = new ArrayList<>();
     private List<Light> lights = new ArrayList<>();
+    private Camera camera;
 
     public List<Renderable> getObjects() {
         return objects;
@@ -61,7 +63,17 @@ public class Scene {
             sb.append(l.debug());
         }
 
+        sb.append(camera.debug());
+
         return sb.toString();
 
+    }
+
+    public void setCamera(Camera camera) {
+        this.camera = camera;
+    }
+
+    public Camera getCamera() {
+        return camera;
     }
 }

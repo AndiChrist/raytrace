@@ -33,9 +33,10 @@ public final class Main {
     public static void main(String[] args) {
         display = new Display(WIDTH, HEIGHT);
 
-        new RayTracer().trace(display);
-        Main panel = new Main();
+        RayTracer tracer = new RayTracer();
+        tracer.trace(display);
 
+        Main panel = new Main();
         panel.saveImage();
 
         display.openJFrame();
