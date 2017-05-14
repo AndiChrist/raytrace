@@ -1,8 +1,8 @@
 package de.avwc.main;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import de.avwc.geometry.Renderable;
-import de.avwc.light.Light;
+import de.avwc.gfx.Renderable;
+import de.avwc.gfx.light.Light;
 import de.avwc.util.SceneDeserializer;
 import de.avwc.util.SceneJSONReader;
 

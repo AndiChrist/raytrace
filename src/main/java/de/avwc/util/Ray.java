@@ -1,7 +1,7 @@
 package de.avwc.util;
 
-import de.avwc.geometry.Renderable;
-import de.avwc.main.Main;
+import de.avwc.gfx.Renderable;
+import de.avwc.Main;
 import de.avwc.main.Scene;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 

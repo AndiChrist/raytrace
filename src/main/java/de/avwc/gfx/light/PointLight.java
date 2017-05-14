@@ -1,4 +1,4 @@
-package de.avwc.light;
+package de.avwc.gfx.light;
 
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 

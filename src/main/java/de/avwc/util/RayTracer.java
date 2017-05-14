@@ -1,16 +1,17 @@
 package de.avwc.util;
 
-import de.avwc.geometry.Camera;
-import de.avwc.main.Main;
+import de.avwc.gfx.Camera;
+import de.avwc.Main;
+import de.avwc.gfx.Display;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 /**
  * Created by andichrist on 23.04.17.
  */
-public class RayTracer {
+public class RayTracer implements Runnable {
     public static Camera camera = new Camera();
 
-    public void trace() {
+    public void trace(Display display) {
         // u = l + (r − l)(i + 0.5)/nx
         // v = b + (t − b)(j + 0.5)/ny
         // l = left, r = right, b = bottom, t = top
@@ -26,9 +27,14 @@ public class RayTracer {
                 //Line line = new Line(camera.getEye(), direction, Main.EPSILON);
 
                 int resultColor = ray.castPrimary(0);
-                Main.setPixel(i, j, resultColor);
+                display.setPixel(i, j, resultColor);
             }
         }
+    }
+
+    @Override
+    public void run() {
+
     }
 
 /*

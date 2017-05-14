@@ -5,9 +5,9 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import de.avwc.geometry.Cube;
-import de.avwc.geometry.Sphere;
-import de.avwc.light.PointLight;
+import de.avwc.gfx.Cube;
+import de.avwc.gfx.Sphere;
+import de.avwc.gfx.light.PointLight;
 import de.avwc.main.Scene;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 

@@ -1,7 +1,6 @@
-package de.avwc.geometry;
+package de.avwc.gfx;
 
-import de.avwc.main.Main;
-import de.avwc.util.Debuggable;
+import de.avwc.Main;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 import static java.lang.Math.PI;

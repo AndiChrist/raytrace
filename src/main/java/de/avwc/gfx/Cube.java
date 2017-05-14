@@ -1,6 +1,5 @@
-package de.avwc.geometry;
+package de.avwc.gfx;
 
-import de.avwc.util.Debuggable;
 import de.avwc.util.Ray;
 import de.avwc.util.Vector3DUtil;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;

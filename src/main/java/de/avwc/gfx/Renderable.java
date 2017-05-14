@@ -1,4 +1,4 @@
-package de.avwc.geometry;
+package de.avwc.gfx;
 
 import de.avwc.util.Debuggable;
 import de.avwc.util.Ray;

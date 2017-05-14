@@ -1,9 +1,8 @@
-package de.avwc.geometry;
+package de.avwc.gfx;
 
-import de.avwc.light.Light;
-import de.avwc.main.Main;
+import de.avwc.gfx.light.Light;
+import de.avwc.Main;
 import de.avwc.main.Scene;
-import de.avwc.util.Debuggable;
 import de.avwc.util.Ray;
 import de.avwc.util.RayTracer;
 import de.avwc.util.Vector3DUtil;
