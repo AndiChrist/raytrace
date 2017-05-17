@@ -4,6 +4,7 @@ import de.avwc.gfx.Camera;
 import de.avwc.Main;
 import de.avwc.gfx.Display;
 import de.avwc.main.Scene;
+import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 /**
@@ -13,7 +14,6 @@ public class RayTracer {
     private Camera camera = Scene.getInstance().getCamera();
 
     public void trace(Display display) {
-
         // u = l + (r − l)(i + 0.5)/nx
         // v = b + (t − b)(j + 0.5)/ny
         // l = left, r = right, b = bottom, t = top

@@ -27,28 +27,41 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
         JsonNode node = jp.getCodec().readTree(jp);
         Scene scene = Scene.getInstance();
 
+        Integer width = node.get("width").asInt();
+        Integer height = node.get("height").asInt();
+
         JsonNode objects = node.get("objects");
         JsonNode lights = node.get("lights");
 
         // Retrieve data from JsonObject and create Scene bean
-        for (JsonNode object3D : objects) {
-            for (JsonNode sphere : object3D.get("spheres")) {
-                scene.getObjects().add(readSphere(sphere));
-            }
+        if (objects != null) {
+            for (JsonNode object3D : objects) {
+                if (object3D.get("spheres") != null) {
+                    for (JsonNode sphere : object3D.get("spheres")) {
+                        scene.getObjects().add(readSphere(sphere));
+                    }
+                }
 
-            for (JsonNode cube : object3D.get("cubes")) {
-                scene.getObjects().add(readCube(cube));
+                if (object3D.get("cubes") != null) {
+                    for (JsonNode cube : object3D.get("cubes")) {
+                        scene.getObjects().add(readCube(cube));
+                    }
+                }
             }
         }
 
-        for (JsonNode light : lights) {
-            for (JsonNode pointlight : light.get("pointlights")) {
-                scene.getLights().add(readPointLight(pointlight));
+        if (lights != null) {
+            for (JsonNode light : lights) {
+                for (JsonNode pointlight : light.get("pointlights")) {
+                    scene.getLights().add(readPointLight(pointlight));
+                }
             }
         }
 
-        JsonNode camera = node.get("camera");
-        scene.setCamera(readCamera(camera));
+        JsonNode cameraNode = node.get("camera");
+        Camera camera = readCamera(cameraNode);
+        camera.setDimension(width, height);
+        scene.setCamera(camera);
 
         System.out.println(scene);
         return scene;

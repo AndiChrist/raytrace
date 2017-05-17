@@ -33,21 +33,25 @@ public class Camera implements Debuggable {
         //this.eye = new Vector3D(0, 0, -10);
         this.eye = position;
 
-        this.left = -Main.WIDTH / 2;
-        this.right = left * -1;
-
-        this.top = Main.HEIGHT / 2;
-        this.bottom = top * -1;
-
         this.UP = Vector3D.PLUS_J; // (0, 1, 0)
 
         this.W = eye.normalize();
         this.U = UP.crossProduct(W).normalize();
         this.V = W.crossProduct(U).normalize();
 
+    }
+
+    public void setDimension(int width, int height) {
+        this.left = -width / 2;
+        //this.left = -Main.WIDTH / 2;
+        this.right = left * -1;
+
+        this.top = height / 2;
+        //this.top = Main.HEIGHT / 2;
+        this.bottom = top * -1;
+
         this.d = top / tan(PI / 4) / 2;
         this.W_d_negated = W.scalarMultiply(d * -1);
-
     }
 
     /* getter and setter */

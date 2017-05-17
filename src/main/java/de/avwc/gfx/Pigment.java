@@ -38,9 +38,14 @@ public class Pigment {
         if (renderable == null)
             return 0;
 
+        // start with zero vector
         Vector3D sum = Vector3D.ZERO;
+
+        // for each LIGHT
         for (Light light : Scene.getInstance().getLights()) {
+            // vector pointing to LIGHT
             Vector3D positionToLight = light.getPosition().subtract(position).normalize();
+
             Ray shadow = new Ray(Vector3DUtil.move(Main.EPSILON, position, positionToLight), positionToLight);
             boolean shadowed = shadow.castShadow();
 
@@ -79,7 +84,6 @@ public class Pigment {
 
             Vector3D colorVector = new Vector3D(c.getRed(), c.getGreen(), c.getBlue());
             colorVector.scalarMultiply(reflectionIndex);
-            //sum.add(colorVector);
             sum = sum.add(colorVector);
 
         }
