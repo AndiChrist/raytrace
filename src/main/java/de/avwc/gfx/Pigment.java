@@ -4,8 +4,8 @@ import de.avwc.gfx.light.Light;
 import de.avwc.Main;
 import de.avwc.main.Scene;
 import de.avwc.util.Ray;
-import de.avwc.util.RayTracer;
 import de.avwc.util.Vector3DUtil;
+import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 import java.awt.*;
@@ -34,6 +34,12 @@ public class Pigment {
         this.renderable = renderable;
     }
 
+    Pigment(Vector3D color, Renderable renderable, Vector3D specular) {
+        this(color);
+        this.renderable = renderable;
+        this.specular = specular;
+    }
+
     int getRGB(Vector3D position, int depth) {
         if (renderable == null)
             return 0;
@@ -46,8 +52,10 @@ public class Pigment {
             // vector pointing to LIGHT
             Vector3D positionToLight = light.getPosition().subtract(position).normalize();
 
-            Ray shadow = new Ray(Vector3DUtil.move(Main.EPSILON, position, positionToLight), positionToLight);
-            boolean shadowed = shadow.castShadow();
+            //Ray shadow = new Ray(Vector3DUtil.move(Main.EPSILON, position, positionToLight), positionToLight);
+            Line shadow = new Line(Vector3DUtil.move(Main.EPSILON, position, positionToLight), Vector3DUtil.move(Main.EPSILON, position, positionToLight).add(positionToLight), Main.EPSILON);
+
+            boolean shadowed = Ray.castShadow(shadow);
 
             Vector3D retValue = Vector3D.ZERO;
             retValue = retValue.add(Vector3DUtil.multiply(ambient, light.getIntensity(position)));
@@ -60,7 +68,7 @@ public class Pigment {
 
                 // specular factor
                 Vector3D reflection = normal.scalarMultiply(NL*2).subtract(positionToLight).normalize();
-                Vector3D view = Scene.getInstance().getCamera().getEye().subtract(position).normalize();
+                Vector3D view = Scene.getInstance().getCamera().getPosition().subtract(position).normalize();
                 double RV = Math.max(reflection.dotProduct(view), 0); // angle
 
                 retValue = retValue.add(Vector3DUtil.multiply(specular, light.getIntensity(position)).scalarMultiply(Math.pow(RV, phongExponent)));
@@ -74,12 +82,14 @@ public class Pigment {
 
         if (this.reflectionIndex > 0) {
             Vector3D normal = this.renderable.getNormal(position);
-            Vector3D view = Scene.getInstance().getCamera().getEye().subtract(position).normalize();
+            Vector3D view = Scene.getInstance().getCamera().getPosition().subtract(position).normalize();
             double NV = Math.max(normal.dotProduct(view), 0); // angle
 
             Vector3D reflectionRay = normal.scalarMultiply(NV*2).subtract(view).normalize();
-            Ray reflection = new Ray(Vector3DUtil.move(Main.EPSILON, position, reflectionRay), reflectionRay);
-            int res = reflection.castPrimary(depth + 1);
+            //Ray reflection = new Ray(Vector3DUtil.move(Main.EPSILON, position, reflectionRay), reflectionRay);
+            Line reflection = new Line(Vector3DUtil.move(Main.EPSILON, position, reflectionRay), Vector3DUtil.move(Main.EPSILON, position, reflectionRay).add(reflectionRay), Main.EPSILON);
+
+            int res = Ray.castPrimary(reflection, depth + 1);
             Color c = new Color(res);
 
             Vector3D colorVector = new Vector3D(c.getRed(), c.getGreen(), c.getBlue());

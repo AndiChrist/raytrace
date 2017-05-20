@@ -12,6 +12,7 @@ import de.avwc.gfx.light.PointLight;
 import de.avwc.main.Scene;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +79,8 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
     }
 
     private static Cube readCube(JsonNode cube) {
+        Cube object;
+
         ArrayNode minNode = (ArrayNode) cube.get("min");
         Vector3D min = getVector(minNode);
 
@@ -87,27 +90,49 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
         ArrayNode rotateNode = (ArrayNode) cube.get("rotate");
         Vector3D rotate = getVector(rotateNode);
 
-        String color = cube.get("color").textValue();
+        String pigment = cube.get("color").asText();
+        if (pigment.isEmpty()) {
+            ArrayNode pigmentNode = (ArrayNode) cube.get("color");
+            Color color = getColor(pigmentNode);
+            object = new Cube(min, max, rotate, color);
+        } else {
+            object = new Cube(min, max, rotate, pigment);
+        }
 
-        return new Cube(min, max, rotate, color);
+
+        return object;
     }
 
     private static Sphere readSphere(JsonNode sphere) {
-        ArrayNode positionNode = (ArrayNode) sphere.get("position");
-        Integer radius = sphere.get("radius").asInt();
-        String pigment = sphere.get("color").asText();
+        Sphere object;
 
+        ArrayNode positionNode = (ArrayNode) sphere.get("position");
         Vector3D center = getVector(positionNode);
 
-        return new Sphere(center, radius, pigment);
+        Integer radius = sphere.get("radius").asInt();
+
+        //Double specular = sphere.get("specular").asDouble();
+
+        String pigment = sphere.get("color").asText();
+        if (pigment.isEmpty()) {
+            ArrayNode pigmentNode = (ArrayNode) sphere.get("color");
+            Color color = getColor(pigmentNode);
+            object = new Sphere(center, radius, color);
+        } else {
+            object =  new Sphere(center, radius, pigment);
+        }
+
+        return object;
     }
 
     private static Camera readCamera(JsonNode camera) {
         ArrayNode positionNode = (ArrayNode) camera.get("position");
+        ArrayNode vectorNode = (ArrayNode) camera.get("vector");
 
         Vector3D center = getVector(positionNode);
+        Vector3D vector = getVector(vectorNode);
 
-        return new Camera(center);
+        return new Camera(center, vector);
     }
 
     private static Vector3D getVector(ArrayNode arrayNode) {
@@ -118,10 +143,15 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
             }
         }
 
-        Double[] array = list.stream().toArray(Double[]::new);
+        Double[] array = list.toArray(new Double[0]);
         double[] result = Stream.of(array).mapToDouble(Double::doubleValue).toArray();
 
         return new Vector3D(result);
+    }
+
+    private static Color getColor(ArrayNode arrayNode) {
+        Vector3D colorVector = getVector(arrayNode);
+        return new Color ((int)colorVector.getX(), (int)colorVector.getY(), (int)colorVector.getZ());
     }
 
 }

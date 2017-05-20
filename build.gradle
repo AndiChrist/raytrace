@@ -2,7 +2,7 @@ group 'de.avwc'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'application'
-mainClassName = 'de.avwc.main.Main'
+mainClassName = 'de.avwc.Main'
 
 apply plugin: 'java'
 

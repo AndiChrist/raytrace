@@ -1,7 +1,7 @@
 package de.avwc.gfx;
 
-import de.avwc.util.Ray;
 import de.avwc.util.Vector3DUtil;
+import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 import java.awt.*;
@@ -56,9 +56,9 @@ public class Cube implements Renderable {
     }
 
     @Override
-    public double intersect(Ray ray) {
-        Vector3D direction = ray.direction;
-        Vector3D origin = ray.origin;
+    public double intersect(Line ray) {
+        Vector3D direction = ray.getDirection();
+        Vector3D origin = ray.getOrigin();
 
         Vector3D inverseDirection = Vector3DUtil.inverse(direction);
 

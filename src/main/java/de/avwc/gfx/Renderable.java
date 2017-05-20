@@ -1,14 +1,14 @@
 package de.avwc.gfx;
 
 import de.avwc.util.Debuggable;
-import de.avwc.util.Ray;
+import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 /**
  * Created by andichrist on 23.04.17.
  */
 public interface Renderable extends Debuggable {
-    double intersect(Ray ray);
+    double intersect(Line ray);
 
     Vector3D getNormal(Vector3D position);
 

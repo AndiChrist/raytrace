@@ -7,7 +7,10 @@
         {
           "position": [0, 0, 0],
           "radius": 5,
-          "color": "green"
+          "color": [0, 255, 0],
+          "specular": 0.2,
+          "lambert": 0.7,
+          "ambient": 0.1
         },
         {
           "position": [15, 0, 0],
@@ -53,6 +56,7 @@
     }
   ],
   "camera": {
-    "position": [0, 0, -10]
+    "position": [0, 0, -10],
+    "vector": [0, 0, 0]
   }
 }

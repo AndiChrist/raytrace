@@ -1,6 +1,5 @@
 package de.avwc.gfx;
 
-import de.avwc.Main;
 import de.avwc.util.Debuggable;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
@@ -12,46 +11,52 @@ import static java.lang.Math.tan;
  */
 public class Camera implements Debuggable {
 
+    // camera position
+    private Vector3D position;
+    // where to look at (direction); here: looking to origin (0, 0, 0)
+    private Vector3D direction = Vector3D.ZERO;
+
+    //private final Vector3D right;
+
+    private final Vector3D up;
+
+
     private int left; // left
     private int right; // right
 
     private int top; // top
     private int bottom; // bottom
 
-    private Vector3D UP; // (0, 1, 0)
-    private Vector3D eye;
-    //private Vector3D Z = Vector3D.ZERO;
-
     private Vector3D W;
     private Vector3D U;
     private Vector3D V;
 
-    private double d; // PI/4 = 90°
+    private double distance; // radians; π/4 = 90°
     private Vector3D W_d_negated;
 
-    public Camera(Vector3D position) {
+    public Camera(Vector3D position, Vector3D direction) {
         //this.eye = new Vector3D(0, 0, -10);
-        this.eye = position;
+        this.position = position;
+        this.direction = direction;
 
-        this.UP = Vector3D.PLUS_J; // (0, 1, 0)
+        up = Vector3D.PLUS_J; // (0, 1, 0)
 
-        this.W = eye.normalize();
-        this.U = UP.crossProduct(W).normalize();
-        this.V = W.crossProduct(U).normalize();
-
+        W = position.subtract(direction).normalize();
+        U = up.crossProduct(W).normalize();
+        V = W.crossProduct(U).normalize();
     }
 
     public void setDimension(int width, int height) {
-        this.left = -width / 2;
-        //this.left = -Main.WIDTH / 2;
-        this.right = left * -1;
+        left = -width / 2;
+        //left = -Main.WIDTH / 2;
+        right = left * -1;
 
-        this.top = height / 2;
-        //this.top = Main.HEIGHT / 2;
-        this.bottom = top * -1;
+        top = height / 2;
+        //top = Main.HEIGHT / 2;
+        bottom = top * -1;
 
-        this.d = top / tan(PI / 4) / 2;
-        this.W_d_negated = W.scalarMultiply(d * -1);
+        distance = top / tan(PI / 4) / 2;
+        W_d_negated = W.scalarMultiply(distance * -1);
     }
 
     /* getter and setter */
@@ -88,20 +93,12 @@ public class Camera implements Debuggable {
         this.bottom = bottom;
     }
 
-    public Vector3D getUP() {
-        return UP;
+    public Vector3D getPosition() {
+        return position;
     }
 
-    public void setUP(Vector3D UP) {
-        this.UP = UP;
-    }
-
-    public Vector3D getEye() {
-        return eye;
-    }
-
-    public void setEye(Vector3D eye) {
-        this.eye = eye;
+    public void setPosition(Vector3D position) {
+        this.position = position;
     }
 
     public Vector3D getW() {
@@ -128,12 +125,12 @@ public class Camera implements Debuggable {
         V = v;
     }
 
-    public double getD() {
-        return d;
+    public double getDistance() {
+        return distance;
     }
 
-    public void setD(double d) {
-        this.d = d;
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 
     public Vector3D getW_d_negated() {

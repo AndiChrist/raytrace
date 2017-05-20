@@ -1,7 +1,7 @@
 package de.avwc.gfx;
 
-import de.avwc.util.Ray;
 import de.avwc.util.Vector3DUtil;
+import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 import java.awt.*;
@@ -19,6 +19,7 @@ public class Sphere implements Renderable {
 
     private Vector3D center;
     private double radius;
+
     private Pigment pigment = new Pigment(new Vector3D(0, 1, 0), this); // green
 
     public Sphere(Vector3D center, double radius) {
@@ -52,9 +53,9 @@ public class Sphere implements Renderable {
     }
 
     @Override
-    public double intersect(Ray ray) {
-        Vector3D rayDirection = ray.direction;
-        Vector3D rayOrigin = ray.origin;
+    public double intersect(Line ray) {
+        Vector3D rayDirection = ray.getDirection();
+        Vector3D rayOrigin = ray.getOrigin();
 
         Vector3D origin = rayOrigin.subtract(this.center); // eye center
 

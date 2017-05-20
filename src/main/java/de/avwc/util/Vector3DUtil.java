@@ -13,7 +13,7 @@ import static java.lang.Math.sqrt;
  */
 public class Vector3DUtil {
 
-    public static Vector3D add(Vector3D... vectors) {
+    static Vector3D add(Vector3D... vectors) {
         double x = 0.0;
         double y = 0.0;
         double z = 0.0;
@@ -28,9 +28,12 @@ public class Vector3DUtil {
     }
 
     public static Vector3D move(double epsilon, Vector3D vector, Vector3D positionToLight) {
+        // v = v + p⊗
         return vector.add(positionToLight.scalarMultiply(epsilon));
     }
 
+    // ƒ(x) = ax² + bx + c
+    // x₁, and x₂ = (-b ± √(b² - 4ac)) / 2a
     public static Set<Double> quadraticFormula(double a, double b, double c) {
         Set<Double> solutions = new TreeSet<>();
         if (a == 0) {
@@ -39,6 +42,7 @@ public class Vector3DUtil {
             return solveLinear(b, c);
         }
 
+        // D = b² - 4ac
         double discriminant = b * b - 4 * a * c;
 
         // if discriminant is negative there are no real roots, so return
@@ -47,6 +51,7 @@ public class Vector3DUtil {
             return solutions;
         }
 
+        // = √(b² - 4ac)
         double distSqrt = sqrt(discriminant);
         double q;
 
@@ -56,6 +61,7 @@ public class Vector3DUtil {
             q = (-b + distSqrt) / 2;
         }
 
+        // possible solutions: t₀ and t₁
         double t0 = q / a;
         double t1 = c / q;
 
@@ -67,33 +73,6 @@ public class Vector3DUtil {
         }
 
         return solutions;
-/*
-        if (t0 > t1) { // swap
-            double temp = t0;
-            t0 = t1;
-            t1 = temp;
-        }
-
-        // if t1 is less than zero, the object is in the ray's negative direction
-        // and consequently the ray misses the sphere
-        // (behind the eye)
-        if (t1 < 0) {
-            result[0] = -1;
-            return result;
-        }
-
-        // if t0 is less than zero, the intersection point is at t1
-        if (t0 < 0) {
-            result[0] = t1;
-            return result;
-        }
-
-        // else the intersection point is at t0
-        else {
-            result[0] = t0;
-            return result;
-        }
-        */
     }
 
     private static Set<Double> solveLinear(double b, double c) {
