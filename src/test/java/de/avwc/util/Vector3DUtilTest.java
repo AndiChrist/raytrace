@@ -82,11 +82,13 @@ public class Vector3DUtilTest {
 
         //assertEquals(result.length, 2);
 
-        for(Complex r : result) {
+        for (Complex r : result) {
             System.out.println(r);
         }
 
-    }    @Test
+    }
+
+    @Test
     public void testMath3_2() {
 
         double[] coefficients = {-35, 2, 1};
@@ -95,24 +97,28 @@ public class Vector3DUtilTest {
 
         //assertEquals(result.length, 2);
 
-        for(Complex r : result) {
+        for (Complex r : result) {
             System.out.println(r);
         }
 
-    }    @Test
+    }
+
+    @Test
     public void testMath3_3() {
 
-        double[] coefficients ={4, -4, 1};
+        double[] coefficients = {4, -4, 1};
         LaguerreSolver solver = new LaguerreSolver();
         Complex[] result = solver.solveAllComplex(coefficients, 0);
 
         //assertEquals(result.length, 2);
 
-        for(Complex r : result) {
+        for (Complex r : result) {
             System.out.println(r);
         }
 
-    }    @Test
+    }
+
+    @Test
     public void testMath3_4() {
 
         double[] coefficients = {37, 12, 1};
@@ -121,7 +127,7 @@ public class Vector3DUtilTest {
 
         //assertEquals(result.length, 2);
 
-        for(Complex r : result) {
+        for (Complex r : result) {
             System.out.println(r);
         }
 
