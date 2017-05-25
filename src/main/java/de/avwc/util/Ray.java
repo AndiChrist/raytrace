@@ -12,9 +12,10 @@ import java.awt.*;
  * Created by andichrist on 23.04.17.
  */
 public class Ray {
+    private static final int MAX_RECURSION_DEPTH = 1;
 
     public static int castPrimary(Line line, int depth) {
-        if (depth > Main.MAX_RECURSION_DEPTH) {
+        if (depth > MAX_RECURSION_DEPTH) {
             return Color.BLACK.getRGB();
         }
 
