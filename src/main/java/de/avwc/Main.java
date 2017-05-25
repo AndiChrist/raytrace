@@ -1,6 +1,7 @@
 package de.avwc;
 
 import de.avwc.gfx.Display;
+import de.avwc.main.Scene;
 import de.avwc.util.RayTracer;
 
 import javax.imageio.ImageIO;
@@ -12,15 +13,19 @@ import java.io.IOException;
  */
 public final class Main {
 
-    public static final int WIDTH = 1600;
-    public static final int HEIGHT = 900;
-
     public static final double EPSILON = 0.00004;
-    public static final int MAX_RECURSION_DEPTH = 3;
 
-    private static Display display;
+    public static void main(String[] args) {
+        Display display = new Display();
+        RayTracer.trace(display);
 
-    private void saveImage() {
+        Main panel = new Main();
+        panel.saveImage(display);
+
+        display.openJFrame();
+    }
+
+    private void saveImage(Display display) {
         File image = new File("Image.png");
 
         try {
@@ -29,20 +34,5 @@ public final class Main {
             e.printStackTrace();
         }
     }
-
-    public static void main(String[] args) {
-        display = new Display(WIDTH, HEIGHT);
-
-        RayTracer tracer = new RayTracer();
-        tracer.trace(display);
-
-        Main panel = new Main();
-        panel.saveImage();
-
-        display.openJFrame();
-    }
-
-
-
 }
 
