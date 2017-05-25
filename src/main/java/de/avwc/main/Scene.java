@@ -22,6 +22,8 @@ public class Scene {
     private List<Renderable> objects = new ArrayList<>();
     private List<Light> lights = new ArrayList<>();
     private Camera camera;
+    private int width;
+    private int height;
 
     public List<Renderable> getObjects() {
         return objects;
@@ -71,9 +73,27 @@ public class Scene {
 
     public void setCamera(Camera camera) {
         this.camera = camera;
+        this.camera.setDimension(width, height);
     }
 
     public Camera getCamera() {
         return camera;
     }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(Integer width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
+
 }
