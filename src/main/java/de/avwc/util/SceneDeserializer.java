@@ -31,6 +31,9 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
         Integer width = node.get("width").asInt();
         Integer height = node.get("height").asInt();
 
+        scene.setWidth(width);
+        scene.setHeight(height);
+
         JsonNode objects = node.get("objects");
         JsonNode lights = node.get("lights");
 
@@ -61,7 +64,6 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
 
         JsonNode cameraNode = node.get("camera");
         Camera camera = readCamera(cameraNode);
-        camera.setDimension(width, height);
         scene.setCamera(camera);
 
         System.out.println(scene);
