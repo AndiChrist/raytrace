@@ -117,6 +117,8 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
         Integer radius = sphere.get("radius").asInt();
 
         //Double specular = sphere.get("specular").asDouble();
+        //Double lambert = sphere.get("lambert").asDouble();
+        //Double ambient = sphere.get("ambient").asDouble();
 
         String pigment = sphere.get("color").asText();
         if (pigment.isEmpty()) {
