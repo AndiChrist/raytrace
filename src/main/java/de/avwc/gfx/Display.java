@@ -1,6 +1,6 @@
 package de.avwc.gfx;
 
-import de.avwc.util.RayTracer;
+import de.avwc.main.Scene;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +25,14 @@ public class Display extends JPanel {
         defaultCanvas(Color.BLUE);
 
         this.setPreferredSize(new Dimension(width, height));
+    }
+
+    public Display(Scene scene) {
+        this(scene.getWidth(), scene.getHeight());
+    }
+
+    public Display() {
+        this(Scene.getInstance());
     }
 
     @Override
