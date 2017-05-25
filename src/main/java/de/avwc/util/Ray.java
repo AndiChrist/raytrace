@@ -21,7 +21,7 @@ public class Ray {
 
         // which object hits by the ray?
         Renderable intersect = null;
-        double t = Double.MAX_VALUE - 1;
+        double t = Double.MAX_VALUE;
 
         // find intersection with objects
         for (Renderable o : Scene.getInstance().getObjects()) {
@@ -45,7 +45,7 @@ public class Ray {
     }
 
     public static boolean castShadow(Line line) {
-        double t = Double.MAX_VALUE - 1;
+        double t = Double.MAX_VALUE;
 
         // find intersection with objects
         for (Renderable o : Scene.getInstance().getObjects()) {
