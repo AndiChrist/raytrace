@@ -28,9 +28,8 @@ public class RayTracer {
 
                 // direction from camera to current pixel
                 Vector3D s = Vector3DUtil.add(camera.getU().scalarMultiply(u), camera.getV().scalarMultiply(v), camera.getW_d_negated());
-                Vector3D direction = s.normalize();
 
-                Line line = new Line(camera.getPosition(), camera.getPosition().add(direction), Main.EPSILON);
+                Line line = new Line(camera.getPosition(), camera.getPosition().add(s), Main.EPSILON);
 
                 int resultColor = Ray.castPrimary(line, 0);
                 display.setPixel(i, j, resultColor);
