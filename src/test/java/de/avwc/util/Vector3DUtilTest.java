@@ -16,6 +16,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class Vector3DUtilTest {
 
+    private static double DELTA = 10e-12;
+
     @Test
     public void testQuadraticFormula1() {
         Set<Double> solutions = Vector3DUtil.quadraticFormula(4, -12, -40);
@@ -29,9 +31,8 @@ public class Vector3DUtilTest {
         double min = min(t0, t1);
         double max = max(t0, t1);
 
-        double delta = 0.001;
-        assertEquals(min, -2.0, delta);
-        assertEquals(max, 5.0, delta);
+        assertEquals(min, -2.0, DELTA);
+        assertEquals(max, 5.0, DELTA);
     }
 
     @Test
@@ -47,9 +48,8 @@ public class Vector3DUtilTest {
         double min = min(t0, t1);
         double max = max(t0, t1);
 
-        double delta = 0.001;
-        assertEquals(min, -7.0, delta);
-        assertEquals(max, 5.0, delta);
+        assertEquals(min, -7.0, DELTA);
+        assertEquals(max, 5.0, DELTA);
     }
 
     @Test
@@ -61,8 +61,7 @@ public class Vector3DUtilTest {
 
         double t0 = (double) iterator.next();
 
-        double delta = 0.001;
-        assertEquals(t0, 2.0, delta);
+        assertEquals(t0, 2.0, DELTA);
     }
 
     @Test
@@ -138,7 +137,7 @@ public class Vector3DUtilTest {
     }
 
     private static void assertSame(double expected, double actual) {
-        assertEquals(expected, actual, 10e-12);
+        assertEquals(expected, actual, DELTA);
     }
 
     private static void assertSame(Complex expected, Complex actual) {
