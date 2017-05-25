@@ -19,29 +19,34 @@ public class Sphere implements Renderable {
 
     private Vector3D center;
     private double radius;
+    private String name;
 
     private Pigment pigment = new Pigment(new Vector3D(0, 1, 0), this); // green
 
-    public Sphere(Vector3D center, double radius) {
+    public Sphere(Vector3D center, double radius, String name) {
         this.center = center;
         this.radius = radius;
+        this.name = name;
     }
 
-    public Sphere(Vector3D center, double radius, Pigment pigment) {
+    public Sphere(Vector3D center, double radius, String name, Pigment pigment) {
         this.center = center;
         this.radius = radius;
+        this.name = name;
         this.pigment = pigment;
     }
 
-    public Sphere(Vector3D center, Integer radius, Color color) {
+    public Sphere(Vector3D center, Integer radius, String name, Color color) {
         this.center = center;
         this.radius = radius;
+        this.name = name;
         this.pigment = new Pigment(new Vector3D(color.getRed() / 255, color.getGreen() / 255, color.getBlue() / 255), this);
     }
 
-    public Sphere(Vector3D center, Integer radius, String colorValue) {
+    public Sphere(Vector3D center, Integer radius, String name, String colorValue) {
         this.center = center;
         this.radius = radius;
+        this.name = name;
         Color color;
         try {
             Field field = Color.class.getField(colorValue);
@@ -106,4 +111,13 @@ public class Sphere implements Renderable {
     public Vector3D getCentroid() {
         return this.center;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

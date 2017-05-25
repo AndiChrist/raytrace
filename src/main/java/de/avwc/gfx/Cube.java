@@ -19,32 +19,38 @@ public class Cube implements Renderable {
     private Vector3D min;
     private Vector3D max;
     private Vector3D rotate;
+    private String name;
     private Pigment pigment = new Pigment(new Vector3D(1,1,0), this); // orange
 
-    public Cube(Vector3D min, Vector3D max, Vector3D rotate) {
+    public Cube(Vector3D min, Vector3D max, Vector3D rotate, String name) {
         this.min = min;
         this.max = max;
         this.rotate = rotate;
+        this.name = name;
     }
 
-    public Cube(Vector3D min, Vector3D max, Vector3D rotate, Pigment pigment) {
+    public Cube(Vector3D min, Vector3D max, Vector3D rotate, String name, Pigment pigment) {
         this.min = min;
         this.max = max;
         this.rotate = rotate;
+        this.name = name;
         this.pigment = pigment;
     }
 
-    public Cube(Vector3D min, Vector3D max, Vector3D rotate, Color color) {
+    public Cube(Vector3D min, Vector3D max, Vector3D rotate, String name, Color color) {
         this.min = min;
         this.max = max;
         this.rotate = rotate;
+        this.name = name;
         this.pigment = new Pigment(new Vector3D(color.getRed()/255, color.getGreen()/255, color.getBlue()/255), this);
     }
 
-    public Cube(Vector3D min, Vector3D max, Vector3D rotate, String colorValue) {
+    public Cube(Vector3D min, Vector3D max, Vector3D rotate, String name, String colorValue) {
         this.min = min;
         this.max = max;
         this.rotate = rotate;
+        this.name = name;
+
         Color color;
         try {
             Field field = Color.class.getField(colorValue);
@@ -114,4 +120,14 @@ public class Cube implements Renderable {
     private Vector3D getSize() {
         return max.subtract(min);
     }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 }

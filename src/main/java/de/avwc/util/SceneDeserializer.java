@@ -83,6 +83,8 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
     private static Cube readCube(JsonNode cube) {
         Cube object;
 
+        String name = cube.get("name").asText();
+
         ArrayNode minNode = (ArrayNode) cube.get("min");
         Vector3D min = getVector(minNode);
 
@@ -96,9 +98,9 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
         if (pigment.isEmpty()) {
             ArrayNode pigmentNode = (ArrayNode) cube.get("color");
             Color color = getColor(pigmentNode);
-            object = new Cube(min, max, rotate, color);
+            object = new Cube(min, max, rotate, name, color);
         } else {
-            object = new Cube(min, max, rotate, pigment);
+            object = new Cube(min, max, rotate, name, pigment);
         }
 
 
@@ -110,6 +112,7 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
 
         ArrayNode positionNode = (ArrayNode) sphere.get("position");
         Vector3D center = getVector(positionNode);
+        String name = sphere.get("name").asText();
 
         Integer radius = sphere.get("radius").asInt();
 
@@ -119,9 +122,9 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
         if (pigment.isEmpty()) {
             ArrayNode pigmentNode = (ArrayNode) sphere.get("color");
             Color color = getColor(pigmentNode);
-            object = new Sphere(center, radius, color);
+            object = new Sphere(center, radius, name, color);
         } else {
-            object =  new Sphere(center, radius, pigment);
+            object =  new Sphere(center, radius, name, pigment);
         }
 
         return object;
