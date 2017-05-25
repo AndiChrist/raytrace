@@ -40,6 +40,7 @@ public class Pigment {
         this.specular = specular;
     }
 
+    // depth: recursion depth
     int getRGB(Vector3D position, int depth) {
         if (renderable == null)
             return 0;
@@ -52,7 +53,6 @@ public class Pigment {
             // vector pointing to LIGHT
             Vector3D positionToLight = light.getPosition().subtract(position).normalize();
 
-            //Ray shadow = new Ray(Vector3DUtil.move(Main.EPSILON, position, positionToLight), positionToLight);
             Line shadow = new Line(Vector3DUtil.move(Main.EPSILON, position, positionToLight), Vector3DUtil.move(Main.EPSILON, position, positionToLight).add(positionToLight), Main.EPSILON);
 
             boolean shadowed = Ray.castShadow(shadow);
@@ -86,15 +86,13 @@ public class Pigment {
             double NV = Math.max(normal.dotProduct(view), 0); // angle
 
             Vector3D reflectionRay = normal.scalarMultiply(NV*2).subtract(view).normalize();
-            //Ray reflection = new Ray(Vector3DUtil.move(Main.EPSILON, position, reflectionRay), reflectionRay);
             Line reflection = new Line(Vector3DUtil.move(Main.EPSILON, position, reflectionRay), Vector3DUtil.move(Main.EPSILON, position, reflectionRay).add(reflectionRay), Main.EPSILON);
 
             int res = Ray.castPrimary(reflection, depth + 1);
             Color c = new Color(res);
 
             Vector3D colorVector = new Vector3D(c.getRed(), c.getGreen(), c.getBlue());
-            colorVector.scalarMultiply(reflectionIndex);
-            sum = sum.add(colorVector);
+            sum = sum.add(colorVector.scalarMultiply(reflectionIndex));
 
         }
 
