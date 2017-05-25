@@ -13,7 +13,7 @@ import java.io.IOException;
  */
 public final class Main {
 
-    public static final double EPSILON = 0.00004;
+    public static final double EPSILON = 10e-12;
 
     public static void main(String[] args) {
         Display display = new Display();

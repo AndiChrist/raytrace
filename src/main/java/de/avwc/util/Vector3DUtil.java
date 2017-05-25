@@ -27,7 +27,7 @@ public class Vector3DUtil {
         return new Vector3D(x, y, z);
     }
 
-    public static Vector3D move(double epsilon, Vector3D vector, Vector3D positionToLight) {
+    public static Vector3D move(Vector3D vector, Vector3D positionToLight, double epsilon) {
         // v = v + p⊗
         return vector.add(positionToLight.scalarMultiply(epsilon));
     }

@@ -53,13 +53,13 @@ public class Pigment {
             // vector pointing to LIGHT
             Vector3D positionToLight = light.getPosition().subtract(position).normalize();
 
-            Line shadow = new Line(Vector3DUtil.move(Main.EPSILON, position, positionToLight), Vector3DUtil.move(Main.EPSILON, position, positionToLight).add(positionToLight), Main.EPSILON);
-
-            boolean shadowed = Ray.castShadow(shadow);
+            Vector3D newPosition = Vector3DUtil.move(position, positionToLight, Main.EPSILON);
+            Line shadow = new Line(newPosition, newPosition.add(positionToLight), Main.EPSILON);
 
             Vector3D retValue = Vector3D.ZERO;
             retValue = retValue.add(Vector3DUtil.multiply(ambient, light.getIntensity(position)));
 
+            boolean shadowed = Ray.castShadow(shadow);
             if (!shadowed) {
                 // diffuse factor
                 Vector3D normal = this.renderable.getNormal(position);
@@ -72,35 +72,39 @@ public class Pigment {
                 double RV = Math.max(reflection.dotProduct(view), 0); // angle
 
                 retValue = retValue.add(Vector3DUtil.multiply(specular, light.getIntensity(position)).scalarMultiply(Math.pow(RV, phongExponent)));
-
             }
 
             double distance = light.getPosition().subtract(position).getNorm(); // length
             sum = sum.add(retValue.scalarMultiply(1/(distance*distance)).scalarMultiply(255));
-
         }
 
-        if (this.reflectionIndex > 0) {
-            Vector3D normal = this.renderable.getNormal(position);
-            Vector3D view = Scene.getInstance().getCamera().getPosition().subtract(position).normalize();
-            double NV = Math.max(normal.dotProduct(view), 0); // angle
-
-            Vector3D reflectionRay = normal.scalarMultiply(NV*2).subtract(view).normalize();
-            Line reflection = new Line(Vector3DUtil.move(Main.EPSILON, position, reflectionRay), Vector3DUtil.move(Main.EPSILON, position, reflectionRay).add(reflectionRay), Main.EPSILON);
-
-            int res = Ray.castPrimary(reflection, depth + 1);
-            Color c = new Color(res);
-
-            Vector3D colorVector = new Vector3D(c.getRed(), c.getGreen(), c.getBlue());
-            sum = sum.add(colorVector.scalarMultiply(reflectionIndex));
-
-        }
+        sum = getReflection(position, depth, sum);
 
         sum = new Vector3D(Math.min(255, sum.getX()), Math.min(255, sum.getY()), Math.min(255, sum.getZ()));
         sum = new Vector3D(Math.max(0, sum.getX()), Math.max(0, sum.getY()), Math.max(0, sum.getZ()));
 
         Color c = new Color((int)Math.round(sum.getX()), (int)Math.round(sum.getY()), (int)Math.round(sum.getZ()));
         return c.getRGB();
+    }
+
+    private Vector3D getReflection(Vector3D position, int depth, Vector3D sum) {
+        if (this.reflectionIndex > 0) {
+            Vector3D normal = this.renderable.getNormal(position);
+            Vector3D view = Scene.getInstance().getCamera().getPosition().subtract(position).normalize();
+            double NV = Math.max(normal.dotProduct(view), 0); // angle
+
+            Vector3D reflectionRay = normal.scalarMultiply(NV*2).subtract(view).normalize();
+            Vector3D newPosition = Vector3DUtil.move(position, reflectionRay, Main.EPSILON);
+            Line reflection = new Line(newPosition, newPosition.add(reflectionRay), Main.EPSILON);
+
+            int res = Ray.castPrimary(reflection, depth + 1);
+            Color c = new Color(res);
+
+            Vector3D colorVector = new Vector3D(c.getRed(), c.getGreen(), c.getBlue());
+            sum = sum.add(colorVector.scalarMultiply(reflectionIndex));
+        }
+
+        return sum;
     }
 
     @Override
