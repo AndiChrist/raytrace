@@ -68,69 +68,81 @@ public class Vector3DUtilTest {
     @Test
     public void testQuadraticFormula4() {
         Set<Double> solutions = Vector3DUtil.quadraticFormula(1, 12, 37);
-        Iterator iterator = solutions.iterator();
-
         assertEquals(solutions.size(), 0);
     }
 
     @Test
     public void testMath3() {
+        Complex expected0 = new Complex(-2, 0);
+        Complex expected1 = new Complex(5, 0);
 
         double[] coefficients = {-40, -12, 4};
         LaguerreSolver solver = new LaguerreSolver();
         Complex[] result = solver.solveAllComplex(coefficients, 0);
 
-        //assertEquals(result.length, 2);
+        Complex actual0 = result[0];
+        assertSame(expected0, actual0);
 
-        for (Complex r : result) {
-            System.out.println(r);
-        }
+        Complex actual1 = result[1];
+        assertSame(expected1, actual1);
 
     }
 
     @Test
     public void testMath3_2() {
+        Complex expected0 = new Complex(5, 0);
+        Complex expected1 = new Complex(-7, 0);
 
         double[] coefficients = {-35, 2, 1};
         LaguerreSolver solver = new LaguerreSolver();
         Complex[] result = solver.solveAllComplex(coefficients, 0);
 
-        //assertEquals(result.length, 2);
+        Complex actual0 = result[0];
+        assertSame(expected0, actual0);
 
-        for (Complex r : result) {
-            System.out.println(r);
-        }
-
+        Complex actual1 = result[1];
+        assertSame(expected1, actual1);
     }
 
     @Test
     public void testMath3_3() {
+        Complex expected = new Complex(2, 0);
 
         double[] coefficients = {4, -4, 1};
         LaguerreSolver solver = new LaguerreSolver();
         Complex[] result = solver.solveAllComplex(coefficients, 0);
 
-        //assertEquals(result.length, 2);
+        Complex actual0 = result[0];
+        assertSame(expected, actual0);
 
-        for (Complex r : result) {
-            System.out.println(r);
-        }
+        Complex actual1 = result[1];
+        assertSame(expected, actual1);
 
+        assertSame(actual0, actual1);
     }
 
     @Test
     public void testMath3_4() {
+        Complex expected0 = new Complex(-6, -1);
+        Complex expected1 = new Complex(-6, 1);
 
         double[] coefficients = {37, 12, 1};
         LaguerreSolver solver = new LaguerreSolver();
         Complex[] result = solver.solveAllComplex(coefficients, 0);
 
-        //assertEquals(result.length, 2);
+        Complex actual0 = result[0];
+        assertSame(expected0, actual0);
 
-        for (Complex r : result) {
-            System.out.println(r);
-        }
-
+        Complex actual1 = result[1];
+        assertSame(expected1, actual1);
     }
 
+    private static void assertSame(double expected, double actual) {
+        assertEquals(expected, actual, 10e-12);
+    }
+
+    private static void assertSame(Complex expected, Complex actual) {
+        assertSame(expected.getReal(), actual.getReal());
+        assertSame(expected.getImaginary(), actual.getImaginary());
+    }
 }
