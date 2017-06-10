@@ -43,25 +43,13 @@ public class Scene {
 
     private Scene() {}
 
-    public static Scene getInstance() {
-        if (scene == null) {
-            scene = new Scene();
-            try {
-                SceneJSONReader.readSceneJSON(scene);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return scene;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for(Renderable o : Scene.getInstance().getObjects()) {
+        for(Renderable o : objects) {
             sb.append(o.debug());
         }
-        for(Light l : Scene.getInstance().getLights()) {
+        for(Light l : lights) {
             sb.append(l.debug());
         }
 
@@ -96,4 +84,17 @@ public class Scene {
         this.height = height;
     }
 
+    public static Scene getInstance() {
+        if (scene == null) {
+            scene = new Scene();
+
+            try {
+                SceneJSONReader.readSceneJSON();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return scene;
+    }
 }

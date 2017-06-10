@@ -28,7 +28,7 @@ public class Display extends JPanel {
     }
 
     public Display(Scene scene) {
-        this(scene.getWidth(), scene.getHeight());
+        this(Scene.getInstance().getWidth(), Scene.getInstance().getHeight());
     }
 
     public Display() {

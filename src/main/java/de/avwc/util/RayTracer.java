@@ -19,8 +19,8 @@ public class RayTracer {
         // u = l + (r − l)(i + 0.5)/nx
         // v = b + (t − b)(j + 0.5)/ny
         // l = left, r = right, b = bottom, t = top
-        for (int i = 0; i < scene.getWidth(); i++) {
-            for (int j = 0; j < scene.getHeight(); j++) {
+        for (int i = 0; i < Scene.getInstance().getWidth(); i++) {
+            for (int j = 0; j < Scene.getInstance().getHeight(); j++) {
                 // from left to right
                 double u = camera.getLeft() + (camera.getRight() - camera.getLeft()) * (i + 0.5) / scene.getWidth();
                 // from top to bottom
@@ -31,7 +31,7 @@ public class RayTracer {
 
                 Line line = new Line(camera.getPosition(), camera.getPosition().add(s), Main.EPSILON);
 
-                int resultColor = Ray.castPrimary(line, 0);
+                int resultColor = RayUtil.castPrimary(line, 0);
                 display.setPixel(i, j, resultColor);
             }
         }

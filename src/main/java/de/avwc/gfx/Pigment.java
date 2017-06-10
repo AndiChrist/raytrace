@@ -3,7 +3,7 @@ package de.avwc.gfx;
 import de.avwc.gfx.light.Light;
 import de.avwc.Main;
 import de.avwc.main.Scene;
-import de.avwc.util.Ray;
+import de.avwc.util.RayUtil;
 import de.avwc.util.Vector3DUtil;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
@@ -59,7 +59,7 @@ public class Pigment {
             Vector3D retValue = Vector3D.ZERO;
             retValue = retValue.add(Vector3DUtil.multiply(ambient, light.getIntensity(position)));
 
-            boolean shadowed = Ray.castShadow(shadow);
+            boolean shadowed = RayUtil.castShadow(shadow);
             if (!shadowed) {
                 // diffuse factor
                 Vector3D normal = this.renderable.getNormal(position);
@@ -97,7 +97,7 @@ public class Pigment {
             Vector3D newPosition = Vector3DUtil.move(position, reflectionRay, Main.EPSILON);
             Line reflection = new Line(newPosition, newPosition.add(reflectionRay), Main.EPSILON);
 
-            int res = Ray.castPrimary(reflection, depth + 1);
+            int res = RayUtil.castPrimary(reflection, depth + 1);
             Color c = new Color(res);
 
             Vector3D colorVector = new Vector3D(c.getRed(), c.getGreen(), c.getBlue());
