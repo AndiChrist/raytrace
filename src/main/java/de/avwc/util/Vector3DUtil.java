@@ -93,7 +93,7 @@ public class Vector3DUtil {
     }
 
     public static Vector3D multiply(Color a, Vector3D b) {
-        return new Vector3D(a.getRed()*b.getX(), a.getGreen()*b.getY(), a.getBlue()*b.getZ());
+        return new Vector3D((a.getRed() / 255)*b.getX(), (a.getGreen() / 255)*b.getY(), (a.getBlue() / 255)*b.getZ());
     }
 
     public static Vector3D divide(Vector3D a, Vector3D b) {

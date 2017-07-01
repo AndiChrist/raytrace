@@ -16,28 +16,20 @@ import java.awt.*;
 public class Pigment {
     private Renderable renderable;
 
-    private Vector3D ambient;
-    //private Color diffuse = Color.LIGHT_GRAY; // light gray
-    private Vector3D diffuse = new Vector3D(0.7, 0.7, 0.7); // light gray
-    //private Color specular = Color.DARK_GRAY; // dark gray
-    private Vector3D specular = new Vector3D(0.3, 0.3, 0.3); // dark gray
+    private Color ambient;
+    private static final Color DIFFUSE = Color.LIGHT_GRAY;
+    private static final Color SPECULAR = Color.DARK_GRAY;
 
     private double phongExponent = 5;
     private double reflectionIndex = 0.5;
 
-    Pigment(Vector3D color) {
-        this.ambient = color;
+    Pigment(Color ambient) {
+        this.ambient = ambient;
     }
 
-    Pigment(Vector3D color, Renderable renderable) {
-        this(color);
+    Pigment(Color ambient, Renderable renderable) {
+        this(ambient);
         this.renderable = renderable;
-    }
-
-    Pigment(Vector3D color, Renderable renderable, Vector3D specular) {
-        this(color);
-        this.renderable = renderable;
-        this.specular = specular;
     }
 
     // depth: recursion depth
@@ -64,14 +56,14 @@ public class Pigment {
                 // diffuse factor
                 Vector3D normal = this.renderable.getNormal(position);
                 double NL = Math.max(normal.dotProduct(positionToLight), 0); // angle
-                retValue = retValue.add(Vector3DUtil.multiply(diffuse, light.getIntensity(position)).scalarMultiply(NL));
+                retValue = retValue.add(Vector3DUtil.multiply(DIFFUSE, light.getIntensity(position)).scalarMultiply(NL));
 
                 // specular factor
                 Vector3D reflection = normal.scalarMultiply(NL*2).subtract(positionToLight).normalize();
                 Vector3D view = Scene.getInstance().getCamera().getPosition().subtract(position).normalize();
                 double RV = Math.max(reflection.dotProduct(view), 0); // angle
 
-                retValue = retValue.add(Vector3DUtil.multiply(specular, light.getIntensity(position)).scalarMultiply(Math.pow(RV, phongExponent)));
+                retValue = retValue.add(Vector3DUtil.multiply(SPECULAR, light.getIntensity(position)).scalarMultiply(Math.pow(RV, phongExponent)));
             }
 
             double distance = light.getPosition().subtract(position).getNorm(); // length
@@ -87,6 +79,7 @@ public class Pigment {
         return c.getRGB();
     }
 
+    // error?
     private Vector3D getReflection(Vector3D position, int depth, Vector3D sum) {
         if (this.reflectionIndex > 0) {
             Vector3D normal = this.renderable.getNormal(position);

@@ -1,7 +1,6 @@
 package de.avwc.util;
 
 import de.avwc.gfx.Renderable;
-import de.avwc.Main;
 import de.avwc.main.Scene;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
@@ -12,7 +11,7 @@ import java.awt.*;
  * Created by andichrist on 23.04.17.
  */
 public class RayUtil {
-    private static final int MAX_RECURSION_DEPTH = 1;
+    private static final int MAX_RECURSION_DEPTH = 3;
 
     public static int castPrimary(Line line, int depth) {
         if (depth > MAX_RECURSION_DEPTH) {

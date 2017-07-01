@@ -20,7 +20,8 @@ public class Cube implements Renderable {
     private Vector3D max;
     private Vector3D rotate;
     private String name;
-    private Pigment pigment = new Pigment(new Vector3D(1,1,0), this); // orange
+
+    private Pigment pigment = new Pigment(Color.YELLOW, this); // orange
 
     public Cube(Vector3D min, Vector3D max, Vector3D rotate, String name) {
         this.min = min;
@@ -42,7 +43,7 @@ public class Cube implements Renderable {
         this.max = max;
         this.rotate = rotate;
         this.name = name;
-        this.pigment = new Pigment(new Vector3D(color.getRed()/255, color.getGreen()/255, color.getBlue()/255), this);
+        this.pigment = new Pigment(color, this);
     }
 
     public Cube(Vector3D min, Vector3D max, Vector3D rotate, String name, String colorValue) {
@@ -58,7 +59,7 @@ public class Cube implements Renderable {
         } catch (Exception e) {
             color = Color.BLACK; // Not defined
         }
-        this.pigment = new Pigment(new Vector3D(color.getRed()/255, color.getGreen()/255, color.getBlue()/255), this);
+        this.pigment = new Pigment(color, this);
     }
 
     @Override

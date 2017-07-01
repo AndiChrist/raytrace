@@ -21,7 +21,7 @@ public class Sphere implements Renderable {
     private double radius;
     private String name;
 
-    private Pigment pigment = new Pigment(new Vector3D(0, 1, 0), this); // green
+    private Pigment pigment = new Pigment(Color.WHITE, this); // green
 
     public Sphere(Vector3D center, double radius, String name) {
         this.center = center;
@@ -40,7 +40,7 @@ public class Sphere implements Renderable {
         this.center = center;
         this.radius = radius;
         this.name = name;
-        this.pigment = new Pigment(new Vector3D(color.getRed() / 255, color.getGreen() / 255, color.getBlue() / 255), this);
+        this.pigment = new Pigment(color, this);
     }
 
     public Sphere(Vector3D center, Integer radius, String name, String colorValue) {
@@ -54,7 +54,7 @@ public class Sphere implements Renderable {
         } catch (Exception e) {
             color = Color.BLACK; // Not defined
         }
-        this.pigment = new Pigment(new Vector3D(color.getRed() / 255, color.getGreen() / 255, color.getBlue() / 255), this);
+        this.pigment = new Pigment(color, this);
     }
 
     @Override
