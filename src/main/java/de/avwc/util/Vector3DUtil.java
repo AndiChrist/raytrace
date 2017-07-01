@@ -33,7 +33,7 @@ public class Vector3DUtil {
     }
 
     // ƒ(x) = ax² + bx + c
-    // x₁, and x₂ = (-b ± √(b² - 4ac)) / 2a
+    // x₁, x₂ = (-b ± √(b² - 4ac)) / 2a
     public static Set<Double> quadraticFormula(double a, double b, double c) {
         Set<Double> solutions = new TreeSet<>();
         if (a == 0) {
@@ -104,9 +104,11 @@ public class Vector3DUtil {
         return new Vector3D(a/b.getX(), a/b.getY(), a/b.getZ());
     }
 
+    /*
     public static int toInteger(Vector3D vector) {
         return (int) (vector.getX()*255) << 16 | (int) (vector.getY()*255) << 8 | (int) (vector.getZ()*255);
     }
+    */
 
     public static Vector3D inverse(Vector3D vector) {
         return divide(1.0, vector);
