@@ -72,6 +72,8 @@ public class Sphere implements Renderable {
         double b = 2 * rayDirection.dotProduct(origin);
         double c = origin.dotProduct(origin) - this.radius * this.radius;
 
+        // ƒ(x) = ax² + bx + c
+        // x₁, x₂ = (-b ± √(b² - 4ac)) / 2a
         Set<Double> results = Vector3DUtil.quadraticFormula(a, b, c);
         Iterator iterator = results.iterator();
 
@@ -87,7 +89,7 @@ public class Sphere implements Renderable {
             double min = min(t0, t1);
             double max = max(t0, t1);
 
-            // if t1 is less than zero, the object is in the ray's negative direction
+            // if max is less than zero, the object is in the ray's negative direction
             // and consequently the ray misses the sphere
             if (max < 0) {
                 result = Double.MAX_VALUE;

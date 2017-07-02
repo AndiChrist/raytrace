@@ -153,12 +153,12 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
 
     private static Camera readCamera(JsonNode camera) {
         ArrayNode positionNode = (ArrayNode) camera.get("position");
-        ArrayNode vectorNode = (ArrayNode) camera.get("vector");
+        ArrayNode directionNode = (ArrayNode) camera.get("direction");
 
         Vector3D center = getVector(positionNode);
-        Vector3D vector = getVector(vectorNode);
+        Vector3D direction = getVector(directionNode);
 
-        return new Camera(center, vector);
+        return new Camera(center, direction);
     }
 
     private static Vector3D getVector(ArrayNode arrayNode) {

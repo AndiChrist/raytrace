@@ -14,29 +14,32 @@ public class RayUtil {
     private static final int MAX_RECURSION_DEPTH = 3;
 
     public static Color castPrimary(Line line, int depth) {
+        Color color = Color.BLACK;
+
         if (depth > MAX_RECURSION_DEPTH) {
-            return Color.BLACK;
+            return color;
         }
 
         // which object hits by the ray?
-        Renderable intersect = null;
+        Renderable intersectObject = null;
         double t = Double.MAX_VALUE;
 
         // find intersection with objects
-        for (Renderable o : Scene.getInstance().getObjects()) {
-            double t2 = o.intersect(line);
+        for (Renderable object : Scene.getInstance().getObjects()) {
+            double intersection = object.intersect(line);
             // new t is between the eye AND object?
-            if (t2 > 0 && t2 < t) {
-                intersect = o;
-                t = t2;
+            if (intersection > 0 && intersection < t) {
+                intersectObject = object;
+                t = intersection;
             }
         }
 
-        if (intersect != null) {
-            return intersect.getColor(getPosition(line, t), depth);
-        } else {
-            return Color.BLACK;
+        // get color from intersected object
+        if (intersectObject != null) {
+            color = intersectObject.getColor(getPosition(line, t), depth);
         }
+
+        return color;
     }
 
     private static Vector3D getPosition(Line line, double t) {
@@ -47,10 +50,10 @@ public class RayUtil {
         double t = Double.MAX_VALUE;
 
         // find intersection with objects
-        for (Renderable o : Scene.getInstance().getObjects()) {
-            double t2 = o.intersect(line);
+        for (Renderable object : Scene.getInstance().getObjects()) {
+            double intersection = object.intersect(line);
             // new t is between the eye AND object?
-            if (t2 > 0 && t2 < t) {
+            if (intersection > 0 && intersection < t) {
                 return true;
             }
         }

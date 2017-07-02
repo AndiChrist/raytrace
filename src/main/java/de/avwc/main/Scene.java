@@ -43,22 +43,6 @@ public class Scene {
 
     private Scene() {}
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for(Renderable o : objects) {
-            sb.append(o.debug());
-        }
-        for(Light l : lights) {
-            sb.append(l.debug());
-        }
-
-        sb.append(camera.debug());
-
-        return sb.toString();
-
-    }
-
     public void setCamera(Camera camera) {
         this.camera = camera;
         this.camera.setDimension(width, height);
@@ -96,5 +80,21 @@ public class Scene {
         }
 
         return scene;
+    }
+
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for(Renderable o : objects) {
+            sb.append(o.debug());
+        }
+        for(Light l : lights) {
+            sb.append(l.debug());
+        }
+
+        sb.append(camera.debug());
+
+        return sb.toString();
     }
 }
