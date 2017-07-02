@@ -7,6 +7,8 @@ import de.avwc.main.Scene;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
+import java.awt.*;
+
 /**
  * Created by andichrist on 23.04.17.
  */
@@ -31,8 +33,9 @@ public class RayTracer {
 
                 Line line = new Line(camera.getPosition(), camera.getPosition().add(s), Main.EPSILON);
 
-                int resultColor = RayUtil.castPrimary(line, 0);
-                display.setPixel(i, j, resultColor);
+                Color color = RayUtil.castPrimary(line, 0);
+
+                display.setPixel(i, j, color);
             }
         }
     }

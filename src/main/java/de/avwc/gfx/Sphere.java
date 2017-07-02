@@ -21,6 +21,10 @@ public class Sphere implements Renderable {
     private double radius;
     private String name;
 
+    private Double specular;
+    private Double lambert;
+    private Double ambient;
+
     private Pigment pigment = new Pigment(Color.WHITE, this); // green
 
     public Sphere(Vector3D center, double radius, String name) {
@@ -103,8 +107,8 @@ public class Sphere implements Renderable {
     }
 
     @Override
-    public int getColor(Vector3D position, int depth) {
-        return pigment.getRGB(position, depth);
+    public Color getColor(Vector3D position, int depth) {
+        return pigment.getColor(position, depth);
     }
 
     @Override
@@ -120,4 +124,13 @@ public class Sphere implements Renderable {
         this.name = name;
     }
 
+    public void setSpecular(Double specular) {
+        this.specular = specular;
+    }
+    public void setLambert(Double lambert) {
+        this.lambert = lambert;
+    }
+    public void setAmbient(Double ambient) {
+        this.ambient = ambient;
+    }
 }

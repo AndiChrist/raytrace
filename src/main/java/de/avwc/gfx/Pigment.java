@@ -14,14 +14,15 @@ import java.awt.*;
  * Created by andichrist on 23.04.17.
  */
 public class Pigment {
-    private Renderable renderable;
 
+    private Renderable renderable;
     private Color ambient;
+
     private static final Color DIFFUSE = Color.LIGHT_GRAY;
     private static final Color SPECULAR = Color.DARK_GRAY;
 
-    private double phongExponent = 5;
-    private double reflectionIndex = 0.5;
+    private static final double PHONG_EXPONENT = 5;
+    private static final double REFLECTION_INDEX = 0.5;
 
     Pigment(Color ambient) {
         this.ambient = ambient;
@@ -33,9 +34,9 @@ public class Pigment {
     }
 
     // depth: recursion depth
-    int getRGB(Vector3D position, int depth) {
+    Color getColor(Vector3D position, int depth) {
         if (renderable == null)
-            return 0;
+            return Color.BLACK;
 
         // start with zero vector
         Vector3D sum = Vector3D.ZERO;
@@ -63,25 +64,25 @@ public class Pigment {
                 Vector3D view = Scene.getInstance().getCamera().getPosition().subtract(position).normalize();
                 double RV = Math.max(reflection.dotProduct(view), 0); // angle
 
-                retValue = retValue.add(Vector3DUtil.multiply(SPECULAR, light.getIntensity(position)).scalarMultiply(Math.pow(RV, phongExponent)));
+                retValue = retValue.add(Vector3DUtil.multiply(SPECULAR, light.getIntensity(position)).scalarMultiply(Math.pow(RV, PHONG_EXPONENT)));
             }
 
             double distance = light.getPosition().subtract(position).getNorm(); // length
             sum = sum.add(retValue.scalarMultiply(1/(distance*distance)).scalarMultiply(255));
         }
 
-        sum = getReflection(position, depth, sum);
+        sum = sum.add(getReflection(position, depth));
 
         sum = new Vector3D(Math.min(255, sum.getX()), Math.min(255, sum.getY()), Math.min(255, sum.getZ()));
         sum = new Vector3D(Math.max(0, sum.getX()), Math.max(0, sum.getY()), Math.max(0, sum.getZ()));
 
-        Color c = new Color((int)Math.round(sum.getX()), (int)Math.round(sum.getY()), (int)Math.round(sum.getZ()));
-        return c.getRGB();
+        return new Color((int)Math.round(sum.getX()), (int)Math.round(sum.getY()), (int)Math.round(sum.getZ()));
     }
 
     // error?
-    private Vector3D getReflection(Vector3D position, int depth, Vector3D sum) {
-        if (this.reflectionIndex > 0) {
+    private Vector3D getReflection(Vector3D position, int depth) {
+        Vector3D vector = Vector3D.ZERO;
+        if (REFLECTION_INDEX > 0) {
             Vector3D normal = this.renderable.getNormal(position);
             Vector3D view = Scene.getInstance().getCamera().getPosition().subtract(position).normalize();
             double NV = Math.max(normal.dotProduct(view), 0); // angle
@@ -90,14 +91,13 @@ public class Pigment {
             Vector3D newPosition = Vector3DUtil.move(position, reflectionRay, Main.EPSILON);
             Line reflection = new Line(newPosition, newPosition.add(reflectionRay), Main.EPSILON);
 
-            int res = RayUtil.castPrimary(reflection, depth + 1);
-            Color c = new Color(res);
+            Color c = RayUtil.castPrimary(reflection, depth + 1);
 
             Vector3D colorVector = new Vector3D(c.getRed(), c.getGreen(), c.getBlue());
-            sum = sum.add(colorVector.scalarMultiply(reflectionIndex));
+            vector = vector.add(colorVector.scalarMultiply(REFLECTION_INDEX));
         }
 
-        return sum;
+        return vector;
     }
 
     @Override

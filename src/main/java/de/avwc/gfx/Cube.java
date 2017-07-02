@@ -107,8 +107,8 @@ public class Cube implements Renderable {
     }
 
     @Override
-    public int getColor(Vector3D position, int depth) {
-        return pigment.getRGB(position, depth);
+    public Color getColor(Vector3D position, int depth) {
+        return pigment.getColor(position, depth);
     }
 
     @Override

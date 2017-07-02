@@ -116,9 +116,21 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
 
         Integer radius = sphere.get("radius").asInt();
 
-        //Double specular = sphere.get("specular").asDouble();
-        //Double lambert = sphere.get("lambert").asDouble();
-        //Double ambient = sphere.get("ambient").asDouble();
+        Double specular = null;
+        try {
+            specular = sphere.get("specular").asDouble();
+        } catch (NullPointerException npe) {
+        }
+        Double lambert = null;
+        try {
+            lambert = sphere.get("lambert").asDouble();
+        } catch (NullPointerException npe) {
+        }
+        Double ambient = null;
+        try {
+            ambient = sphere.get("ambient").asDouble();
+        } catch (NullPointerException npe) {
+        }
 
         String pigment = sphere.get("color").asText();
         if (pigment.isEmpty()) {
@@ -126,8 +138,15 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
             Color color = getColor(pigmentNode);
             object = new Sphere(center, radius, name, color);
         } else {
-            object =  new Sphere(center, radius, name, pigment);
+            object = new Sphere(center, radius, name, pigment);
         }
+
+        if (specular != null)
+            object.setSpecular(specular);
+        if (lambert != null)
+            object.setLambert(lambert);
+        if (ambient != null)
+            object.setAmbient(ambient);
 
         return object;
     }

@@ -13,9 +13,9 @@ import java.awt.*;
 public class RayUtil {
     private static final int MAX_RECURSION_DEPTH = 3;
 
-    public static int castPrimary(Line line, int depth) {
+    public static Color castPrimary(Line line, int depth) {
         if (depth > MAX_RECURSION_DEPTH) {
-            return Color.BLACK.getRGB();
+            return Color.BLACK;
         }
 
         // which object hits by the ray?
@@ -35,7 +35,7 @@ public class RayUtil {
         if (intersect != null) {
             return intersect.getColor(getPosition(line, t), depth);
         } else {
-            return Color.BLACK.getRGB();
+            return Color.BLACK;
         }
     }
 

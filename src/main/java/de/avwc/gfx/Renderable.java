@@ -4,6 +4,8 @@ import de.avwc.util.Debuggable;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
+import java.awt.*;
+
 /**
  * Created by andichrist on 23.04.17.
  */
@@ -12,7 +14,7 @@ public interface Renderable extends Debuggable {
 
     Vector3D getNormal(Vector3D position);
 
-    int getColor(Vector3D position, int depth);
+    Color getColor(Vector3D position, int depth);
 
     Vector3D getCentroid();
 }
