@@ -2,8 +2,8 @@ package de.avwc.util;
 
 import de.avwc.gfx.Camera;
 import de.avwc.Main;
-import de.avwc.gfx.Display;
 import de.avwc.main.Scene;
+import de.avwc.panel.Display;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
@@ -29,11 +29,14 @@ public class RayTracer {
                 double v = camera.getTop() + (camera.getBottom() - camera.getTop()) * (j + 0.5) / scene.getHeight();
 
                 // direction from camera to current pixel
-                Vector3D s = Vector3DUtil.add(camera.getU().scalarMultiply(u), camera.getV().scalarMultiply(v), camera.getW_d_negated());
+                Vector3D s = new Vector3D(0,0,0)
+                        .add(camera.getU().scalarMultiply(u))
+                        .add(camera.getV().scalarMultiply(v))
+                        .add(camera.getW_d_negated());
 
                 Line line = new Line(camera.getPosition(), camera.getPosition().add(s), Main.EPSILON);
 
-                Color color = RayUtil.castPrimary(line, 0);
+                Color color = ColorUtil.castPrimary(line, 0);
 
                 display.setPixel(i, j, color);
             }

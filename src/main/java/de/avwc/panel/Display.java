@@ -1,4 +1,4 @@
-package de.avwc.gfx;
+package de.avwc.panel;
 
 import de.avwc.main.Scene;
 
