@@ -1,13 +1,11 @@
 package de.avwc.main;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import de.avwc.gfx.Camera;
+import de.avwc.gfx.Eye;
 import de.avwc.gfx.Renderable;
 import de.avwc.gfx.light.Light;
 import de.avwc.util.SceneDeserializer;
-import de.avwc.util.SceneJSONReader;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,11 +15,9 @@ import java.util.List;
 @JsonDeserialize(using = SceneDeserializer.class)
 public class Scene {
 
-    private static Scene scene;
-
     private List<Renderable> objects = new ArrayList<>();
     private List<Light> lights = new ArrayList<>();
-    private Camera camera;
+    private Eye eye;
     private int width;
     private int height;
 
@@ -41,15 +37,13 @@ public class Scene {
         this.lights = lights;
     }
 
-    private Scene() {}
-
-    public void setCamera(Camera camera) {
-        this.camera = camera;
-        this.camera.setDimension(width, height);
+    public void setEye(Eye eye) {
+        this.eye = eye;
+        this.eye.setDimension(width, height);
     }
 
-    public Camera getCamera() {
-        return camera;
+    public Eye getEye() {
+        return eye;
     }
 
     public int getWidth() {
@@ -68,21 +62,6 @@ public class Scene {
         this.height = height;
     }
 
-    public static Scene getInstance() {
-        if (scene == null) {
-            scene = new Scene();
-
-            try {
-                SceneJSONReader.readSceneJSON();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return scene;
-    }
-
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -93,7 +72,7 @@ public class Scene {
             sb.append(l.debug());
         }
 
-        sb.append(camera.debug());
+        sb.append(eye.debug());
 
         return sb.toString();
     }

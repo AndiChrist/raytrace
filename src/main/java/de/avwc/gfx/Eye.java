@@ -9,7 +9,7 @@ import static java.lang.Math.tan;
 /**
  * Created by andichrist on 23.04.17.
  */
-public class Camera implements Debuggable {
+public class Eye implements Debuggable {
 
     // camera position
     private Vector3D position;
@@ -29,7 +29,7 @@ public class Camera implements Debuggable {
     private double distance; // radians; π/4 = 90°
     private Vector3D W_d_negated;
 
-    public Camera(Vector3D position, Vector3D direction) {
+    public Eye(Vector3D position, Vector3D direction) {
         this.position = position;
 
         up = Vector3D.PLUS_J; // (0, 1, 0)

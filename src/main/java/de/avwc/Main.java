@@ -1,7 +1,9 @@
 package de.avwc;
 
-import de.avwc.panel.Display;
-import de.avwc.util.RayTracer;
+import de.avwc.main.Scene;
+import de.avwc.main.Display;
+import de.avwc.main.RayTracer;
+import de.avwc.util.SceneJSONReader;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -15,8 +17,16 @@ public final class Main {
     public static final double EPSILON = 10e-12;
 
     public static void main(String[] args) {
-        Display display = new Display();
-        RayTracer.trace(display);
+        Scene scene = null;
+        try {
+            scene = SceneJSONReader.readSceneJSON();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Display display = new Display(scene);
+
+        RayTracer.trace(scene, display);
 
         Main panel = new Main();
         panel.saveImage(display);

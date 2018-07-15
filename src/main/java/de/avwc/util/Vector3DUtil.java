@@ -53,8 +53,8 @@ public class Vector3DUtil {
 
         // = √(b² - 4ac)
         double distSqrt = sqrt(discriminant);
-        double q;
 
+        double q;
         if (b < 0) {
             q = (-b - distSqrt) / 2;
         } else {

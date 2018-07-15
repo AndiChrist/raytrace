@@ -1,11 +1,15 @@
 package de.avwc.gfx;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import de.avwc.main.Scene;
 import de.avwc.util.Vector3DUtil;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 import java.awt.*;
 import java.lang.reflect.Field;
+import java.util.List;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
@@ -22,6 +26,7 @@ public class Cube implements Renderable {
     private String name;
 
     private Pigment pigment = new Pigment(Color.YELLOW, this); // orange
+    private Scene scene;
 
     public Cube(Vector3D min, Vector3D max, Vector3D rotate, String name) {
         this.min = min;
@@ -52,14 +57,10 @@ public class Cube implements Renderable {
         this.rotate = rotate;
         this.name = name;
 
-        Color color;
-        try {
-            Field field = Color.class.getField(colorValue);
-            color = (Color)field.get(null);
-        } catch (Exception e) {
-            color = Color.BLACK; // Not defined
-        }
-        this.pigment = new Pigment(color, this);
+        setPigment(colorValue);
+    }
+
+    public Cube() {
     }
 
     @Override
@@ -118,6 +119,11 @@ public class Cube implements Renderable {
         return min.add(size.scalarMultiply(0.5));
     }
 
+    @Override
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
+
     private Vector3D getSize() {
         return max.subtract(min);
     }
@@ -129,6 +135,60 @@ public class Cube implements Renderable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Vector3D getMin() {
+        return min;
+    }
+
+    // ArrayList
+    public void setMin(List<Double> mins) {
+        this.min = new Vector3D(mins.get(0), mins.get(1), mins.get(2));
+    }
+
+    public Vector3D getMax() {
+        return max;
+    }
+
+    // ArrayList
+    public void setMax(List<Double> maxs) {
+        this.max = new Vector3D(maxs.get(0), maxs.get(1), maxs.get(2));
+    }
+
+    public Vector3D getRotate() {
+        return rotate;
+    }
+
+    // ArrayList
+    public void setRotate(List<Double> rotates) {
+        this.max = new Vector3D(rotates.get(0), rotates.get(1), rotates.get(2));
+    }
+
+    public Pigment getPigment() {
+        return pigment;
+    }
+
+    public void setPigment(Pigment pigment) {
+        this.pigment = pigment;
+    }
+
+    @JsonSetter("color")
+    public void setPigment(String colorValue) {
+        Color color;
+        try {
+            Field field = Color.class.getField(colorValue);
+            color = (Color)field.get(null);
+        } catch (Exception e) {
+            color = Color.BLACK; // Not defined
+        }
+        this.pigment = new Pigment(color, this);
+    }
+
+    @JsonSetter("color")
+    @JsonIgnore
+    public void setPigment(List<Integer> colors) {
+        Color color = new Color (colors.get(0), colors.get(1), colors.get(2));
+        this.pigment = new Pigment(color, this);
     }
 
 }

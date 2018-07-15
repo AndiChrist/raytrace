@@ -14,15 +14,17 @@ public class SceneJSONReader {
 
     private static final String JSON_FILE = "scene.json";
 
-    public static void readSceneJSON() throws IOException {
+    public static Scene readSceneJSON() throws IOException {
         InputStream fis = new FileInputStream(JSON_FILE);
 
         //create JsonReader object
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.readValue(fis, Scene.class);
+        Scene scene = objectMapper.readValue(fis, Scene.class);
 
         // close file after reading
         fis.close();
+
+        return scene;
     }
 
 }

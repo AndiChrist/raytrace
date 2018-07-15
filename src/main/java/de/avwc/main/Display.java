@@ -1,4 +1,4 @@
-package de.avwc.panel;
+package de.avwc.main;
 
 import de.avwc.main.Scene;
 
@@ -15,9 +15,9 @@ public class Display extends JPanel {
     private int width;
     private int height;
 
-    public Display(int width, int height) {
-        this.width = width;
-        this.height = height;
+    public Display(Scene scene) {
+        this.width = scene.getWidth();
+        this.height = scene.getHeight();
 
         canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
@@ -25,14 +25,6 @@ public class Display extends JPanel {
         defaultCanvas(Color.BLUE);
 
         this.setPreferredSize(new Dimension(width, height));
-    }
-
-    public Display(Scene scene) {
-        this(Scene.getInstance().getWidth(), Scene.getInstance().getHeight());
-    }
-
-    public Display() {
-        this(Scene.getInstance());
     }
 
     @Override

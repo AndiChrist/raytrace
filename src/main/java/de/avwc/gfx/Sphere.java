@@ -1,5 +1,7 @@
 package de.avwc.gfx;
 
+import de.avwc.gfx.light.Light;
+import de.avwc.main.Scene;
 import de.avwc.util.Vector3DUtil;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
@@ -7,6 +9,7 @@ import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import java.awt.*;
 import java.lang.reflect.Field;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import static java.lang.Math.max;
@@ -26,6 +29,7 @@ public class Sphere implements Renderable {
     private Double ambient;
 
     private Pigment pigment = new Pigment(Color.WHITE, this); // green
+    private Scene scene;
 
     public Sphere(Vector3D center, double radius, String name) {
         this.center = center;
@@ -110,12 +114,18 @@ public class Sphere implements Renderable {
 
     @Override
     public Color getColor(Vector3D position, int depth) {
+        pigment.setScene(scene);
         return pigment.getColor(position, depth);
     }
 
     @Override
     public Vector3D getCentroid() {
         return this.center;
+    }
+
+    @Override
+    public void setScene(Scene scene) {
+        this.scene = scene;
     }
 
     public String getName() {

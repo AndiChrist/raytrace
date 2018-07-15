@@ -2,10 +2,10 @@ package de.avwc.util;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import de.avwc.gfx.Camera;
+import de.avwc.gfx.Eye;
 import de.avwc.gfx.Cube;
 import de.avwc.gfx.Sphere;
 import de.avwc.gfx.light.PointLight;
@@ -21,12 +21,20 @@ import java.util.stream.Stream;
 /**
  * Created by andichrist on 07.05.17.
  */
-public class SceneDeserializer extends JsonDeserializer<Scene> {
+public class SceneDeserializer extends StdDeserializer<Scene> {
+
+    public SceneDeserializer() {
+        this(null);
+    }
+
+    public SceneDeserializer(Class<?> vc) {
+        super(vc);
+    }
 
     @Override
     public Scene deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
         JsonNode node = jp.getCodec().readTree(jp);
-        Scene scene = Scene.getInstance();
+        Scene scene = new Scene();
 
         Integer width = node.get("width").asInt();
         Integer height = node.get("height").asInt();
@@ -63,8 +71,8 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
         }
 
         JsonNode cameraNode = node.get("camera");
-        Camera camera = readCamera(cameraNode);
-        scene.setCamera(camera);
+        Eye eye = readCamera(cameraNode);
+        scene.setEye(eye);
 
         System.out.println(scene);
         return scene;
@@ -151,14 +159,14 @@ public class SceneDeserializer extends JsonDeserializer<Scene> {
         return object;
     }
 
-    private static Camera readCamera(JsonNode camera) {
+    private static Eye readCamera(JsonNode camera) {
         ArrayNode positionNode = (ArrayNode) camera.get("position");
         ArrayNode directionNode = (ArrayNode) camera.get("direction");
 
         Vector3D center = getVector(positionNode);
         Vector3D direction = getVector(directionNode);
 
-        return new Camera(center, direction);
+        return new Eye(center, direction);
     }
 
     private static Vector3D getVector(ArrayNode arrayNode) {
