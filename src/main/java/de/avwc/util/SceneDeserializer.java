@@ -23,6 +23,7 @@ import java.util.stream.Stream;
  */
 public class SceneDeserializer extends StdDeserializer<Scene> {
 
+    // default (no arg) constructor
     public SceneDeserializer() {
         this(null);
     }
@@ -124,37 +125,9 @@ public class SceneDeserializer extends StdDeserializer<Scene> {
 
         Integer radius = sphere.get("radius").asInt();
 
-        Double specular = null;
-        try {
-            specular = sphere.get("specular").asDouble();
-        } catch (NullPointerException npe) {
-        }
-        Double lambert = null;
-        try {
-            lambert = sphere.get("lambert").asDouble();
-        } catch (NullPointerException npe) {
-        }
-        Double ambient = null;
-        try {
-            ambient = sphere.get("ambient").asDouble();
-        } catch (NullPointerException npe) {
-        }
-
-        String pigment = sphere.get("color").asText();
-        if (pigment.isEmpty()) {
-            ArrayNode pigmentNode = (ArrayNode) sphere.get("color");
-            Color color = getColor(pigmentNode);
-            object = new Sphere(center, radius, name, color);
-        } else {
-            object = new Sphere(center, radius, name, pigment);
-        }
-
-        if (specular != null)
-            object.setSpecular(specular);
-        if (lambert != null)
-            object.setLambert(lambert);
-        if (ambient != null)
-            object.setAmbient(ambient);
+        ArrayNode pigmentNode = (ArrayNode) sphere.get("color");
+        Color color = getColor(pigmentNode);
+        object = new Sphere(center, radius, name, color);
 
         return object;
     }

@@ -17,7 +17,7 @@
           "name": "red ball",
           "position": [10, 0, 0],
           "radius": 3,
-          "color": "red"
+          "color": [255, 0, 0]
         }
       ]
     }

@@ -1,15 +1,12 @@
 package de.avwc.gfx;
 
-import de.avwc.gfx.light.Light;
 import de.avwc.main.Scene;
 import de.avwc.util.Vector3DUtil;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
-import java.awt.*;
-import java.lang.reflect.Field;
+import java.awt.Color;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import static java.lang.Math.max;
@@ -24,44 +21,13 @@ public class Sphere implements Renderable {
     private double radius;
     private String name;
 
-    private Double specular;
-    private Double lambert;
-    private Double ambient;
-
-    private Pigment pigment = new Pigment(Color.WHITE, this); // green
+    private Pigment pigment; // green
     private Scene scene;
-
-    public Sphere(Vector3D center, double radius, String name) {
-        this.center = center;
-        this.radius = radius;
-        this.name = name;
-    }
-
-    public Sphere(Vector3D center, double radius, String name, Pigment pigment) {
-        this.center = center;
-        this.radius = radius;
-        this.name = name;
-        this.pigment = pigment;
-    }
 
     public Sphere(Vector3D center, Integer radius, String name, Color color) {
         this.center = center;
         this.radius = radius;
         this.name = name;
-        this.pigment = new Pigment(color, this);
-    }
-
-    public Sphere(Vector3D center, Integer radius, String name, String colorValue) {
-        this.center = center;
-        this.radius = radius;
-        this.name = name;
-        Color color;
-        try {
-            Field field = Color.class.getField(colorValue);
-            color = (Color)field.get(null);
-        } catch (Exception e) {
-            color = Color.BLACK; // Not defined
-        }
         this.pigment = new Pigment(color, this);
     }
 
@@ -128,21 +94,4 @@ public class Sphere implements Renderable {
         this.scene = scene;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSpecular(Double specular) {
-        this.specular = specular;
-    }
-    public void setLambert(Double lambert) {
-        this.lambert = lambert;
-    }
-    public void setAmbient(Double ambient) {
-        this.ambient = ambient;
-    }
 }
