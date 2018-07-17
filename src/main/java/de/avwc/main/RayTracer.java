@@ -1,6 +1,6 @@
 package de.avwc.main;
 
-import de.avwc.gfx.Eye;
+import de.avwc.gfx.Camera;
 import de.avwc.Main;
 import de.avwc.util.ColorUtil;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
@@ -14,7 +14,7 @@ import java.awt.*;
 public class RayTracer {
 
     public static void trace(Scene scene, Display display) {
-        Eye eye = scene.getEye();
+        Camera camera = scene.getCamera();
 
         // u = l + (r − l)(i + 0.5)/nx
         // v = b + (t − b)(j + 0.5)/ny
@@ -22,17 +22,17 @@ public class RayTracer {
         for (int i = 0; i < scene.getWidth(); i++) {
             for (int j = 0; j < scene.getHeight(); j++) {
                 // from left to right
-                double u = eye.getLeft() + (eye.getRight() - eye.getLeft()) * (i + 0.5) / scene.getWidth();
+                double u = camera.getLeft() + (camera.getRight() - camera.getLeft()) * (i + 0.5) / scene.getWidth();
                 // from top to bottom
-                double v = eye.getTop() + (eye.getBottom() - eye.getTop()) * (j + 0.5) / scene.getHeight();
+                double v = camera.getTop() + (camera.getBottom() - camera.getTop()) * (j + 0.5) / scene.getHeight();
 
                 // direction from camera to current pixel
                 Vector3D s = new Vector3D(0,0,0)
-                        .add(eye.getU().scalarMultiply(u))
-                        .add(eye.getV().scalarMultiply(v))
-                        .add(eye.getW_d_negated());
+                        .add(camera.getU().scalarMultiply(u))
+                        .add(camera.getV().scalarMultiply(v))
+                        .add(camera.getW_d_negated());
 
-                Line line = new Line(eye.getPosition(), eye.getPosition().add(s), Main.EPSILON);
+                Line line = new Line(camera.getPosition(), camera.getPosition().add(s), Main.EPSILON);
 
                 Color color = ColorUtil.castPrimary(scene, line, 0);
 

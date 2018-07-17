@@ -1,7 +1,7 @@
 package de.avwc.main;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import de.avwc.gfx.Eye;
+import de.avwc.gfx.Camera;
 import de.avwc.gfx.Renderable;
 import de.avwc.gfx.light.Light;
 import de.avwc.util.SceneDeserializer;
@@ -17,7 +17,7 @@ public class Scene {
 
     private List<Renderable> objects = new ArrayList<>();
     private List<Light> lights = new ArrayList<>();
-    private Eye eye;
+    private Camera camera;
     private int width;
     private int height;
 
@@ -37,13 +37,13 @@ public class Scene {
         this.lights = lights;
     }
 
-    public void setEye(Eye eye) {
-        this.eye = eye;
-        this.eye.setDimension(width, height);
+    public void setCamera(Camera camera) {
+        this.camera = camera;
+        this.camera.setDimension(width, height);
     }
 
-    public Eye getEye() {
-        return eye;
+    public Camera getCamera() {
+        return camera;
     }
 
     public int getWidth() {
@@ -72,7 +72,7 @@ public class Scene {
             sb.append(l.debug());
         }
 
-        sb.append(eye.debug());
+        sb.append(camera.debug());
 
         return sb.toString();
     }

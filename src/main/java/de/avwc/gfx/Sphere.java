@@ -19,6 +19,7 @@ public class Sphere implements Renderable {
 
     private Vector3D center;
     private double radius;
+
     private String name;
 
     private Pigment pigment; // green
@@ -29,6 +30,10 @@ public class Sphere implements Renderable {
         this.radius = radius;
         this.name = name;
         this.pigment = new Pigment(color, this);
+    }
+
+    public Vector3D getCenter() {
+        return center;
     }
 
     @Override

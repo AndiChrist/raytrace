@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import de.avwc.gfx.Eye;
+import de.avwc.gfx.Camera;
 import de.avwc.gfx.Cube;
 import de.avwc.gfx.Sphere;
 import de.avwc.gfx.light.PointLight;
@@ -72,8 +72,8 @@ public class SceneDeserializer extends StdDeserializer<Scene> {
         }
 
         JsonNode cameraNode = node.get("camera");
-        Eye eye = readCamera(cameraNode);
-        scene.setEye(eye);
+        Camera camera = readCamera(cameraNode);
+        scene.setCamera(camera);
 
         System.out.println(scene);
         return scene;
@@ -132,14 +132,14 @@ public class SceneDeserializer extends StdDeserializer<Scene> {
         return object;
     }
 
-    private static Eye readCamera(JsonNode camera) {
+    private static Camera readCamera(JsonNode camera) {
         ArrayNode positionNode = (ArrayNode) camera.get("position");
         ArrayNode directionNode = (ArrayNode) camera.get("direction");
 
         Vector3D center = getVector(positionNode);
         Vector3D direction = getVector(directionNode);
 
-        return new Eye(center, direction);
+        return new Camera(center, direction);
     }
 
     private static Vector3D getVector(ArrayNode arrayNode) {

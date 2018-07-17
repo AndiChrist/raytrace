@@ -10,7 +10,6 @@ import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 import java.awt.*;
-import java.util.List;
 
 /**
  * Created by andichrist on 23.04.17.
@@ -72,7 +71,7 @@ public class Pigment {
 
                 // specular factor
                 Vector3D reflection = normal.scalarMultiply(NL*2).subtract(positionToLight).normalize();
-                Vector3D view = scene.getEye().getPosition().subtract(position).normalize();
+                Vector3D view = scene.getCamera().getPosition().subtract(position).normalize();
                 double RV = Math.max(reflection.dotProduct(view), 0); // angle
 
                 retValue = retValue.add(Vector3DUtil.multiply(SPECULAR, light.getIntensity(position)).scalarMultiply(Math.pow(RV, PHONG_EXPONENT)));
@@ -95,7 +94,7 @@ public class Pigment {
         Vector3D vector = Vector3D.ZERO;
         if (REFLECTION_INDEX > 0) {
             Vector3D normal = this.renderable.getNormal(position);
-            Vector3D view = scene.getEye().getPosition().subtract(position).normalize();
+            Vector3D view = scene.getCamera().getPosition().subtract(position).normalize();
             double NV = Math.max(normal.dotProduct(view), 0); // angle
 
             Vector3D reflectionRay = normal.scalarMultiply(NV*2).subtract(view).normalize();
