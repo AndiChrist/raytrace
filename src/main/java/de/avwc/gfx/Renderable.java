@@ -19,7 +19,7 @@ public interface Renderable extends Debuggable {
 
     Color getColor(Vector3D position, int depth);
 
-    Vector3D getCentroid();
+    Vector3D getCenter();
 
     void setScene(Scene scene);
 }

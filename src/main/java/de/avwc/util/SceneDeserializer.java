@@ -103,15 +103,9 @@ public class SceneDeserializer extends StdDeserializer<Scene> {
         ArrayNode rotateNode = (ArrayNode) cube.get("rotate");
         Vector3D rotate = getVector(rotateNode);
 
-        String pigment = cube.get("color").asText();
-        if (pigment.isEmpty()) {
-            ArrayNode pigmentNode = (ArrayNode) cube.get("color");
-            Color color = getColor(pigmentNode);
-            object = new Cube(min, max, rotate, name, color);
-        } else {
-            object = new Cube(min, max, rotate, name, pigment);
-        }
-
+        ArrayNode pigmentNode = (ArrayNode) cube.get("color");
+        Color color = getColor(pigmentNode);
+        object = new Cube(min, max, rotate, name, color);
 
         return object;
     }

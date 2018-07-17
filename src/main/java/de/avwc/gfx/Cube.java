@@ -51,15 +51,6 @@ public class Cube implements Renderable {
         this.pigment = new Pigment(color, this);
     }
 
-    public Cube(Vector3D min, Vector3D max, Vector3D rotate, String name, String colorValue) {
-        this.min = min;
-        this.max = max;
-        this.rotate = rotate;
-        this.name = name;
-
-        setPigment(colorValue);
-    }
-
     public Cube() {
     }
 
@@ -104,7 +95,7 @@ public class Cube implements Renderable {
 
     @Override
     public Vector3D getNormal(Vector3D position) {
-        return position.subtract(getCentroid()).normalize();
+        return position.subtract(getCenter()).normalize();
     }
 
     @Override
@@ -113,7 +104,7 @@ public class Cube implements Renderable {
     }
 
     @Override
-    public Vector3D getCentroid() {
+    public Vector3D getCenter() {
         Vector3D size = getSize();
 
         return min.add(size.scalarMultiply(0.5));
@@ -170,18 +161,6 @@ public class Cube implements Renderable {
 
     public void setPigment(Pigment pigment) {
         this.pigment = pigment;
-    }
-
-    @JsonSetter("color")
-    public void setPigment(String colorValue) {
-        Color color;
-        try {
-            Field field = Color.class.getField(colorValue);
-            color = (Color)field.get(null);
-        } catch (Exception e) {
-            color = Color.BLACK; // Not defined
-        }
-        this.pigment = new Pigment(color, this);
     }
 
     @JsonSetter("color")

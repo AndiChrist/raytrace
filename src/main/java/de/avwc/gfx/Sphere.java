@@ -32,20 +32,16 @@ public class Sphere implements Renderable {
         this.pigment = new Pigment(color, this);
     }
 
-    public Vector3D getCenter() {
-        return center;
-    }
-
     @Override
     public double intersect(Line ray) {
         Vector3D rayDirection = ray.getDirection();
         Vector3D rayOrigin = ray.getOrigin();
 
-        Vector3D origin = rayOrigin.subtract(this.center); // eye center
+        Vector3D origin = rayOrigin.subtract(center); // eye center
 
         double a = rayDirection.dotProduct(rayDirection);
         double b = 2 * rayDirection.dotProduct(origin);
-        double c = origin.dotProduct(origin) - this.radius * this.radius;
+        double c = origin.dotProduct(origin) - radius * radius;
 
         // ƒ(x) = ax² + bx + c
         // x₁, x₂ = (-b ± √(b² - 4ac)) / 2a
@@ -90,8 +86,8 @@ public class Sphere implements Renderable {
     }
 
     @Override
-    public Vector3D getCentroid() {
-        return this.center;
+    public Vector3D getCenter() {
+        return center;
     }
 
     @Override
