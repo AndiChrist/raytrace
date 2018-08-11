@@ -65,7 +65,7 @@ public class Pigment {
             boolean shadowed = RayUtil.castShadow(scene, shadow);
             if (!shadowed) {
                 // diffuse factor
-                Vector3D normal = this.renderable.getNormal(position);
+                Vector3D normal = renderable.getNormal(position);
                 double NL = Math.max(normal.dotProduct(positionToLight), 0); // angle
                 retValue = retValue.add(Vector3DUtil.multiply(DIFFUSE, light.getIntensity(position)).scalarMultiply(NL));
 
@@ -93,7 +93,7 @@ public class Pigment {
     private Vector3D getReflection(Vector3D position, int depth) {
         Vector3D vector = Vector3D.ZERO;
         if (REFLECTION_INDEX > 0) {
-            Vector3D normal = this.renderable.getNormal(position);
+            Vector3D normal = renderable.getNormal(position);
             Vector3D view = scene.getCamera().getPosition().subtract(position).normalize();
             double NV = Math.max(normal.dotProduct(view), 0); // angle
 

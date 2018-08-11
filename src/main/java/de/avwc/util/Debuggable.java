@@ -7,9 +7,9 @@ import java.lang.reflect.Field;
  */
 public interface Debuggable {
     default String debug() {
-        StringBuilder sb = new StringBuilder(this.getClass().getName());
+        StringBuilder sb = new StringBuilder(getClass().getName());
         sb.append(" [ ");
-        Field[] fields = this.getClass().getDeclaredFields();
+        Field[] fields = getClass().getDeclaredFields();
         int count = 0;
         for(Field f: fields) {
             f.setAccessible(true);
