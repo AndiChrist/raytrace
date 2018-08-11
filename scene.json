@@ -8,10 +8,7 @@
           "name": "green ball",
           "position": [0, 0, 0],
           "radius": 5,
-          "color": [0, 255, 0],
-          "specular": 0.2,
-          "lambert": 0.7,
-          "ambient": 0.1
+          "color": [0, 255, 0]
         },
         {
           "name": "red ball",

@@ -9,6 +9,7 @@ import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 import java.awt.*;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Math.max;
@@ -27,6 +28,8 @@ public class Cube implements Renderable {
 
     private Pigment pigment = new Pigment(Color.YELLOW, this); // orange
     private Scene scene;
+
+    List<Double> color = new ArrayList<>();
 
     public Cube(Vector3D min, Vector3D max, Vector3D rotate, String name) {
         this.min = min;
@@ -161,6 +164,14 @@ public class Cube implements Renderable {
 
     public void setPigment(Pigment pigment) {
         this.pigment = pigment;
+    }
+
+    public List<Double> getColor() {
+        return color;
+    }
+
+    public void setColor(List<Double> color) {
+        this.color = color;
     }
 
     @JsonSetter("color")
