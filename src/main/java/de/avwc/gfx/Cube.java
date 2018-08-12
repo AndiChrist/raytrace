@@ -3,12 +3,11 @@ package de.avwc.gfx;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import de.avwc.main.RayScene;
-import de.avwc.util.Debuggable;
 import de.avwc.util.Vector3DUtil;
-import org.hipparchus.geometry.euclidean.threed.Line;
-import org.hipparchus.geometry.euclidean.threed.Vector3D;
-
 import javafx.scene.paint.Color;
+import org.apache.commons.math3.geometry.euclidean.threed.Line;
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,11 +110,6 @@ public class Cube implements Renderable {
         Vector3D size = getSize();
 
         return min.add(size.scalarMultiply(0.5));
-    }
-
-    @Override
-    public void setScene(RayScene scene) {
-        this.scene = scene;
     }
 
     private Vector3D getSize() {

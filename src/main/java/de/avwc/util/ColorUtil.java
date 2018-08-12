@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 public class ColorUtil {
     private static final int MAX_RECURSION_DEPTH = 3;
 
-    public static Color castPrimary(RayScene scene, Line line, int depth) {
+    public static Color castPrimary(Line line, int depth) {
         Color color = Color.BLACK;
 
         if (depth > MAX_RECURSION_DEPTH) {
@@ -22,7 +22,7 @@ public class ColorUtil {
         double t = Double.MAX_VALUE;
 
         // find intersection with objects
-        for (Renderable object : scene.getObjects()) {
+        for (Renderable object : RayScene.getObjects()) {
             double intersection = object.intersect(line);
             // new t is between the eye AND object?
             if (intersection > 0 && intersection < t) {
@@ -33,7 +33,6 @@ public class ColorUtil {
 
         // get color from intersected object
         if (intersectObject != null) {
-            intersectObject.setScene(scene);
             color = intersectObject.getColor(getPosition(line, t), depth);
         }
 

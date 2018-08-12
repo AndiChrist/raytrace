@@ -5,7 +5,9 @@ import de.avwc.gfx.Camera;
 import de.avwc.gfx.Renderable;
 import de.avwc.gfx.light.Light;
 import de.avwc.util.SceneDeserializer;
+import de.avwc.util.SceneJSONReader;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,51 +17,59 @@ import java.util.List;
 @JsonDeserialize(using = SceneDeserializer.class)
 public class RayScene {
 
-    private List<Renderable> objects = new ArrayList<>();
-    private List<Light> lights = new ArrayList<>();
-    private Camera camera;
-    private int width;
-    private int height;
+    private static List<Renderable> objects = new ArrayList<>();
+    private static List<Light> lights = new ArrayList<>();
+    private static Camera camera;
+    private static int width;
+    private static int height;
 
-    public List<Renderable> getObjects() {
+    static {
+        try {
+            SceneJSONReader.readSceneJSON();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static List<Renderable> getObjects() {
         return objects;
     }
 
-    public void setObjects(List<Renderable> objects) {
-        this.objects = objects;
+    public void addObject(Renderable renderable) {
+        objects.add(renderable);
     }
 
-    public List<Light> getLights() {
+    public static List<Light> getLights() {
         return lights;
     }
 
-    public void setLights(List<Light> lights) {
-        this.lights = lights;
+    public void addLight(Light light) {
+        lights.add(light);
     }
 
     public void setCamera(Camera camera) {
-        this.camera = camera;
-        this.camera.setDimension(width, height);
+        RayScene.camera = camera;
+        RayScene.camera.setDimension(width, height);
     }
 
-    public Camera getCamera() {
+    public static Camera getCamera() {
         return camera;
     }
 
-    public int getWidth() {
+    public static int getWidth() {
         return width;
     }
 
     public void setWidth(Integer width) {
-        this.width = width;
+        RayScene.width = width;
     }
 
-    public int getHeight() {
+    public static int getHeight() {
         return height;
     }
 
     public void setHeight(Integer height) {
-        this.height = height;
+        RayScene.height = height;
     }
 
     @Override
@@ -76,4 +86,5 @@ public class RayScene {
 
         return sb.toString();
     }
+
 }

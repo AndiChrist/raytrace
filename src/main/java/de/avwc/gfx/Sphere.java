@@ -1,6 +1,5 @@
 package de.avwc.gfx;
 
-import de.avwc.main.RayScene;
 import de.avwc.util.Vector3DUtil;
 import javafx.scene.paint.Color;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
@@ -92,11 +91,6 @@ public class Sphere implements Renderable {
     @Override
     public Vector3D getCenter() {
         return center;
-    }
-
-    @Override
-    public void setScene(RayScene scene) {
-        pigment.setScene(scene);
     }
 
     @Override
