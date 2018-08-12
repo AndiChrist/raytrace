@@ -9,10 +9,10 @@ import de.avwc.gfx.Camera;
 import de.avwc.gfx.Cube;
 import de.avwc.gfx.Sphere;
 import de.avwc.gfx.light.PointLight;
-import de.avwc.main.Scene;
+import de.avwc.main.RayScene;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
-import java.awt.*;
+import javafx.scene.paint.Color;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 /**
  * Created by andichrist on 07.05.17.
  */
-public class SceneDeserializer extends StdDeserializer<Scene> {
+public class SceneDeserializer extends StdDeserializer<RayScene> {
 
     // default (no arg) constructor
     public SceneDeserializer() {
@@ -33,9 +33,9 @@ public class SceneDeserializer extends StdDeserializer<Scene> {
     }
 
     @Override
-    public Scene deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
+    public RayScene deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
         JsonNode node = jp.getCodec().readTree(jp);
-        Scene scene = new Scene();
+        RayScene scene = new RayScene();
 
         Integer width = node.get("width").asInt();
         Integer height = node.get("height").asInt();
@@ -152,7 +152,7 @@ public class SceneDeserializer extends StdDeserializer<Scene> {
 
     private static Color getColor(ArrayNode arrayNode) {
         Vector3D colorVector = getVector(arrayNode);
-        return new Color ((int)colorVector.getX(), (int)colorVector.getY(), (int)colorVector.getZ());
+        return Color.rgb((int)colorVector.getX(), (int)colorVector.getY(), (int)colorVector.getZ());
     }
 
 }

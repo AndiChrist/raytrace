@@ -1,16 +1,16 @@
 package de.avwc.util;
 
 import de.avwc.gfx.Renderable;
-import de.avwc.main.Scene;
+import de.avwc.main.RayScene;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
-import java.awt.*;
+import javafx.scene.paint.Color;
 
 public class ColorUtil {
     private static final int MAX_RECURSION_DEPTH = 3;
 
-    public static Color castPrimary(Scene scene, Line line, int depth) {
+    public static Color castPrimary(RayScene scene, Line line, int depth) {
         Color color = Color.BLACK;
 
         if (depth > MAX_RECURSION_DEPTH) {

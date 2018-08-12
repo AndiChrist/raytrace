@@ -1,16 +1,15 @@
 package de.avwc.util;
 
 import de.avwc.gfx.Renderable;
-import de.avwc.main.Scene;
+import de.avwc.main.RayScene;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 /**
  * Created by andichrist on 23.04.17.
  */
 public class RayUtil {
 
-    public static boolean castShadow(Scene scene, Line line) {
+    public static boolean castShadow(RayScene scene, Line line) {
         double t = Double.MAX_VALUE;
 
         // find intersection with objects

@@ -1,11 +1,11 @@
 package de.avwc.gfx;
 
-import de.avwc.main.Scene;
+import de.avwc.main.RayScene;
 import de.avwc.util.Vector3DUtil;
+import javafx.scene.paint.Color;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -26,7 +26,6 @@ public class Sphere implements Renderable {
     private String name;
 
     private Pigment pigment; // green
-    private Scene scene;
 
     public Sphere() {
     }
@@ -87,7 +86,6 @@ public class Sphere implements Renderable {
 
     @Override
     public Color getColor(Vector3D position, int depth) {
-        pigment.setScene(scene);
         return pigment.getColor(position, depth);
     }
 
@@ -97,10 +95,11 @@ public class Sphere implements Renderable {
     }
 
     @Override
-    public void setScene(Scene scene) {
-        this.scene = scene;
+    public void setScene(RayScene scene) {
+        pigment.setScene(scene);
     }
 
+    @Override
     public String getName() {
         return name;
     }

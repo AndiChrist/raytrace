@@ -1,7 +1,7 @@
 package de.avwc.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.avwc.main.Scene;
+import de.avwc.main.RayScene;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,12 +14,12 @@ public class SceneJSONReader {
 
     private static final String JSON_FILE = "scene.json";
 
-    public static Scene readSceneJSON() throws IOException {
+    public static RayScene readSceneJSON() throws IOException {
         InputStream fis = new FileInputStream(JSON_FILE);
 
         //create JsonReader object
         ObjectMapper objectMapper = new ObjectMapper();
-        Scene scene = objectMapper.readValue(fis, Scene.class);
+        RayScene scene = objectMapper.readValue(fis, RayScene.class);
 
         // close file after reading
         fis.close();
