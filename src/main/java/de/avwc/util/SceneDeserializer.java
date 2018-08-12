@@ -51,13 +51,13 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
             for (JsonNode object3D : objects) {
                 if (object3D.get("spheres") != null) {
                     for (JsonNode sphere : object3D.get("spheres")) {
-                        scene.getObjects().add(readSphere(sphere));
+                        scene.addObject(readSphere(sphere));
                     }
                 }
 
                 if (object3D.get("cubes") != null) {
                     for (JsonNode cube : object3D.get("cubes")) {
-                        scene.getObjects().add(readCube(cube));
+                        scene.addObject(readCube(cube));
                     }
                 }
             }
@@ -66,7 +66,7 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
         if (lights != null) {
             for (JsonNode light : lights) {
                 for (JsonNode pointlight : light.get("pointlights")) {
-                    scene.getLights().add(readPointLight(pointlight));
+                    scene.addLight(readPointLight(pointlight));
                 }
             }
         }

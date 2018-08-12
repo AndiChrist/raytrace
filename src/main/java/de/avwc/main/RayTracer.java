@@ -16,18 +16,18 @@ import java.util.function.Consumer;
  */
 public class RayTracer {
 
-    public static void trace(RayScene scene, Consumer<Pixel> pixelPainter) {
-        Camera camera = scene.getCamera();
+    public static void trace(Consumer<Pixel> pixelPainter) {
+        Camera camera = RayScene.getCamera();
 
         // u = l + (r − l)(i + 0.5)/nx
         // v = b + (t − b)(j + 0.5)/ny
         // l = left, r = right, b = bottom, t = top
-        for (int i = 0; i < scene.getWidth(); i++) {
-            for (int j = 0; j < scene.getHeight(); j++) {
+        for (int i = 0; i < RayScene.getWidth(); i++) {
+            for (int j = 0; j < RayScene.getHeight(); j++) {
                 // from left to right
-                double u = camera.getLeft() + (camera.getRight() - camera.getLeft()) * (i + 0.5) / scene.getWidth();
+                double u = camera.getLeft() + (camera.getRight() - camera.getLeft()) * (i + 0.5) / RayScene.getWidth();
                 // from top to bottom
-                double v = camera.getTop() + (camera.getBottom() - camera.getTop()) * (j + 0.5) / scene.getHeight();
+                double v = camera.getTop() + (camera.getBottom() - camera.getTop()) * (j + 0.5) / RayScene.getHeight();
 
                 // direction from camera to current pixel
                 Vector3D s = new Vector3D(0,0,0)
@@ -37,7 +37,7 @@ public class RayTracer {
 
                 Line line = new Line(camera.getPosition(), camera.getPosition().add(s), Main.EPSILON);
 
-                Color color = ColorUtil.castPrimary(scene, line, 0);
+                Color color = ColorUtil.castPrimary(line, 0);
                 //System.out.println("i = " + i + " j = " + j + " color = " + color.toString());
                 colorPixel(pixelPainter, i, j, color);
             }

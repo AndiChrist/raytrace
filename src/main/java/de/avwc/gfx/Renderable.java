@@ -1,11 +1,9 @@
 package de.avwc.gfx;
 
-import de.avwc.main.RayScene;
 import de.avwc.util.Debuggable;
+import javafx.scene.paint.Color;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
-
-import javafx.scene.paint.Color;
 
 /**
  * Created by andichrist on 23.04.17.
@@ -18,8 +16,6 @@ public interface Renderable extends Debuggable {
     Color getColor(Vector3D position, int depth);
 
     Vector3D getCenter();
-
-    void setScene(RayScene scene);
 
     String getName();
 }

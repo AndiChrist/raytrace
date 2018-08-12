@@ -3,7 +3,6 @@ package de.avwc;
 import de.avwc.gfx.Pixel;
 import de.avwc.main.RayScene;
 import de.avwc.main.RayTracer;
-import de.avwc.util.SceneJSONReader;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
@@ -27,22 +26,9 @@ public final class Main extends Application {
 
     private PixelWriter pixelWriter;
     private Scene scene;
-    private static RayScene rayScene;
-    private static int width;
-    private static int height;
-
-    static {
-        try {
-            rayScene = SceneJSONReader.readSceneJSON();
-            width = rayScene.getWidth();
-            height = rayScene.getHeight();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public Main() {
-        WritableImage image = new WritableImage(width, height);
+        WritableImage image = new WritableImage(RayScene.getWidth(), RayScene.getHeight());
         pixelWriter = image.getPixelWriter();
 
         ImageView imageView = new ImageView();
@@ -51,7 +37,7 @@ public final class Main extends Application {
         StackPane root = new StackPane();
         root.getChildren().add(imageView);
 
-        scene = new Scene(root, width, height);
+        scene = new Scene(root, RayScene.getWidth(), RayScene.getHeight());
     }
 
     public static void main(String[] args) {
@@ -99,7 +85,7 @@ public final class Main extends Application {
     private void paintRayTraceSet() {
         Consumer<Pixel> pixelPainter = (pixel) -> pixelWriter.setColor(pixel.getX(),pixel.getY(),pixel.getColor());
 
-        RayTracer.trace(rayScene, pixelPainter);
+        RayTracer.trace(pixelPainter);
     }
 
 }
