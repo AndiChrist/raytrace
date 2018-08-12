@@ -2,14 +2,14 @@ package de.avwc.gfx;
 
 import de.avwc.gfx.light.Light;
 import de.avwc.Main;
-import de.avwc.main.Scene;
+import de.avwc.main.RayScene;
 import de.avwc.util.ColorUtil;
 import de.avwc.util.RayUtil;
 import de.avwc.util.Vector3DUtil;
 import org.hipparchus.geometry.euclidean.threed.Line;
 import org.hipparchus.geometry.euclidean.threed.Vector3D;
 
-import java.awt.*;
+import javafx.scene.paint.Color;
 
 /**
  * Created by andichrist on 23.04.17.
@@ -19,12 +19,12 @@ public class Pigment {
     private Renderable renderable;
     private Color ambient;
 
-    private static final Color DIFFUSE = Color.LIGHT_GRAY;
-    private static final Color SPECULAR = Color.DARK_GRAY;
+    private static final Color DIFFUSE = Color.LIGHTGRAY;
+    private static final Color SPECULAR = Color.DARKGRAY;
 
     private static final double PHONG_EXPONENT = 5;
     private static final double REFLECTION_INDEX = 0.5;
-    private Scene scene;
+    private RayScene scene;
 
     Pigment(Color ambient) {
         this.ambient = ambient;
@@ -35,11 +35,11 @@ public class Pigment {
         this.renderable = renderable;
     }
 
-    public Scene getScene() {
+    public RayScene getScene() {
         return scene;
     }
 
-    public void setScene(Scene scene) {
+    public void setScene(RayScene scene) {
         this.scene = scene;
     }
 
@@ -82,11 +82,13 @@ public class Pigment {
         }
 
         sum = sum.add(getReflection(position, depth));
-
+        System.out.println("sum = " + sum);
         sum = new Vector3D(Math.min(255, sum.getX()), Math.min(255, sum.getY()), Math.min(255, sum.getZ()));
-        sum = new Vector3D(Math.max(0, sum.getX()), Math.max(0, sum.getY()), Math.max(0, sum.getZ()));
+        System.out.println("sum = " + sum);
 
-        return new Color((int)Math.round(sum.getX()), (int)Math.round(sum.getY()), (int)Math.round(sum.getZ()));
+        sum = new Vector3D(Math.max(0, sum.getX()), Math.max(0, sum.getY()), Math.max(0, sum.getZ()));
+        System.out.println("sum = " + sum);
+        return Color.color(Math.round(sum.getX()), Math.round(sum.getY()), Math.round(sum.getZ()));
     }
 
     // error?

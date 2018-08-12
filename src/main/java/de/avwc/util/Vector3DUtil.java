@@ -2,7 +2,7 @@ package de.avwc.util;
 
 import org.hipparchus.geometry.euclidean.threed.Vector3D;
 
-import java.awt.*;
+import javafx.scene.paint.Color;
 import java.util.Set;
 import java.util.TreeSet;
 

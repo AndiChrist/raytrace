@@ -13,7 +13,7 @@ import java.util.List;
  * Created by andichrist on 07.05.17.
  */
 @JsonDeserialize(using = SceneDeserializer.class)
-public class Scene {
+public class RayScene {
 
     private List<Renderable> objects = new ArrayList<>();
     private List<Light> lights = new ArrayList<>();

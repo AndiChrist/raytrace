@@ -7,13 +7,14 @@ import java.awt.image.BufferedImage;
 /**
  * Created by andichrist on 14.05.17.
  */
+@Deprecated
 public class Display extends JPanel {
 
     private BufferedImage canvas;
     private int width;
     private int height;
 
-    public Display(Scene scene) {
+    public Display(RayScene scene) {
         this.width = scene.getWidth();
         this.height = scene.getHeight();
 

@@ -2,12 +2,13 @@ package de.avwc.gfx;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import de.avwc.main.Scene;
+import de.avwc.main.RayScene;
+import de.avwc.util.Debuggable;
 import de.avwc.util.Vector3DUtil;
 import org.hipparchus.geometry.euclidean.threed.Line;
 import org.hipparchus.geometry.euclidean.threed.Vector3D;
 
-import java.awt.*;
+import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class Cube implements Renderable {
     private String name;
 
     private Pigment pigment = new Pigment(Color.YELLOW, this); // orange
-    private Scene scene;
+    private RayScene scene;
 
     List<Double> color = new ArrayList<>();
 
@@ -113,7 +114,7 @@ public class Cube implements Renderable {
     }
 
     @Override
-    public void setScene(Scene scene) {
+    public void setScene(RayScene scene) {
         this.scene = scene;
     }
 
@@ -121,7 +122,7 @@ public class Cube implements Renderable {
         return max.subtract(min);
     }
 
-
+    @Override
     public String getName() {
         return name;
     }
@@ -176,7 +177,7 @@ public class Cube implements Renderable {
     @JsonSetter("color")
     @JsonIgnore
     public void setPigment(List<Integer> colors) {
-        Color color = new Color (colors.get(0), colors.get(1), colors.get(2));
+        Color color = Color.rgb(colors.get(0), colors.get(1), colors.get(2));
         this.pigment = new Pigment(color, this);
     }
 
