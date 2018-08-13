@@ -31,11 +31,24 @@ public class RayScene {
         }
     }
 
+    private static RayScene rayScene;
+
+    private RayScene() {
+    }
+
+    public static RayScene getInstance() {
+        if (rayScene == null) {
+            rayScene = new RayScene();
+        }
+
+        return rayScene;
+    }
+
     public static List<Renderable> getObjects() {
         return objects;
     }
 
-    public void addObject(Renderable renderable) {
+    public static void addObject(Renderable renderable) {
         objects.add(renderable);
     }
 
@@ -43,11 +56,11 @@ public class RayScene {
         return lights;
     }
 
-    public void addLight(Light light) {
+    public static void addLight(Light light) {
         lights.add(light);
     }
 
-    public void setCamera(Camera camera) {
+    public static void setCamera(Camera camera) {
         RayScene.camera = camera;
         RayScene.camera.setDimension(width, height);
     }
@@ -60,7 +73,7 @@ public class RayScene {
         return width;
     }
 
-    public void setWidth(Integer width) {
+    public static void setWidth(Integer width) {
         RayScene.width = width;
     }
 
@@ -68,7 +81,7 @@ public class RayScene {
         return height;
     }
 
-    public void setHeight(Integer height) {
+    public static void setHeight(Integer height) {
         RayScene.height = height;
     }
 

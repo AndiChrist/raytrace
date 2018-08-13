@@ -12,4 +12,7 @@ module de.avwc {
     requires hipparchus.geometry;
     requires jackson.annotations;
     requires com.fasterxml.jackson.core;
+    requires slf4j.api;
+    requires slf4j.simple;
+
 }
