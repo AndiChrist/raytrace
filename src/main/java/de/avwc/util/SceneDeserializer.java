@@ -10,9 +10,11 @@ import de.avwc.gfx.Cube;
 import de.avwc.gfx.Sphere;
 import de.avwc.gfx.light.PointLight;
 import de.avwc.main.RayScene;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
-
 import javafx.scene.paint.Color;
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,8 @@ import java.util.stream.Stream;
  * Created by andichrist on 07.05.17.
  */
 public class SceneDeserializer extends StdDeserializer<RayScene> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(SceneDeserializer.class);
 
     // default (no arg) constructor
     public SceneDeserializer() {
@@ -35,13 +39,12 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
     @Override
     public RayScene deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
         JsonNode node = jp.getCodec().readTree(jp);
-        RayScene scene = new RayScene();
 
         Integer width = node.get("width").asInt();
         Integer height = node.get("height").asInt();
 
-        scene.setWidth(width);
-        scene.setHeight(height);
+        RayScene.setWidth(width);
+        RayScene.setHeight(height);
 
         JsonNode objects = node.get("objects");
         JsonNode lights = node.get("lights");
@@ -51,13 +54,13 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
             for (JsonNode object3D : objects) {
                 if (object3D.get("spheres") != null) {
                     for (JsonNode sphere : object3D.get("spheres")) {
-                        scene.addObject(readSphere(sphere));
+                        RayScene.addObject(readSphere(sphere));
                     }
                 }
 
                 if (object3D.get("cubes") != null) {
                     for (JsonNode cube : object3D.get("cubes")) {
-                        scene.addObject(readCube(cube));
+                        RayScene.addObject(readCube(cube));
                     }
                 }
             }
@@ -66,17 +69,18 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
         if (lights != null) {
             for (JsonNode light : lights) {
                 for (JsonNode pointlight : light.get("pointlights")) {
-                    scene.addLight(readPointLight(pointlight));
+                    RayScene.addLight(readPointLight(pointlight));
                 }
             }
         }
 
         JsonNode cameraNode = node.get("camera");
         Camera camera = readCamera(cameraNode);
-        scene.setCamera(camera);
+        RayScene.setCamera(camera);
 
-        System.out.println(scene);
-        return scene;
+        RayScene rayScene = RayScene.getInstance();
+        LOGGER.info(rayScene.toString());
+        return rayScene;
     }
 
     private static PointLight readPointLight(JsonNode pointLight) {
