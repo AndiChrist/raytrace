@@ -17,7 +17,7 @@ import javafx.scene.paint.Color;
 public class Pigment {
 
     private Renderable renderable;
-    private Color ambient;
+    private Color color;
 
     private static final Color DIFFUSE = Color.LIGHTGRAY;
     private static final Color SPECULAR = Color.DARKGRAY;
@@ -25,12 +25,12 @@ public class Pigment {
     private static final double PHONG_EXPONENT = 5;
     private static final double REFLECTION_INDEX = 0.5;
 
-    Pigment(Color ambient) {
-        this.ambient = ambient;
+    Pigment(Color color) {
+        this.color = color;
     }
 
-    Pigment(Color ambient, Renderable renderable) {
-        this(ambient);
+    Pigment(Color color, Renderable renderable) {
+        this(color);
         this.renderable = renderable;
     }
 
@@ -51,7 +51,7 @@ public class Pigment {
             Line shadow = new Line(newPosition, newPosition.add(positionToLight), Main.EPSILON);
 
             Vector3D retValue = Vector3D.ZERO;
-            retValue = retValue.add(Vector3DUtil.multiply(ambient, light.getIntensity(position)));
+            retValue = retValue.add(Vector3DUtil.multiply(color, light.getIntensity(position)));
 
             boolean shadowed = RayUtil.castShadow(shadow);
             if (!shadowed) {
@@ -105,7 +105,7 @@ public class Pigment {
 
     @Override
     public String toString() {
-        return "ambient: " + ambient;
+        return color.toString();
     }
 
 }
