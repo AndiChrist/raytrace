@@ -119,17 +119,18 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
     }
 
     private static Vector3D getVector(JsonNode jsonNode) {
-        int x = 0;
-        int y = 0;
-        int z = 0;
+
+        Vector3D result = null;
 
         if (jsonNode.isArray() && jsonNode.size() == 3) {
-            x = jsonNode.get(X).intValue();
-            y = jsonNode.get(Y).intValue();
-            z = jsonNode.get(Z).intValue();
+            int x = jsonNode.get(X).intValue();
+            int y = jsonNode.get(Y).intValue();
+            int z = jsonNode.get(Z).intValue();
+
+            result = new Vector3D(x, y, z);
         }
 
-        return new Vector3D(x, y, z);
+        return result;
     }
 
     private static Color getColor(JsonNode jsonNode) {
