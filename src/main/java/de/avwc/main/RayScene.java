@@ -17,11 +17,11 @@ import java.util.List;
 @JsonDeserialize(using = SceneDeserializer.class)
 public class RayScene {
 
-    private static List<Renderable> objects = new ArrayList<>();
-    private static List<Light> lights = new ArrayList<>();
-    private static Camera camera;
-    private static int width;
-    private static int height;
+    private List<Renderable> objects = new ArrayList<>();
+    private List<Light> lights = new ArrayList<>();
+    private Camera camera;
+    private int width;
+    private int height;
 
     static {
         try {
@@ -44,45 +44,45 @@ public class RayScene {
         return rayScene;
     }
 
-    public static List<Renderable> getObjects() {
+    public List<Renderable> getObjects() {
         return objects;
     }
 
-    public static void addObject(Renderable renderable) {
+    public void addObject(Renderable renderable) {
         objects.add(renderable);
     }
 
-    public static List<Light> getLights() {
+    public List<Light> getLights() {
         return lights;
     }
 
-    public static void addLight(Light light) {
+    public void addLight(Light light) {
         lights.add(light);
     }
 
-    public static void setCamera(Camera camera) {
-        RayScene.camera = camera;
-        RayScene.camera.setDimension(width, height);
+    public void setCamera(Camera camera) {
+        RayScene.getInstance().camera = camera;
+        RayScene.getInstance().camera.setDimension(width, height);
     }
 
-    public static Camera getCamera() {
+    public Camera getCamera() {
         return camera;
     }
 
-    public static int getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public static void setWidth(Integer width) {
-        RayScene.width = width;
+    public void setWidth(Integer width) {
+        RayScene.getInstance().width = width;
     }
 
-    public static int getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public static void setHeight(Integer height) {
-        RayScene.height = height;
+    public void setHeight(Integer height) {
+        RayScene.getInstance().height = height;
     }
 
     @Override

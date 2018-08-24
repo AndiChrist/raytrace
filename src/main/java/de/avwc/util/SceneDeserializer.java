@@ -34,13 +34,14 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
 
     @Override
     public RayScene deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
+        RayScene rayScene = RayScene.getInstance();
         JsonNode node = jp.getCodec().readTree(jp);
 
         Integer width = node.get("width").asInt();
         Integer height = node.get("height").asInt();
 
-        RayScene.setWidth(width);
-        RayScene.setHeight(height);
+        rayScene.setWidth(width);
+        rayScene.setHeight(height);
 
         JsonNode objects = node.get("objects");
         JsonNode lights = node.get("lights");
@@ -50,13 +51,13 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
             for (JsonNode object3D : objects) {
                 if (object3D.get("spheres") != null) {
                     for (JsonNode sphere : object3D.get("spheres")) {
-                        RayScene.addObject(readSphere(sphere));
+                        rayScene.addObject(readSphere(sphere));
                     }
                 }
 
                 if (object3D.get("cubes") != null) {
                     for (JsonNode cube : object3D.get("cubes")) {
-                        RayScene.addObject(readCube(cube));
+                        rayScene.addObject(readCube(cube));
                     }
                 }
             }
@@ -65,16 +66,15 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
         if (lights != null) {
             for (JsonNode light : lights) {
                 for (JsonNode pointlight : light.get("pointlights")) {
-                    RayScene.addLight(readPointLight(pointlight));
+                    rayScene.addLight(readPointLight(pointlight));
                 }
             }
         }
 
         JsonNode cameraNode = node.get("camera");
         Camera camera = readCamera(cameraNode);
-        RayScene.setCamera(camera);
+        rayScene.setCamera(camera);
 
-        RayScene rayScene = RayScene.getInstance();
         LOGGER.info(rayScene.toString());
 
         return rayScene;

@@ -13,7 +13,7 @@ public class RayUtil {
         double t = Double.MAX_VALUE;
 
         // find intersection with objects
-        for (Renderable object : RayScene.getObjects()) {
+        for (Renderable object : RayScene.getInstance().getObjects()) {
             double intersection = object.intersect(line);
             // new t is between the eye AND object?
             if (intersection > 0 && intersection < t) {

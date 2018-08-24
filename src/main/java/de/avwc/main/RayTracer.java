@@ -17,17 +17,17 @@ import java.util.function.Consumer;
 public class RayTracer {
 
     public static void trace(Consumer<Pixel> pixelPainter) {
-        Camera camera = RayScene.getCamera();
+        Camera camera = RayScene.getInstance().getCamera();
 
         // u = l + (r − l)(i + 0.5)/nx
         // v = b + (t − b)(j + 0.5)/ny
         // l = left, r = right, b = bottom, t = top
-        for (int i = 0; i < RayScene.getWidth(); i++) {
-            for (int j = 0; j < RayScene.getHeight(); j++) {
+        for (int i = 0; i < RayScene.getInstance().getWidth(); i++) {
+            for (int j = 0; j < RayScene.getInstance().getHeight(); j++) {
                 // from left to right
-                double u = camera.getLeft() + (camera.getRight() - camera.getLeft()) * (i + 0.5) / RayScene.getWidth();
+                double u = camera.getLeft() + (camera.getRight() - camera.getLeft()) * (i + 0.5) / RayScene.getInstance().getWidth();
                 // from top to bottom
-                double v = camera.getTop() + (camera.getBottom() - camera.getTop()) * (j + 0.5) / RayScene.getHeight();
+                double v = camera.getTop() + (camera.getBottom() - camera.getTop()) * (j + 0.5) / RayScene.getInstance().getHeight();
 
                 // direction from camera to current pixel
                 Vector3D s = new Vector3D(0,0,0)
