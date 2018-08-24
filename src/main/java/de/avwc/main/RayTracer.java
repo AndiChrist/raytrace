@@ -17,20 +17,21 @@ import java.util.function.Consumer;
 public class RayTracer {
 
     public static void trace(Consumer<Pixel> pixelPainter) {
-        Camera camera = RayScene.getInstance().getCamera();
+        RayScene rayScene = RayScene.getInstance();
+        Camera camera = rayScene.getCamera();
 
         // u = l + (r − l)(i + 0.5)/nx
         // v = b + (t − b)(j + 0.5)/ny
         // l = left, r = right, b = bottom, t = top
-        for (int i = 0; i < RayScene.getInstance().getWidth(); i++) {
-            for (int j = 0; j < RayScene.getInstance().getHeight(); j++) {
+        for (int i = 0; i < rayScene.getWidth(); i++) {
+            for (int j = 0; j < rayScene.getHeight(); j++) {
                 // from left to right
-                double u = camera.getLeft() + (camera.getRight() - camera.getLeft()) * (i + 0.5) / RayScene.getInstance().getWidth();
+                double u = camera.getLeft() + (camera.getRight() - camera.getLeft()) * (i + 0.5) / rayScene.getWidth();
                 // from top to bottom
-                double v = camera.getTop() + (camera.getBottom() - camera.getTop()) * (j + 0.5) / RayScene.getInstance().getHeight();
+                double v = camera.getTop() + (camera.getBottom() - camera.getTop()) * (j + 0.5) / rayScene.getHeight();
 
                 // direction from camera to current pixel
-                Vector3D s = new Vector3D(0,0,0)
+                Vector3D s = Vector3D.ZERO
                         .add(camera.getU().scalarMultiply(u))
                         .add(camera.getV().scalarMultiply(v))
                         .add(camera.getW_d_negated());
