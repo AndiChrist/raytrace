@@ -128,7 +128,6 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
     }
 
     private static Color getColor(JsonNode jsonNode) {
-        System.out.println("jsonNode = " + jsonNode);
         return Color.rgb(jsonNode.get(0).intValue(), jsonNode.get(1).intValue(), jsonNode.get(2).intValue());
     }
 

@@ -46,26 +46,6 @@ public final class Main extends Application {
         new Main().launch();
     }
 
-/*
-    public static void main(String[] args) {
-        RayScene rayScene = null;
-        try {
-            rayScene = SceneJSONReader.readSceneJSON();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Display display = new Display(rayScene);
-
-        RayTracer.trace(rayScene, display);
-
-        BufferedImage image = display.getCanvas();
-
-        saveImage(image);
-
-        display.openJFrame();
-    }
-*/
     private static void saveImage(BufferedImage image) {
         File outputFile = new File("Image.png");
 
