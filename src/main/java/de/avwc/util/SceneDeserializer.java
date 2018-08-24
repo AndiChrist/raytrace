@@ -23,6 +23,11 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SceneDeserializer.class);
 
+    public final static int X = 0;
+    public final static int Y = 1;
+    public final static int Z = 2;
+
+
     // default (no arg) constructor
     public SceneDeserializer() {
         this(null);
@@ -119,16 +124,16 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
         int z = 0;
 
         if (jsonNode.isArray() && jsonNode.size() == 3) {
-            x = jsonNode.get(0).intValue();
-            y = jsonNode.get(1).intValue();
-            z = jsonNode.get(2).intValue();
+            x = jsonNode.get(X).intValue();
+            y = jsonNode.get(Y).intValue();
+            z = jsonNode.get(Z).intValue();
         }
 
         return new Vector3D(x, y, z);
     }
 
     private static Color getColor(JsonNode jsonNode) {
-        return Color.rgb(jsonNode.get(0).intValue(), jsonNode.get(1).intValue(), jsonNode.get(2).intValue());
+        return Color.rgb(jsonNode.get(X).intValue(), jsonNode.get(Y).intValue(), jsonNode.get(Z).intValue());
     }
 
 }
