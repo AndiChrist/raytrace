@@ -28,7 +28,9 @@ public final class Main extends Application {
     private Scene scene;
 
     public Main() {
-        WritableImage image = new WritableImage(RayScene.getWidth(), RayScene.getHeight());
+        RayScene rayScene = RayScene.getInstance();
+
+        WritableImage image = new WritableImage(rayScene.getWidth(), rayScene.getHeight());
         pixelWriter = image.getPixelWriter();
 
         ImageView imageView = new ImageView();
@@ -37,7 +39,7 @@ public final class Main extends Application {
         StackPane root = new StackPane();
         root.getChildren().add(imageView);
 
-        scene = new Scene(root, RayScene.getWidth(), RayScene.getHeight());
+        scene = new Scene(root, rayScene.getWidth(), rayScene.getHeight());
     }
 
     public static void main(String[] args) {
