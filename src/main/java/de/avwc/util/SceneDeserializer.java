@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import de.avwc.gfx.Camera;
 import de.avwc.gfx.Cube;
 import de.avwc.gfx.Sphere;
@@ -16,9 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * Created by andichrist on 07.05.17.
@@ -80,83 +76,60 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
 
         RayScene rayScene = RayScene.getInstance();
         LOGGER.info(rayScene.toString());
+
         return rayScene;
     }
 
     private static PointLight readPointLight(JsonNode pointLight) {
-        ArrayNode positionNode = (ArrayNode) pointLight.get("position");
-        Vector3D position = getVector(positionNode);
-
-        ArrayNode intensityNode = (ArrayNode) pointLight.get("intensity");
-        Vector3D intensity = getVector(intensityNode);
+        Vector3D position = getVector(pointLight.get("position"));
+        Vector3D intensity = getVector(pointLight.get("intensity"));
 
         return new PointLight(position, intensity);
     }
 
     private static Cube readCube(JsonNode cube) {
-        Cube object;
-
+        Vector3D min = getVector(cube.get("min"));
+        Vector3D max = getVector(cube.get("max"));
+        Vector3D rotate = getVector(cube.get("rotate"));
         String name = cube.get("name").asText();
+        Color color = getColor(cube.get("color"));
 
-        ArrayNode minNode = (ArrayNode) cube.get("min");
-        Vector3D min = getVector(minNode);
-
-        ArrayNode maxNode = (ArrayNode) cube.get("max");
-        Vector3D max = getVector(maxNode);
-
-        ArrayNode rotateNode = (ArrayNode) cube.get("rotate");
-        Vector3D rotate = getVector(rotateNode);
-
-        ArrayNode pigmentNode = (ArrayNode) cube.get("color");
-        Color color = getColor(pigmentNode);
-        object = new Cube(min, max, rotate, name, color);
-
-        return object;
+        return new Cube(min, max, rotate, name, color);
     }
 
     private static Sphere readSphere(JsonNode sphere) {
-        Sphere object;
-
-        ArrayNode positionNode = (ArrayNode) sphere.get("position");
-        Vector3D center = getVector(positionNode);
+        Vector3D center = getVector(sphere.get("position"));
         String name = sphere.get("name").asText();
-
         Integer radius = sphere.get("radius").asInt();
+        Color color = getColor(sphere.get("color"));
 
-        ArrayNode pigmentNode = (ArrayNode) sphere.get("color");
-        Color color = getColor(pigmentNode);
-        object = new Sphere(center, radius, name, color);
-
-        return object;
+        return new Sphere(center, radius, name, color);
     }
 
     private static Camera readCamera(JsonNode camera) {
-        ArrayNode positionNode = (ArrayNode) camera.get("position");
-        ArrayNode directionNode = (ArrayNode) camera.get("direction");
-
-        Vector3D center = getVector(positionNode);
-        Vector3D direction = getVector(directionNode);
+        Vector3D center = getVector(camera.get("position"));
+        Vector3D direction = getVector(camera.get("direction"));
 
         return new Camera(center, direction);
     }
 
-    private static Vector3D getVector(ArrayNode arrayNode) {
-        List<Double> list = new ArrayList<>();
-        if (arrayNode.isArray() && arrayNode.size() == 3) {
-            for (final JsonNode node : arrayNode) {
-                list.add(node.asDouble());
-            }
+    private static Vector3D getVector(JsonNode jsonNode) {
+        int x = 0;
+        int y = 0;
+        int z = 0;
+
+        if (jsonNode.isArray() && jsonNode.size() == 3) {
+            x = jsonNode.get(0).intValue();
+            y = jsonNode.get(1).intValue();
+            z = jsonNode.get(2).intValue();
         }
 
-        Double[] array = list.toArray(new Double[0]);
-        double[] result = Stream.of(array).mapToDouble(Double::doubleValue).toArray();
-
-        return new Vector3D(result);
+        return new Vector3D(x, y, z);
     }
 
-    private static Color getColor(ArrayNode arrayNode) {
-        Vector3D colorVector = getVector(arrayNode);
-        return Color.rgb((int)colorVector.getX(), (int)colorVector.getY(), (int)colorVector.getZ());
+    private static Color getColor(JsonNode jsonNode) {
+        System.out.println("jsonNode = " + jsonNode);
+        return Color.rgb(jsonNode.get(0).intValue(), jsonNode.get(1).intValue(), jsonNode.get(2).intValue());
     }
 
 }
