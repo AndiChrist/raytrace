@@ -5,9 +5,7 @@ import javafx.scene.paint.Color;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import static java.lang.Math.max;
@@ -20,11 +18,9 @@ public class Sphere implements Renderable {
 
     private Vector3D center;
     private double radius;
-    List<Double> position = new ArrayList<>();
-    List<Double> color = new ArrayList<>();
     private String name;
 
-    private Pigment pigment; // green
+    private Pigment pigment;
 
     public Sphere() {
     }
@@ -100,30 +96,5 @@ public class Sphere implements Renderable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-
-    public List<Double> getColor() {
-        return color;
-    }
-
-    public void setColor(List<Double> color) {
-        this.color = color;
-    }
-
-    public double getRadius() {
-        return radius;
-    }
-
-    public void setRadius(double radius) {
-        this.radius = radius;
-    }
-
-    public List<Double> getPosition() {
-        return position;
-    }
-
-    public void setPosition(List<Double> position) {
-        this.position = position;
     }
 }
