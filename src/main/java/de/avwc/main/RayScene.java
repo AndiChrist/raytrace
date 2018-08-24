@@ -31,17 +31,22 @@ public class RayScene {
         }
     }
 
-    private static RayScene rayScene;
+    private static volatile RayScene instance = null;
 
     private RayScene() {
     }
 
     public static RayScene getInstance() {
-        if (rayScene == null) {
-            rayScene = new RayScene();
+
+        if (instance == null) {
+            synchronized(RayScene.class) {
+                if (instance == null) {
+                    instance = new RayScene();
+                }
+            }
         }
 
-        return rayScene;
+        return instance;
     }
 
     public List<Renderable> getObjects() {
@@ -61,8 +66,8 @@ public class RayScene {
     }
 
     public void setCamera(Camera camera) {
-        RayScene.getInstance().camera = camera;
-        RayScene.getInstance().camera.setDimension(width, height);
+        instance.camera = camera;
+        instance.camera.setDimension(width, height);
     }
 
     public Camera getCamera() {
@@ -74,7 +79,7 @@ public class RayScene {
     }
 
     public void setWidth(Integer width) {
-        RayScene.getInstance().width = width;
+        instance.width = width;
     }
 
     public int getHeight() {
@@ -82,7 +87,7 @@ public class RayScene {
     }
 
     public void setHeight(Integer height) {
-        RayScene.getInstance().height = height;
+        instance.height = height;
     }
 
     @Override
