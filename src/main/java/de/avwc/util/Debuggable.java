@@ -7,7 +7,9 @@ import java.lang.reflect.Field;
  */
 public interface Debuggable {
     default String debug() {
-        StringBuilder sb = new StringBuilder(getClass().getName());
+        StringBuilder sb = new StringBuilder();
+        sb.append(System.lineSeparator());
+        sb.append(getClass().getName());
         sb.append(" [ ");
         Field[] fields = getClass().getDeclaredFields();
         int count = 0;
@@ -22,7 +24,6 @@ public interface Debuggable {
             }
         }
         sb.append(" ]");
-        sb.append(System.lineSeparator());
         return sb.toString();
     }
 }
