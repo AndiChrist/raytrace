@@ -27,9 +27,9 @@ public class Vector3DUtil {
         return new Vector3D(x, y, z);
     }
 
-    public static Vector3D move(Vector3D vector, Vector3D positionToLight, double epsilon) {
-        // v = v + p⊗
-        return vector.add(positionToLight.scalarMultiply(epsilon));
+    public static Vector3D move(Vector3D vector, Vector3D positionToLight, double ε) {
+        // v = v + p⊗ε
+        return vector.add(positionToLight.scalarMultiply(ε));
     }
 
     // ƒ(x) = ax² + bx + c
@@ -65,7 +65,7 @@ public class Vector3DUtil {
         double t0 = q / a;
         double t1 = c / q;
 
-        if (t0 == t1) {
+        if (Double.compare(t0, t1) == 0) {
             solutions.add(t0);
         } else {
             solutions.add(t0);
@@ -73,6 +73,11 @@ public class Vector3DUtil {
         }
 
         return solutions;
+    }
+
+    public static Set<Double> quadraticFormula(double[] coefficients) {
+        // coefficients in reverse order: c + bx + ax²
+        return quadraticFormula(coefficients[2], coefficients[1], coefficients[0]);
     }
 
     private static Set<Double> solveLinear(double b, double c) {
