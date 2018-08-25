@@ -23,14 +23,6 @@ public class RayScene {
     private int width;
     private int height;
 
-    static {
-        try {
-            SceneJSONReader.readSceneJSON();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     private static volatile RayScene instance = null;
 
     private RayScene() {
@@ -42,6 +34,11 @@ public class RayScene {
             synchronized(RayScene.class) {
                 if (instance == null) {
                     instance = new RayScene();
+                    try {
+                        SceneJSONReader.readSceneJSON();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -65,13 +62,12 @@ public class RayScene {
         lights.add(light);
     }
 
-    public void setCamera(Camera camera) {
-        instance.camera = camera;
-        instance.camera.setDimension(width, height);
-    }
-
     public Camera getCamera() {
         return camera;
+    }
+
+    public void setCamera(Camera camera) {
+        this.camera = camera;
     }
 
     public int getWidth() {
@@ -79,7 +75,7 @@ public class RayScene {
     }
 
     public void setWidth(Integer width) {
-        instance.width = width;
+        this.width = width;
     }
 
     public int getHeight() {
@@ -87,7 +83,7 @@ public class RayScene {
     }
 
     public void setHeight(Integer height) {
-        instance.height = height;
+        this.height = height;
     }
 
     @Override
