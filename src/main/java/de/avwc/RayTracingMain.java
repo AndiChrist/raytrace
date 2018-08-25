@@ -22,14 +22,14 @@ import java.util.function.Consumer;
  */
 public final class Main extends Application {
 
-    public static final double EPSILON = 10e-12;
+    public static final double ε = 10e-12;
 
     private PixelWriter pixelWriter;
     private Scene scene;
 
-    public Main() {
-        RayScene rayScene = RayScene.getInstance();
+    private RayScene rayScene = RayScene.getInstance();
 
+    public Main() {
         WritableImage image = new WritableImage(rayScene.getWidth(), rayScene.getHeight());
         pixelWriter = image.getPixelWriter();
 

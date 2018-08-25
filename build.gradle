@@ -7,7 +7,7 @@ plugins {
 group 'de.avwc'
 version '1.1-SNAPSHOT'
 
-mainClassName = 'de.avwc.Main'
+mainClassName = 'de.avwc.RayTracingMain'
 
 sourceCompatibility = 11
 
