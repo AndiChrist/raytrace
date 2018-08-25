@@ -80,7 +80,7 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
         Camera camera = readCamera(cameraNode);
         rayScene.setCamera(camera);
 
-        LOGGER.info(rayScene.toString());
+        LOGGER.info("rayScene = " + rayScene.toString());
 
         return rayScene;
     }
