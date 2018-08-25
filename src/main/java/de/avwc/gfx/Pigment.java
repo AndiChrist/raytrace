@@ -1,15 +1,15 @@
 package de.avwc.gfx;
 
 import de.avwc.gfx.light.Light;
-import de.avwc.Main;
 import de.avwc.main.RayScene;
 import de.avwc.util.ColorUtil;
 import de.avwc.util.RayUtil;
 import de.avwc.util.Vector3DUtil;
+import javafx.scene.paint.Color;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
-import javafx.scene.paint.Color;
+import static de.avwc.RayTracingMain.ε;
 
 /**
  * Created by andichrist on 23.04.17.
@@ -49,8 +49,8 @@ public class Pigment {
             // vector pointing to LIGHT
             Vector3D positionToLight = light.getPosition().subtract(position).normalize();
 
-            Vector3D newPosition = Vector3DUtil.move(position, positionToLight, Main.EPSILON);
-            Line shadow = new Line(newPosition, newPosition.add(positionToLight), Main.EPSILON);
+            Vector3D newPosition = Vector3DUtil.move(position, positionToLight, ε);
+            Line shadow = new Line(newPosition, newPosition.add(positionToLight), ε);
 
             Vector3D retValue = Vector3D.ZERO;
             retValue = retValue.add(Vector3DUtil.multiply(color, light.getIntensity(position)));
@@ -93,8 +93,8 @@ public class Pigment {
             double NV = Math.max(normal.dotProduct(view), 0); // angle
 
             Vector3D reflectionRay = normal.scalarMultiply(NV*2).subtract(view).normalize();
-            Vector3D newPosition = Vector3DUtil.move(position, reflectionRay, Main.EPSILON);
-            Line reflection = new Line(newPosition, newPosition.add(reflectionRay), Main.EPSILON);
+            Vector3D newPosition = Vector3DUtil.move(position, reflectionRay, ε);
+            Line reflection = new Line(newPosition, newPosition.add(reflectionRay), ε);
 
             Color c = ColorUtil.castPrimary(reflection, depth + 1);
 

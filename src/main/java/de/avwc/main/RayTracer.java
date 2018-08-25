@@ -1,15 +1,15 @@
 package de.avwc.main;
 
 import de.avwc.gfx.Camera;
-import de.avwc.Main;
 import de.avwc.gfx.Pixel;
 import de.avwc.util.ColorUtil;
+import javafx.scene.paint.Color;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
-import javafx.scene.paint.Color;
-
 import java.util.function.Consumer;
+
+import static de.avwc.RayTracingMain.ε;
 
 /**
  * Created by andichrist on 23.04.17.
@@ -19,6 +19,7 @@ public class RayTracer {
     public static void trace(Consumer<Pixel> pixelPainter) {
         RayScene rayScene = RayScene.getInstance();
         Camera camera = rayScene.getCamera();
+        camera.setDimension(rayScene.getWidth(), rayScene.getHeight());
 
         // u = l + (r − l)(i + 0.5)/nx
         // v = b + (t − b)(j + 0.5)/ny
@@ -36,10 +37,10 @@ public class RayTracer {
                         .add(camera.getV().scalarMultiply(v))
                         .add(camera.getW_d_negated());
 
-                Line line = new Line(camera.getPosition(), camera.getPosition().add(s), Main.EPSILON);
+                Line line = new Line(camera.getPosition(), camera.getPosition().add(s), ε);
 
                 Color color = ColorUtil.castPrimary(line, 0);
-                //System.out.println("i = " + i + " j = " + j + " color = " + color.toString());
+
                 colorPixel(pixelPainter, i, j, color);
             }
         }
