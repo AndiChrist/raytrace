@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 /**
  * Created by andichrist on 23.04.17.
  */
-public final class Main extends Application {
+public final class RayTracingMain extends Application {
 
     public static final double ε = 10e-12;
 
@@ -29,7 +29,7 @@ public final class Main extends Application {
 
     private RayScene rayScene = RayScene.getInstance();
 
-    public Main() {
+    public RayTracingMain() {
         WritableImage image = new WritableImage(rayScene.getWidth(), rayScene.getHeight());
         pixelWriter = image.getPixelWriter();
 
@@ -43,7 +43,7 @@ public final class Main extends Application {
     }
 
     public static void main(String[] args) {
-        new Main().launch();
+        new RayTracingMain().launch();
     }
 
     private static void saveImage(BufferedImage image) {
