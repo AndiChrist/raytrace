@@ -2,7 +2,6 @@ package de.avwc.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.avwc.gfx.Cube;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -24,7 +23,7 @@ public class JsonCubeTest {
                 "        }";
 
         // act
-        Cube cube = new ObjectMapper().readerFor(Cube.class).readValue(json);
+        Cube cube = new ObjectMapper().readValue(json, Cube.class);
 
         // assert
         assertThat(cube.getName(), containsString("yellow cube"));
