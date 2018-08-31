@@ -34,16 +34,20 @@ public class RayScene {
             synchronized(RayScene.class) {
                 if (instance == null) {
                     instance = new RayScene();
-                    try {
-                        SceneJSONReader.readSceneJSON();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                    instance.init();
                 }
             }
         }
 
         return instance;
+    }
+
+    private void init() {
+        try {
+            SceneJSONReader.readSceneJSON();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Renderable> getObjects() {
