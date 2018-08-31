@@ -18,8 +18,7 @@ public class SceneJSONReader {
         InputStream fis = new FileInputStream(JSON_FILE);
 
         //create JsonReader object
-        ObjectMapper objectMapper = new ObjectMapper();
-        RayScene scene = objectMapper.readValue(fis, RayScene.class);
+        RayScene scene = new ObjectMapper().readValue(fis, RayScene.class);
 
         // close file after reading
         fis.close();
