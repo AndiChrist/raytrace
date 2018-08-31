@@ -14,7 +14,8 @@ public class Camera implements Debuggable {
     // camera position
     private Vector3D position;
 
-    private final Vector3D up;
+    // (0, 1, 0)
+    private final Vector3D up = Vector3D.PLUS_J;
 
     private int left;
     private int right;
@@ -31,8 +32,6 @@ public class Camera implements Debuggable {
 
     public Camera(Vector3D position, Vector3D direction) {
         this.position = position;
-
-        up = Vector3D.PLUS_J; // (0, 1, 0)
 
         W = position.subtract(direction).normalize();
         U = up.crossProduct(W).normalize();
