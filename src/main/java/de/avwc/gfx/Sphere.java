@@ -22,9 +22,6 @@ public class Sphere implements Renderable {
 
     private Pigment pigment;
 
-    public Sphere() {
-    }
-
     public Sphere(Vector3D center, Integer radius, String name, Color color) {
         this.center = center;
         this.radius = radius;

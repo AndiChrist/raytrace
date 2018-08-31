@@ -4,10 +4,9 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import de.avwc.gfx.Camera;
-import de.avwc.gfx.Cube;
-import de.avwc.gfx.Sphere;
+import de.avwc.gfx.*;
 import de.avwc.gfx.light.PointLight;
+import de.avwc.gfx.light.PointLightBuilder;
 import de.avwc.main.RayScene;
 import javafx.scene.paint.Color;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
@@ -89,7 +88,7 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
         Vector3D position = getVector(pointLight.get("position"));
         Vector3D intensity = getVector(pointLight.get("intensity"));
 
-        return new PointLight(position, intensity);
+        return new PointLightBuilder().setPosition(position).setIntensity(intensity).createPointLight();
     }
 
     private static Cube readCube(JsonNode cube) {
@@ -99,23 +98,23 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
         String name = cube.get("name").asText();
         Color color = getColor(cube.get("color"));
 
-        return new Cube(min, max, rotate, name, color);
+        return new CubeBuilder().setMin(min).setMax(max).setRotate(rotate).setName(name).setColor(color).createCube();
     }
 
     private static Sphere readSphere(JsonNode sphere) {
-        Vector3D center = getVector(sphere.get("position"));
+        Vector3D center = getVector(sphere.get("center"));
         String name = sphere.get("name").asText();
         Integer radius = sphere.get("radius").asInt();
         Color color = getColor(sphere.get("color"));
 
-        return new Sphere(center, radius, name, color);
+        return new SphereBuilder().setCenter(center).setRadius(radius).setName(name).setColor(color).createSphere();
     }
 
     private static Camera readCamera(JsonNode camera) {
         Vector3D center = getVector(camera.get("position"));
         Vector3D direction = getVector(camera.get("direction"));
 
-        return new Camera(center, direction);
+        return new CameraBuilder().setPosition(center).setDirection(direction).createCamera();
     }
 
     private static Vector3D getVector(JsonNode jsonNode) {
