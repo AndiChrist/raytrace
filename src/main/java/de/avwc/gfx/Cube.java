@@ -30,30 +30,12 @@ public class Cube implements Renderable {
 
     List<Double> color = new ArrayList<>();
 
-    public Cube(Vector3D min, Vector3D max, Vector3D rotate, String name) {
-        this.min = min;
-        this.max = max;
-        this.rotate = rotate;
-        this.name = name;
-    }
-
-    public Cube(Vector3D min, Vector3D max, Vector3D rotate, String name, Pigment pigment) {
-        this.min = min;
-        this.max = max;
-        this.rotate = rotate;
-        this.name = name;
-        this.pigment = pigment;
-    }
-
     public Cube(Vector3D min, Vector3D max, Vector3D rotate, String name, Color color) {
         this.min = min;
         this.max = max;
         this.rotate = rotate;
         this.name = name;
         this.pigment = new Pigment(color, this);
-    }
-
-    public Cube() {
     }
 
     @Override

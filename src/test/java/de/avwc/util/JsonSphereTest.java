@@ -1,9 +1,7 @@
 package de.avwc.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.avwc.gfx.Cube;
 import de.avwc.gfx.Sphere;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -18,13 +16,13 @@ public class JsonSphereTest {
         // arrange
         String json = "{\n" +
                 "          \"name\": \"red sphere\",\n" +
-                "          \"position\": [0, 0, 0],\n" +
+                "          \"center\": [0, 0, 0],\n" +
                 "          \"radius\": 5,\n" +
                 "          \"color\": [255, 0, 0]\n" +
                 "        }";
-
+        System.out.println("json = " + json);
         // act
-        Sphere sphere = new ObjectMapper().readerFor(Sphere.class).readValue(json);
+        Sphere sphere = new ObjectMapper().readValue(json, Sphere.class);
 
         // assert
         assertThat(sphere.getName(), containsString("red sphere"));

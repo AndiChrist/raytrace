@@ -6,13 +6,13 @@
       "spheres": [
         {
           "name": "green ball",
-          "position": [0, 0, 0],
+          "center": [0, 0, 0],
           "radius": 5,
           "color": [0, 255, 0]
         },
         {
           "name": "red ball",
-          "position": [10, 0, 0],
+          "center": [10, 0, 0],
           "radius": 3,
           "color": [255, 0, 0]
         }
