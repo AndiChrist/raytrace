@@ -25,12 +25,8 @@ public class Pigment {
     private static final double PHONG_EXPONENT = 5;
     private static final double REFLECTION_INDEX = 0.5;
 
-    Pigment(Color color) {
-        this.color = color;
-    }
-
     Pigment(Color color, Renderable renderable) {
-        this(color);
+        this.color = color;
         this.renderable = renderable;
     }
 
@@ -84,21 +80,19 @@ public class Pigment {
 
     // error?
     private Vector3D getReflection(Vector3D position, int depth) {
-        Vector3D vector = Vector3D.ZERO;
-        if (REFLECTION_INDEX > 0) {
-            Vector3D normal = renderable.getNormal(position);
-            Vector3D view = RayScene.getInstance().getCamera().getPosition().subtract(position).normalize();
-            double NV = Math.max(normal.dotProduct(view), 0); // angle
 
-            Vector3D reflectionRay = normal.scalarMultiply(NV*2).subtract(view).normalize();
-            Vector3D newPosition = Vector3DUtil.move(position, reflectionRay, ε);
-            Line reflection = new Line(newPosition, newPosition.add(reflectionRay), ε);
+        Vector3D normal = renderable.getNormal(position);
+        Vector3D view = RayScene.getInstance().getCamera().getPosition().subtract(position).normalize();
+        double NV = Math.max(normal.dotProduct(view), 0); // angle
 
-            Color c = ColorUtil.castPrimary(reflection, depth + 1);
+        Vector3D reflectionRay = normal.scalarMultiply(NV*2).subtract(view).normalize();
+        Vector3D newPosition = Vector3DUtil.move(position, reflectionRay, ε);
+        Line reflection = new Line(newPosition, newPosition.add(reflectionRay), ε);
 
-            Vector3D colorVector = new Vector3D(c.getRed(), c.getGreen(), c.getBlue());
-            vector = vector.add(colorVector.scalarMultiply(REFLECTION_INDEX));
-        }
+        Color c = ColorUtil.castPrimary(reflection, depth + 1);
+
+        Vector3D colorVector = new Vector3D(c.getRed(), c.getGreen(), c.getBlue());
+        Vector3D vector = Vector3D.ZERO.add(colorVector.scalarMultiply(REFLECTION_INDEX));
 
         return vector;
     }
