@@ -93,27 +93,13 @@ public class Vector3DUtil {
         return solutions;
     }
 
-    public static Vector3D multiply(Vector3D a, Vector3D b) {
-        return new Vector3D(a.getX()*b.getX(), a.getY()*b.getY(), a.getZ()*b.getZ());
-    }
-
     public static Vector3D multiply(Color a, Vector3D b) {
-        return new Vector3D((a.getRed() / 255)*b.getX(), (a.getGreen() / 255)*b.getY(), (a.getBlue() / 255)*b.getZ());
-    }
-
-    public static Vector3D divide(Vector3D a, Vector3D b) {
-        return new Vector3D(a.getX()/b.getX(), a.getY()/b.getY(), a.getZ()/b.getZ());
+        return new Vector3D(a.getRed()*b.getX(), a.getGreen()*b.getY(), a.getBlue()*b.getZ());
     }
 
     public static Vector3D divide(double a, Vector3D b) {
         return new Vector3D(a/b.getX(), a/b.getY(), a/b.getZ());
     }
-
-    /*
-    public static int toInteger(Vector3D vector) {
-        return (int) (vector.getX()*255) << 16 | (int) (vector.getY()*255) << 8 | (int) (vector.getZ()*255);
-    }
-    */
 
     public static Vector3D inverse(Vector3D vector) {
         return divide(1.0, vector);
