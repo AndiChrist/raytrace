@@ -75,13 +75,11 @@ public class Pigment {
         }
 
         sum = sum.add(getReflection(position, depth));
-        //System.out.println("sum = " + sum);
-        sum = new Vector3D(Math.min(255, sum.getX()), Math.min(255, sum.getY()), Math.min(255, sum.getZ()));
-        //System.out.println("sum = " + sum);
 
+        sum = new Vector3D(Math.min(255, sum.getX()), Math.min(255, sum.getY()), Math.min(255, sum.getZ()));
         sum = new Vector3D(Math.max(0, sum.getX()), Math.max(0, sum.getY()), Math.max(0, sum.getZ()));
-        //System.out.println("sum = " + sum);
-        return Color.color(Math.round(sum.getX()), Math.round(sum.getY()), Math.round(sum.getZ()));
+
+        return Color.rgb((int)Math.round(sum.getX()), (int)Math.round(sum.getY()), (int)Math.round(sum.getZ()));
     }
 
     // error?
