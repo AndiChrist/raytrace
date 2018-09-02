@@ -2,6 +2,8 @@ package de.avwc.util;
 
 import de.avwc.gfx.Renderable;
 import de.avwc.main.RayScene;
+import org.apache.commons.math3.geometry.Vector;
+import org.apache.commons.math3.geometry.euclidean.threed.Euclidean3D;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
@@ -42,4 +44,9 @@ public class ColorUtil {
     private static Vector3D getPosition(Line line, double t) {
         return line.getOrigin().add(line.getDirection().scalarMultiply(t));
     }
+
+    public static Vector<Euclidean3D> scalarMultiply(Color c, double reflectionIndex) {
+        return new Vector3D(c.getRed(), c.getGreen(), c.getBlue()).scalarMultiply(reflectionIndex);
+    }
+
 }

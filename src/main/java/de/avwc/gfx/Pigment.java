@@ -91,10 +91,7 @@ public class Pigment {
 
         Color c = ColorUtil.castPrimary(reflection, depth + 1);
 
-        Vector3D colorVector = new Vector3D(c.getRed(), c.getGreen(), c.getBlue());
-        Vector3D vector = Vector3D.ZERO.add(colorVector.scalarMultiply(REFLECTION_INDEX));
-
-        return vector;
+        return Vector3D.ZERO.add(ColorUtil.scalarMultiply(c, REFLECTION_INDEX));
     }
 
     @Override
