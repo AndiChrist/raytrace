@@ -123,9 +123,9 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
         Vector3D result = null;
 
         if (jsonNode.isArray() && jsonNode.size() == 3) {
-            int x = jsonNode.get(X).intValue();
-            int y = jsonNode.get(Y).intValue();
-            int z = jsonNode.get(Z).intValue();
+            double x = jsonNode.get(X).doubleValue();
+            double y = jsonNode.get(Y).doubleValue();
+            double z = jsonNode.get(Z).doubleValue();
 
             result = new Vector3D(x, y, z);
         }
