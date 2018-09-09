@@ -19,6 +19,8 @@ public class Pigment {
     private Renderable renderable;
     private Color color;
 
+    // Phong reflection model
+    //private static final Color AMBIENT = Color.YELLOW;
     private static final Color DIFFUSE = Color.LIGHTGRAY;
     private static final Color SPECULAR = Color.DARKGRAY;
 
@@ -72,8 +74,8 @@ public class Pigment {
 
         sum = sum.add(getReflection(position, depth));
 
-        sum = new Vector3D(Math.min(255, sum.getX()), Math.min(255, sum.getY()), Math.min(255, sum.getZ()));
-        sum = new Vector3D(Math.max(0, sum.getX()), Math.max(0, sum.getY()), Math.max(0, sum.getZ()));
+        //sum = new Vector3D(Math.min(255, sum.getX()), Math.min(255, sum.getY()), Math.min(255, sum.getZ()));
+        //sum = new Vector3D(Math.max(0, sum.getX()), Math.max(0, sum.getY()), Math.max(0, sum.getZ()));
 
         return Color.rgb((int)Math.round(sum.getX()), (int)Math.round(sum.getY()), (int)Math.round(sum.getZ()));
     }
