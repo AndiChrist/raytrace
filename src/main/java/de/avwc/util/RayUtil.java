@@ -10,13 +10,12 @@ import org.apache.commons.math3.geometry.euclidean.threed.Line;
 public class RayUtil {
 
     public static boolean castShadow(Line line) {
-        double t = Double.MAX_VALUE;
 
         // find intersection with objects
         for (Renderable object : RayScene.getInstance().getObjects()) {
             double intersection = object.intersect(line);
             // new t is between the eye AND object?
-            if (intersection > 0 && intersection < t) {
+            if (intersection > 0 && intersection < Double.MAX_VALUE) {
                 return true;
             }
         }
