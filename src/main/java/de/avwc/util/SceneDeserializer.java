@@ -25,6 +25,7 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
     public final static int X = 0;
     public final static int Y = 1;
     public final static int Z = 2;
+    public final static int OPACITY = 3;
 
 
     // default (no arg) constructor
@@ -133,7 +134,7 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
     }
 
     private static Color getColor(JsonNode jsonNode) {
-        return Color.rgb(jsonNode.get(X).intValue(), jsonNode.get(Y).intValue(), jsonNode.get(Z).intValue());
+        return Color.rgb(jsonNode.get(X).intValue(), jsonNode.get(Y).intValue(), jsonNode.get(Z).intValue(), jsonNode.get(OPACITY).doubleValue());
     }
 
 }
