@@ -33,12 +33,12 @@ public class Pigment {
     }
 
     // depth: recursion depth
-    Color getColor(Vector3D position, int depth) {
+    public Color getColor(Vector3D position, int depth) {
         if (renderable == null)
             return Color.BLACK;
 
         // start with zero vector
-        Vector3D sum = Vector3D.ZERO;
+        Vector3D sum = new Vector3D(0.0d,0.0d, 0.0d);
 
         RayScene rayScene = RayScene.getInstance();
 
@@ -51,33 +51,36 @@ public class Pigment {
             Line shadow = new Line(newPosition, newPosition.add(positionToLight), ε);
 
             Vector3D retValue = Vector3D.ZERO;
-            retValue = retValue.add(Vector3DUtil.multiply(color, light.getIntensity(position)));
+            retValue = retValue.add(Vector3DUtil.multiply(color, light.getIntensity()));
 
             boolean shadowed = RayUtil.castShadow(shadow);
             if (!shadowed) {
                 // diffuse factor
                 Vector3D normal = renderable.getNormal(position);
-                double NL = Math.max(normal.dotProduct(positionToLight), 0); // angle
-                retValue = retValue.add(Vector3DUtil.multiply(DIFFUSE, light.getIntensity(position)).scalarMultiply(NL));
+                double NL = Math.max(normal.dotProduct(positionToLight), 0.0d); // angle
+                retValue = retValue.add(Vector3DUtil.multiply(DIFFUSE, light.getIntensity()).scalarMultiply(NL));
 
                 // specular factor
                 Vector3D reflection = normal.scalarMultiply(NL*2).subtract(positionToLight).normalize();
                 Vector3D view = rayScene.getCamera().getPosition().subtract(position).normalize();
-                double RV = Math.max(reflection.dotProduct(view), 0); // angle
-
-                retValue = retValue.add(Vector3DUtil.multiply(SPECULAR, light.getIntensity(position)).scalarMultiply(Math.pow(RV, PHONG_EXPONENT)));
+                double RV = Math.max(reflection.dotProduct(view), 0.0d); // angle
+                retValue = retValue.add(Vector3DUtil.multiply(SPECULAR, light.getIntensity()).scalarMultiply(Math.pow(RV, PHONG_EXPONENT)));
             }
 
             double distance = light.getPosition().subtract(position).getNorm(); // length
-            sum = sum.add(retValue.scalarMultiply(1/(distance*distance)).scalarMultiply(255));
+
+            sum = sum.add(retValue.scalarMultiply(1.0d / (distance * distance)).scalarMultiply(255.0d));
         }
 
         sum = sum.add(getReflection(position, depth));
 
-        sum = new Vector3D(Math.min(255, sum.getX()), Math.min(255, sum.getY()), Math.min(255, sum.getZ()));
-        sum = new Vector3D(Math.max(0, sum.getX()), Math.max(0, sum.getY()), Math.max(0, sum.getZ()));
+        // not greater than 255...
+        sum = new Vector3D(Math.min(255.0d, sum.getX()), Math.min(255.0d, sum.getY()), Math.min(255.0d, sum.getZ()));
+        // ...and not smaller than 0
+        sum = new Vector3D(Math.max(0.0d, sum.getX()), Math.max(0.0d, sum.getY()), Math.max(0.0d, sum.getZ()));
 
-        return Color.rgb((int)Math.round(sum.getX()), (int)Math.round(sum.getY()), (int)Math.round(sum.getZ()));
+        //        return new Color(sum.getX()/255.0d, sum.getY()/255.0d, sum.getZ()/255.0d, 1.0);
+        return Color.color(sum.getX()/255.0d, sum.getY()/255.0d, sum.getZ()/255.0d);
     }
 
     // error?
