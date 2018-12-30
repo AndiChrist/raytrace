@@ -2,17 +2,14 @@ package de.avwc.util;
 
 import de.avwc.gfx.Renderable;
 import de.avwc.main.RayScene;
-import org.apache.commons.math3.geometry.Vector;
-import org.apache.commons.math3.geometry.euclidean.threed.Euclidean3D;
+import javafx.scene.paint.Color;
 import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
-
-import javafx.scene.paint.Color;
 
 public class ColorUtil {
     private static final int MAX_RECURSION_DEPTH = 3;
 
-    public static Color castPrimary(Line line, int depth) {
+    public static Color castPrimary(Line ray, int depth) {
         Color color = Color.BLACK;
 
         if (depth > MAX_RECURSION_DEPTH) {
@@ -25,7 +22,7 @@ public class ColorUtil {
 
         // find intersection with objects
         for (Renderable object : RayScene.getInstance().getObjects()) {
-            double intersection = object.intersect(line);
+            double intersection = object.intersect(ray);
             // new t is between the eye AND object?
             if (intersection > 0 && intersection < t) {
                 intersectObject = object;
@@ -35,7 +32,9 @@ public class ColorUtil {
 
         // get color from intersected object
         if (intersectObject != null) {
-            color = intersectObject.getColor(getPosition(line, t), depth);
+           // System.out.println("intersectObject = " + intersectObject.getName());
+
+            color = intersectObject.getColor(getPosition(ray, t), depth);
         }
 
         return color;
@@ -44,9 +43,26 @@ public class ColorUtil {
     private static Vector3D getPosition(Line line, double t) {
         return line.getOrigin().add(line.getDirection().scalarMultiply(t));
     }
-
+/*
     public static Vector<Euclidean3D> scalarMultiply(Color c, double reflectionIndex) {
         return new Vector3D(c.getRed(), c.getGreen(), c.getBlue()).scalarMultiply(reflectionIndex);
+    }
+*/
+/*
+    public static Color scalarMultiply(Color c, double reflectionIndex) {
+        return Color.rgb((int) (c.getRed() * reflectionIndex), (int) (c.getGreen() * reflectionIndex), (int) (c.getBlue() * reflectionIndex));
+    }
+*/
+    public static Vector3D scalarMultiply(Color c, double reflectionIndex) {
+        return new Vector3D(c.getRed() * reflectionIndex, c.getGreen() * reflectionIndex, c.getBlue() * reflectionIndex);
+    }
+/*
+    public static Color add(Color a, Color b) {
+        return Color.rgb((int) (a.getRed() + b.getRed()), (int) (a.getGreen() + b.getGreen()), (int) (a.getBlue() + b.getBlue()));
+    }
+*/
+    public static Vector3D add(Color a, Color b) {
+        return new Vector3D(a.getRed() + b.getRed(), a.getGreen() + b.getGreen(), a.getBlue() + b.getBlue());
     }
 
 }
