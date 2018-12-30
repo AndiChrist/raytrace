@@ -2,7 +2,6 @@ package de.avwc.gfx;
 
 import de.avwc.util.Vector3DUtil;
 import javafx.scene.paint.Color;
-import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 import java.util.Iterator;
@@ -30,7 +29,7 @@ public class Sphere implements Renderable {
     }
 
     @Override
-    public double intersect(Line ray) {
+    public double intersect(Ray ray) {
         Vector3D rayDirection = ray.getDirection();
         Vector3D rayOrigin = ray.getOrigin();
 

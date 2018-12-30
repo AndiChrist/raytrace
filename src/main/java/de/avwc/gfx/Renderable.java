@@ -2,7 +2,6 @@ package de.avwc.gfx;
 
 import de.avwc.util.Debuggable;
 import javafx.scene.paint.Color;
-import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 /**
@@ -10,7 +9,7 @@ import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
  */
 public interface Renderable extends Debuggable {
 
-    double intersect(Line ray);
+    double intersect(Ray ray);
 
     Vector3D getNormal(Vector3D position);
 

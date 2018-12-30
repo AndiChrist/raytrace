@@ -6,7 +6,6 @@ import de.avwc.util.ColorUtil;
 import de.avwc.util.RayUtil;
 import de.avwc.util.Vector3DUtil;
 import javafx.scene.paint.Color;
-import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 import static de.avwc.RayTracingMain.ε;
@@ -48,7 +47,7 @@ public class Pigment {
             Vector3D positionToLight = light.getPosition().subtract(position).normalize();
 
             Vector3D newPosition = Vector3DUtil.move(position, positionToLight, ε);
-            Line shadow = new Line(newPosition, newPosition.add(positionToLight), ε);
+            Ray shadow = new Ray(newPosition, newPosition.add(positionToLight), ε);
 
             Vector3D retValue = Vector3D.ZERO;
             retValue = retValue.add(Vector3DUtil.multiply(color, light.getIntensity()));
@@ -92,7 +91,7 @@ public class Pigment {
 
         Vector3D reflectionRay = normal.scalarMultiply(NV*2).subtract(view).normalize();
         Vector3D newPosition = Vector3DUtil.move(position, reflectionRay, ε);
-        Line reflection = new Line(newPosition, newPosition.add(reflectionRay), ε);
+        Ray reflection = new Ray(newPosition, newPosition.add(reflectionRay), ε);
 
         Color c = ColorUtil.castPrimary(reflection, depth + 1);
 
