@@ -2,9 +2,9 @@ package de.avwc.main;
 
 import de.avwc.gfx.Camera;
 import de.avwc.gfx.Pixel;
+import de.avwc.gfx.Ray;
 import de.avwc.util.ColorUtil;
 import javafx.scene.paint.Color;
-import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 import java.util.function.Consumer;
@@ -39,9 +39,9 @@ public class RayTracer {
                         .add(camera.getV().scalarMultiply(v))
                         .add(camera.getW_d_negated());
 
-                Line line = new Line(camera.getPosition(), camera.getPosition().add(s), ε);
+                Ray ray = new Ray(camera.getPosition(), camera.getPosition().add(s), ε);
 
-                Color color = ColorUtil.castPrimary(line, DEPTH);
+                Color color = ColorUtil.castPrimary(ray, DEPTH);
 
                 colorPixel(pixelPainter, i, j, color);
             }

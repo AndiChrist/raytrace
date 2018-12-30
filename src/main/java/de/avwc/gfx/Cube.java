@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import de.avwc.main.RayScene;
 import de.avwc.util.Vector3DUtil;
 import javafx.scene.paint.Color;
-import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 import java.util.ArrayList;
@@ -39,7 +38,7 @@ public class Cube implements Renderable {
     }
 
     @Override
-    public double intersect(Line ray) {
+    public double intersect(Ray ray) {
         Vector3D direction = ray.getDirection();
         Vector3D origin = ray.getOrigin();
 

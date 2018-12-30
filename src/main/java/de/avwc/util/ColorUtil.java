@@ -1,15 +1,15 @@
 package de.avwc.util;
 
+import de.avwc.gfx.Ray;
 import de.avwc.gfx.Renderable;
 import de.avwc.main.RayScene;
 import javafx.scene.paint.Color;
-import org.apache.commons.math3.geometry.euclidean.threed.Line;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 public class ColorUtil {
     private static final int MAX_RECURSION_DEPTH = 3;
 
-    public static Color castPrimary(Line ray, int depth) {
+    public static Color castPrimary(Ray ray, int depth) {
         Color color = Color.BLACK;
 
         if (depth > MAX_RECURSION_DEPTH) {
@@ -40,8 +40,8 @@ public class ColorUtil {
         return color;
     }
 
-    private static Vector3D getPosition(Line line, double t) {
-        return line.getOrigin().add(line.getDirection().scalarMultiply(t));
+    private static Vector3D getPosition(Ray ray, double t) {
+        return ray.getOrigin().add(ray.getDirection().scalarMultiply(t));
     }
 /*
     public static Vector<Euclidean3D> scalarMultiply(Color c, double reflectionIndex) {
