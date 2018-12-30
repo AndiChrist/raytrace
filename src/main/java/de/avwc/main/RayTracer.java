@@ -16,6 +16,8 @@ import static de.avwc.RayTracingMain.ε;
  */
 public class RayTracer {
 
+    public static final int DEPTH = 0;
+
     public static void trace(Consumer<Pixel> pixelPainter) {
         RayScene rayScene = RayScene.getInstance();
         Camera camera = rayScene.getCamera();
@@ -39,7 +41,7 @@ public class RayTracer {
 
                 Line line = new Line(camera.getPosition(), camera.getPosition().add(s), ε);
 
-                Color color = ColorUtil.castPrimary(line, 0);
+                Color color = ColorUtil.castPrimary(line, DEPTH);
 
                 colorPixel(pixelPainter, i, j, color);
             }
