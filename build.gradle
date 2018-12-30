@@ -1,15 +1,24 @@
+plugins {
+    id 'java'
+    id 'application'
+
+    // https://mvnrepository.com/artifact/org.openjfx/javafx-plugin
+    id 'org.openjfx.javafxplugin' version '0.0.5'
+}
+
 group 'de.avwc'
 version '1.0-SNAPSHOT'
 
-apply plugin: 'application'
 mainClassName = 'de.avwc.RayTracingMain'
 
-apply plugin: 'java'
-
-sourceCompatibility = 10
+sourceCompatibility = 11
 
 repositories {
     mavenCentral()
+}
+
+javafx {
+    modules = [ 'javafx.base', 'javafx.graphics' ]
 }
 
 dependencies {
