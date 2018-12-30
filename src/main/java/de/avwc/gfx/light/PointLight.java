@@ -20,7 +20,8 @@ public class PointLight implements Light {
     }
 
     @Override
-    public Vector3D getIntensity(Vector3D fromPosition) {
+    public Vector3D getIntensity() {
         return intensity;
     }
+
 }

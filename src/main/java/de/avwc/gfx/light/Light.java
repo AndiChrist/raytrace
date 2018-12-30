@@ -8,5 +8,5 @@ import org.hipparchus.geometry.euclidean.threed.Vector3D;
  */
 public interface Light extends Debuggable {
     Vector3D getPosition();
-    Vector3D getIntensity(Vector3D fromPosition);
+    Vector3D getIntensity();
 }
