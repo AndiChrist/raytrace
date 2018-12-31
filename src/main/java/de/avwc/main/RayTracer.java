@@ -5,7 +5,6 @@ import de.avwc.gfx.Pixel;
 import de.avwc.gfx.Ray;
 import de.avwc.util.ColorUtil;
 import javafx.scene.paint.Color;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 import java.util.function.Consumer;
 
@@ -16,32 +15,18 @@ import static de.avwc.RayTracingMain.ε;
  */
 public class RayTracer {
 
-    public static final int DEPTH = 0;
+    public static final int DEPTH = 3;
 
     public static void trace(Consumer<Pixel> pixelPainter) {
         RayScene rayScene = RayScene.getInstance();
 
         // camera aka. "eye"
         Camera camera = rayScene.getCamera();
-        camera.setDimension(rayScene.getWidth(), rayScene.getHeight());
 
-        // u = l + (r − l)(i + 0.5)/nx
-        // v = b + (t − b)(j + 0.5)/ny
-        // l = left, r = right, b = bottom, t = top
         for (int i = 0; i < rayScene.getWidth(); i++) {
             for (int j = 0; j < rayScene.getHeight(); j++) {
-                // from left to right
-                double u = camera.getLeft() + (camera.getRight() - camera.getLeft()) * (i + 0.5) / rayScene.getWidth();
-                // from top to bottom
-                double v = camera.getTop() + (camera.getBottom() - camera.getTop()) * (j + 0.5) / rayScene.getHeight();
 
-                // direction from camera to current pixel
-                Vector3D direction = Vector3D.ZERO
-                        .add(camera.getU().scalarMultiply(u))
-                        .add(camera.getV().scalarMultiply(v))
-                        .add(camera.getW_d_negated());
-
-                Ray ray = new Ray(camera.getPosition(), camera.getPosition().add(direction), ε);
+                Ray ray = new Ray(camera.getPosition(), camera.getDirection(i, j), ε);
 
                 Color color = ColorUtil.castPrimary(ray, DEPTH);
 

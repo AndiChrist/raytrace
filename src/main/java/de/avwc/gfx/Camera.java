@@ -1,5 +1,6 @@
 package de.avwc.gfx;
 
+import de.avwc.main.RayScene;
 import de.avwc.util.Debuggable;
 import org.hipparchus.geometry.euclidean.threed.Vector3D;
 
@@ -31,55 +32,46 @@ public class Camera implements Debuggable {
     private Vector3D W_d_negated;
 
     public Camera(Vector3D position, Vector3D direction) {
+        RayScene rayScene = RayScene.getInstance();
+
         this.position = position;
 
         W = position.subtract(direction).normalize();
         U = up.crossProduct(W).normalize();
         V = W.crossProduct(U).normalize();
-    }
 
-    public void setDimension(int width, int height) {
-        left = -width / 2;
+        left = -rayScene.getWidth() / 2;
         right = left * -1;
 
-        top = height / 2;
+        top = rayScene.getHeight() / 2;
         bottom = top * -1;
 
-        distance = top / tan(PI / 4) / 2;
-        W_d_negated = W.scalarMultiply(distance * -1);
+        distance = top / tan(PI / 4.0d);
+        //distance = top / tan(PI / 4.0d) / 2.0d;
+        W_d_negated = W.scalarMultiply(-distance);
     }
 
     /* getter */
-
-    public int getLeft() {
-        return left;
-    }
-
-    public int getRight() {
-        return right;
-    }
-
-    public int getTop() {
-        return top;
-    }
-
-    public int getBottom() {
-        return bottom;
-    }
-
     public Vector3D getPosition() {
         return position;
     }
 
-    public Vector3D getU() {
-        return U;
-    }
+    public Vector3D getDirection(int i, int j) {
+        // u = l + (r − l)(i + 0.5)/nx
+        // v = b + (t − b)(j + 0.5)/ny
 
-    public Vector3D getV() {
-        return V;
-    }
+        // from left to right
+        double u = left + i;
+        // from top to bottom
+        double v = top - j;
 
-    public Vector3D getW_d_negated() {
-        return W_d_negated;
+        // direction from camera to current pixel
+        Vector3D direction = Vector3D.ZERO
+                .add(U.scalarMultiply(u))
+                .add(V.scalarMultiply(v))
+                .add(W_d_negated);
+
+        //return position.add(direction);
+        return direction;
     }
 }
