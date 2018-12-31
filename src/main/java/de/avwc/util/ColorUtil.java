@@ -43,26 +43,9 @@ public class ColorUtil {
     private static Vector3D getPosition(Ray ray, double t) {
         return ray.getOrigin().add(ray.getDirection().scalarMultiply(t));
     }
-/*
-    public static Vector<Euclidean3D> scalarMultiply(Color c, double reflectionIndex) {
-        return new Vector3D(c.getRed(), c.getGreen(), c.getBlue()).scalarMultiply(reflectionIndex);
-    }
-*/
-/*
-    public static Color scalarMultiply(Color c, double reflectionIndex) {
-        return Color.rgb((int) (c.getRed() * reflectionIndex), (int) (c.getGreen() * reflectionIndex), (int) (c.getBlue() * reflectionIndex));
-    }
-*/
+
     public static Vector3D scalarMultiply(Color c, double reflectionIndex) {
-        return new Vector3D(c.getRed() * reflectionIndex, c.getGreen() * reflectionIndex, c.getBlue() * reflectionIndex);
-    }
-/*
-    public static Color add(Color a, Color b) {
-        return Color.rgb((int) (a.getRed() + b.getRed()), (int) (a.getGreen() + b.getGreen()), (int) (a.getBlue() + b.getBlue()));
-    }
-*/
-    public static Vector3D add(Color a, Color b) {
-        return new Vector3D(a.getRed() + b.getRed(), a.getGreen() + b.getGreen(), a.getBlue() + b.getBlue());
+        return new Vector3D(c.getRed(), c.getGreen(), c.getBlue()).scalarMultiply(reflectionIndex);
     }
 
 }
