@@ -20,6 +20,8 @@ public class RayTracer {
 
     public static void trace(Consumer<Pixel> pixelPainter) {
         RayScene rayScene = RayScene.getInstance();
+
+        // camera aka. "eye"
         Camera camera = rayScene.getCamera();
         camera.setDimension(rayScene.getWidth(), rayScene.getHeight());
 
@@ -34,12 +36,12 @@ public class RayTracer {
                 double v = camera.getTop() + (camera.getBottom() - camera.getTop()) * (j + 0.5) / rayScene.getHeight();
 
                 // direction from camera to current pixel
-                Vector3D s = Vector3D.ZERO
+                Vector3D direction = Vector3D.ZERO
                         .add(camera.getU().scalarMultiply(u))
                         .add(camera.getV().scalarMultiply(v))
                         .add(camera.getW_d_negated());
 
-                Ray ray = new Ray(camera.getPosition(), camera.getPosition().add(s), ε);
+                Ray ray = new Ray(camera.getPosition(), camera.getPosition().add(direction), ε);
 
                 Color color = ColorUtil.castPrimary(ray, DEPTH);
 
