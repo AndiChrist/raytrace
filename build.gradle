@@ -20,7 +20,7 @@ repositories {
 }
 
 javafx {
-    modules = [ 'javafx.base', 'javafx.graphics' ]
+    modules = [ 'javafx.base', 'javafx.graphics', 'javafx.swing' ]
 }
 
 dependencies {
