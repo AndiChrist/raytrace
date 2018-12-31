@@ -14,5 +14,6 @@ module de.avwc {
     requires com.fasterxml.jackson.core;
     requires slf4j.api;
     requires slf4j.simple;
+    requires javafx.swing;
 
 }
