@@ -4,7 +4,9 @@ import de.avwc.gfx.Pixel;
 import de.avwc.main.RayScene;
 import de.avwc.main.RayTracer;
 import javafx.application.Application;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -22,14 +24,18 @@ import java.util.function.Consumer;
  */
 public final class RayTracingMain extends Application {
 
-    public static final double ε = 10e-12;
+    public static void main(String[] args) {
+        Application.launch();
+    }
+
+    public static final double ε = 10e-10;
 
     private PixelWriter pixelWriter;
-    private Scene scene;
 
-    private RayScene rayScene = RayScene.getInstance();
+    @Override
+    public void start(Stage stage) {
+        RayScene rayScene = RayScene.getInstance();
 
-    public RayTracingMain() {
         WritableImage image = new WritableImage(rayScene.getWidth(), rayScene.getHeight());
         pixelWriter = image.getPixelWriter();
 
@@ -39,36 +45,32 @@ public final class RayTracingMain extends Application {
         StackPane root = new StackPane();
         root.getChildren().add(imageView);
 
-        scene = new Scene(root, rayScene.getWidth(), rayScene.getHeight());
-    }
+        Scene scene = new Scene(root, rayScene.getWidth(), rayScene.getHeight());
 
-    public static void main(String[] args) {
-        new RayTracingMain().launch();
-    }
-
-    private static void saveImage(BufferedImage image) {
-        File outputFile = new File("Image.png");
-
-        try {
-            ImageIO.write(image, "PNG", outputFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
         paintRayTraceSet();
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Mandelbrot set");
-        primaryStage.show();
+
+        stage.setScene(scene);
+        stage.setTitle("Raytrace Image");
+        stage.show();
+
+        saveToFile(image);
     }
 
     private void paintRayTraceSet() {
-        Consumer<Pixel> pixelPainter = (pixel) -> pixelWriter.setColor(pixel.getX(),pixel.getY(),pixel.getColor());
+        Consumer<Pixel> pixelPainter = (pixel) -> pixelWriter.setColor(pixel.getX(), pixel.getY(), pixel.getColor());
 
         RayTracer.trace(pixelPainter);
     }
 
+
+    private void saveToFile(Image image) {
+        File outputFile = new File("Image.png");
+        BufferedImage bImage = SwingFXUtils.fromFXImage(image, null);
+        try {
+            ImageIO.write(bImage, "png", outputFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 
