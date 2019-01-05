@@ -61,7 +61,7 @@ public class Pigment {
 
                 // specular factor
                 Vector3D reflection = normal.scalarMultiply(NL*2).subtract(positionToLight).normalize();
-                Vector3D view = rayScene.getCamera().getPosition().subtract(position).normalize();
+                Vector3D view = rayScene.getEye().getPosition().subtract(position).normalize();
                 double RV = Math.max(reflection.dotProduct(view), 0.0d); // angle
                 retValue = retValue.add(Vector3DUtil.multiply(SPECULAR, light.getIntensity()).scalarMultiply(Math.pow(RV, PHONG_EXPONENT)));
             }
@@ -86,7 +86,7 @@ public class Pigment {
     private Vector3D getReflection(Vector3D position, int depth) {
 
         Vector3D normal = renderable.getNormal(position);
-        Vector3D view = RayScene.getInstance().getCamera().getPosition().subtract(position).normalize();
+        Vector3D view = RayScene.getInstance().getEye().getPosition().subtract(position).normalize();
         double NV = Math.max(normal.dotProduct(view), 0); // angle
 
         Vector3D reflectionRay = normal.scalarMultiply(NV*2).subtract(view).normalize();

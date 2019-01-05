@@ -1,6 +1,6 @@
 package de.avwc.main;
 
-import de.avwc.gfx.Camera;
+import de.avwc.gfx.Eye;
 import de.avwc.gfx.Pixel;
 import de.avwc.gfx.Ray;
 import de.avwc.util.ColorUtil;
@@ -20,19 +20,19 @@ public class RayTracer {
     public static void trace(Consumer<Pixel> pixelPainter) {
         RayScene rayScene = RayScene.getInstance();
 
-        // camera aka. "eye"
-        Camera camera = rayScene.getCamera();
+        // eye aka. "camera"
+        Eye eye = rayScene.getEye();
 
         for (int i = 0; i < rayScene.getWidth(); i++) {
             for (int j = 0; j < rayScene.getHeight(); j++) {
 
                 // parametric line equation: p(t)=e + t(s-e)
-                // e: support vector aka. "camera position" (point on the line)
+                // e: support vector aka. "eye position" (point on the line)
                 // s-e: direction vector (vector on the line)
                 // t=0: we're at view point
                 // t=1: position on the screen
                 // t>1: objects in scene
-                Ray ray = new Ray(camera.getPosition(), camera.getDirection(i, j), ε);
+                Ray ray = new Ray(eye.getPosition(), eye.getDirection(i, j), ε);
 
                 Color color = ColorUtil.castPrimary(ray, DEPTH);
 

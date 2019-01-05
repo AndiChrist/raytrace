@@ -76,9 +76,9 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
             }
         }
 
-        JsonNode cameraNode = node.get("camera");
-        Camera camera = readCamera(cameraNode);
-        rayScene.setCamera(camera);
+        JsonNode eyeNode = node.get("eye");
+        Eye eye = readEye(eyeNode);
+        rayScene.setEye(eye);
 
         LOGGER.info("rayScene = " + rayScene.toString());
 
@@ -111,11 +111,11 @@ public class SceneDeserializer extends StdDeserializer<RayScene> {
         return new SphereBuilder().setCenter(center).setRadius(radius).setName(name).setColor(color).createSphere();
     }
 
-    private static Camera readCamera(JsonNode camera) {
-        Vector3D center = getVector(camera.get("position"));
-        Vector3D direction = getVector(camera.get("direction"));
+    private static Eye readEye(JsonNode eye) {
+        Vector3D center = getVector(eye.get("position"));
+        Vector3D direction = getVector(eye.get("direction"));
 
-        return new CameraBuilder().setPosition(center).setDirection(direction).createCamera();
+        return new EyeBuilder().setPosition(center).setDirection(direction).createEye();
     }
 
     private static Vector3D getVector(JsonNode jsonNode) {
