@@ -26,6 +26,12 @@ public class RayTracer {
         for (int i = 0; i < rayScene.getWidth(); i++) {
             for (int j = 0; j < rayScene.getHeight(); j++) {
 
+                // parametric line equation: p(t)=e + t(s-e)
+                // e: support vector aka. "camera position" (point on the line)
+                // s-e: direction vector (vector on the line)
+                // t=0: we're at view point
+                // t=1: position on the screen
+                // t>1: objects in scene
                 Ray ray = new Ray(camera.getPosition(), camera.getDirection(i, j), ε);
 
                 Color color = ColorUtil.castPrimary(ray, DEPTH);
