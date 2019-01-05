@@ -59,7 +59,7 @@
       ]
     }
   ],
-  "camera": {
+  "eye": {
     "position": [0, 0, -10],
     "direction": [0, 0, 0]
   }

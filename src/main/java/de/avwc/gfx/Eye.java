@@ -6,17 +6,16 @@ import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.tan;
+import static org.apache.commons.math3.geometry.euclidean.threed.Vector3D.PLUS_J;
+
 
 /**
  * Created by andichrist on 23.04.17.
  */
-public class Camera implements Debuggable {
+public class Eye implements Debuggable {
 
-    // camera position
+    // eye position
     private Vector3D position;
-
-    // (0, 1, 0)
-    private final Vector3D up = Vector3D.PLUS_J;
 
     private int left;
     private int right;
@@ -24,21 +23,28 @@ public class Camera implements Debuggable {
     private int top;
     private int bottom;
 
-    private Vector3D W;
     private Vector3D U;
     private Vector3D V;
 
-    private double distance; // radians; π/4 = 90°
-    private Vector3D W_d_negated;
+    private Vector3D W_d_negated;  // towards center of screen
 
-    public Camera(Vector3D position, Vector3D direction) {
+    // perspective views
+    // p(t) = E + t(-dW + uU + vV)
+    // orthographic view
+    // p(t) = E + uU + vV -tW
+    public Eye(Vector3D position, Vector3D direction) {
+        System.out.println("direction = " + direction);
+
         RayScene rayScene = RayScene.getInstance();
 
         this.position = position;
 
-        W = position.subtract(direction).normalize();
-        U = up.crossProduct(W).normalize();
+        Vector3D W = position.subtract(direction).normalize();
+        // PLUS_J = {0, 1, 0}
+        U = PLUS_J.crossProduct(W).normalize();
         V = W.crossProduct(U).normalize();
+
+        System.out.println("W = " + W);
 
         left = -rayScene.getWidth() / 2;
         right = left * -1;
@@ -46,8 +52,12 @@ public class Camera implements Debuggable {
         top = rayScene.getHeight() / 2;
         bottom = top * -1;
 
-        distance = top / tan(PI / 4.0d);
-        //distance = top / tan(PI / 4.0d) / 2.0d;
+        // radians; π/4 = 90°
+        double distance = top / tan(PI / 4.0d) / 2.0d;
+        //double distance = top / tan(PI / 4.0d) / 2.0d;
+        //double distance = position.distance(direction);
+        System.out.println("distance = " + distance);
+
         W_d_negated = W.scalarMultiply(-distance);
     }
 
@@ -57,15 +67,20 @@ public class Camera implements Debuggable {
     }
 
     public Vector3D getDirection(int i, int j) {
-        // u = l + (r − l)(i + 0.5)/nx
-        // v = b + (t − b)(j + 0.5)/ny
+        int nx = right - left;
+        int ny = top - bottom;
+        // u = (l + (r − l)(i + 0.5))/nx
+        // v = (b + (t − b)(j + 0.5))/ny
 
         // from left to right
+        //double u = (left + (right - left) * (i + 0.5)) / nx;
         double u = left + i;
+
         // from top to bottom
+        //double v = (bottom + (top - bottom) * (j + 0.5)) / ny;
         double v = top - j;
 
-        // direction from camera to current pixel
+        // direction from eye to current pixel
         Vector3D direction = Vector3D.ZERO
                 .add(U.scalarMultiply(u))
                 .add(V.scalarMultiply(v))
