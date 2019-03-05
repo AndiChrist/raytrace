@@ -1,6 +1,6 @@
 package de.avwc.util;
 
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.hipparchus.geometry.euclidean.threed.Vector3D;
 
 import java.awt.*;
 import java.util.Set;

@@ -3,8 +3,8 @@ package de.avwc.main;
 import de.avwc.gfx.Camera;
 import de.avwc.Main;
 import de.avwc.util.ColorUtil;
-import org.apache.commons.math3.geometry.euclidean.threed.Line;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.hipparchus.geometry.euclidean.threed.Line;
+import org.hipparchus.geometry.euclidean.threed.Vector3D;
 
 import java.awt.*;
 

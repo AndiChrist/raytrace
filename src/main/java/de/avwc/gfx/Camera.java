@@ -1,7 +1,7 @@
 package de.avwc.gfx;
 
 import de.avwc.util.Debuggable;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.hipparchus.geometry.euclidean.threed.Vector3D;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.tan;

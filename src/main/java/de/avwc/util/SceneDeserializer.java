@@ -10,7 +10,7 @@ import de.avwc.gfx.Cube;
 import de.avwc.gfx.Sphere;
 import de.avwc.gfx.light.PointLight;
 import de.avwc.main.Scene;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.hipparchus.geometry.euclidean.threed.Vector3D;
 
 import java.awt.*;
 import java.io.IOException;

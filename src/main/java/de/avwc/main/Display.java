@@ -1,7 +1,5 @@
 package de.avwc.main;
 
-import de.avwc.main.Scene;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;

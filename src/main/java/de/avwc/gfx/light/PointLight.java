@@ -1,6 +1,6 @@
 package de.avwc.gfx.light;
 
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.hipparchus.geometry.euclidean.threed.Vector3D;
 
 /**
  * Created by andichrist on 23.04.17.

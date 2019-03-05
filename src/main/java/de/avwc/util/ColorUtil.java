@@ -2,8 +2,8 @@ package de.avwc.util;
 
 import de.avwc.gfx.Renderable;
 import de.avwc.main.Scene;
-import org.apache.commons.math3.geometry.euclidean.threed.Line;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.hipparchus.geometry.euclidean.threed.Line;
+import org.hipparchus.geometry.euclidean.threed.Vector3D;
 
 import java.awt.*;
 

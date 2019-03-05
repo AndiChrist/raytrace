@@ -9,7 +9,7 @@ module de.avwc {
     requires java.logging;
     requires java.desktop;
     requires com.fasterxml.jackson.databind;
-    requires commons.math3;
+    requires hipparchus.geometry;
     requires jackson.annotations;
     requires com.fasterxml.jackson.core;
 }
