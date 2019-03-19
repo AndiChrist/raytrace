@@ -1,2 +1,5 @@
 # raytrace
-small demo project
+small demo raytracing project
+start with:
+
+$ ./gradlew -q run
