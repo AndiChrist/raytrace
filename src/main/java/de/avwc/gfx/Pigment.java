@@ -6,7 +6,7 @@ import de.avwc.util.ColorUtil;
 import de.avwc.util.RayUtil;
 import de.avwc.util.Vector3DUtil;
 import javafx.scene.paint.Color;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.hipparchus.geometry.euclidean.threed.Vector3D;
 
 import static de.avwc.RayTracingMain.ε;
 

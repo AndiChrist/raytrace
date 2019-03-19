@@ -1,6 +1,6 @@
 package de.avwc.gfx;
 
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.hipparchus.geometry.euclidean.threed.Vector3D;
 
 public class EyeBuilder {
     private Vector3D position;

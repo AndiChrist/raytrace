@@ -1,7 +1,7 @@
 package de.avwc.gfx;
 
 import javafx.scene.paint.Color;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.hipparchus.geometry.euclidean.threed.Vector3D;
 
 public class CubeBuilder {
     private Vector3D min;

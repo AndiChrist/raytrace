@@ -4,7 +4,7 @@ import de.avwc.gfx.Ray;
 import de.avwc.gfx.Renderable;
 import de.avwc.main.RayScene;
 import javafx.scene.paint.Color;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.hipparchus.geometry.euclidean.threed.Vector3D;
 
 public class ColorUtil {
     private static final int MAX_RECURSION_DEPTH = 3;

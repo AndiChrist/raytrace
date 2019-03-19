@@ -6,7 +6,7 @@ import org.hipparchus.geometry.euclidean.threed.Vector3D;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.tan;
-import static org.apache.commons.math3.geometry.euclidean.threed.Vector3D.PLUS_J;
+import static org.hipparchus.geometry.euclidean.threed.Vector3D.PLUS_J;
 
 
 /**

@@ -2,7 +2,7 @@ package de.avwc.gfx;
 
 import de.avwc.util.Debuggable;
 import javafx.scene.paint.Color;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.hipparchus.geometry.euclidean.threed.Vector3D;
 
 /**
  * Created by andichrist on 23.04.17.

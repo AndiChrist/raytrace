@@ -9,7 +9,7 @@ import de.avwc.gfx.light.PointLight;
 import de.avwc.gfx.light.PointLightBuilder;
 import de.avwc.main.RayScene;
 import javafx.scene.paint.Color;
-import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
+import org.hipparchus.geometry.euclidean.threed.Vector3D;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
