@@ -1,7 +1,7 @@
 package de.avwc.util;
 
-import org.apache.commons.math3.analysis.solvers.LaguerreSolver;
-import org.apache.commons.math3.complex.Complex;
+import org.hipparchus.analysis.solvers.LaguerreSolver;
+import org.hipparchus.complex.Complex;
 import org.junit.Test;
 
 import java.util.Iterator;

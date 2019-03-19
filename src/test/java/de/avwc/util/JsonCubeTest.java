@@ -1,10 +1,16 @@
 package de.avwc.util;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.avwc.gfx.Cube;
+import de.avwc.gfx.CubeBuilder;
+import de.avwc.gfx.Sphere;
+import de.avwc.gfx.SphereBuilder;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -12,18 +18,28 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class JsonCubeTest {
 
     @Test
-    public void deserializeUsingJsonSetter2() throws IOException {
+    public void deserializeUsingJsonSetter() throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+
         // arrange
         String json = "{\n" +
                 "          \"name\": \"yellow cube\",\n" +
                 "          \"min\": [3.5, 3.5, 3.5],\n" +
-                "          \"max\": [15, 15, 15],\n" +
-                "          \"rotate\": [0, 0, 0],\n" +
-                "          \"color\": [0, 255, 0]\n" +
+                "          \"max\": [15.0, 15.0, 15.0],\n" +
+                "          \"rotate\": [0.0, 0.0, 0.0],\n" +
+                "          \"color\": [255, 255, 0, 1]\n" +
                 "        }";
 
+        JsonNode jsonNode = mapper.readTree(json);
+
         // act
-        Cube cube = new ObjectMapper().readValue(json, Cube.class);
+        List<Double> min = mapper.convertValue(jsonNode.get("min"), ArrayList.class);
+        List<Double> max = mapper.convertValue(jsonNode.get("max"), ArrayList.class);
+        List<Double> rotate = mapper.convertValue(jsonNode.get("rotate"), ArrayList.class);
+        List<Integer> color = mapper.convertValue(jsonNode.get("color"), ArrayList.class);
+        String name = jsonNode.get("name").textValue();
+
+        Cube cube = new CubeBuilder().setMin(min).setMax(max).setRotate(rotate).setColor(color).setName(name).createCube();
 
         // assert
         assertThat(cube.getName(), containsString("yellow cube"));
