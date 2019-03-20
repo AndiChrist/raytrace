@@ -1,6 +1,6 @@
 package de.avwc.gfx;
 
-import de.avwc.util.Vector3DUtil;
+import de.avwc.util.MathUtil;
 import javafx.scene.paint.Color;
 import org.hipparchus.geometry.euclidean.threed.Vector3D;
 
@@ -41,7 +41,7 @@ public class Sphere implements Renderable {
 
         // ƒ(x) = ax² + bx + c
         // x₁, x₂ = (-b ± √(b² - 4ac)) / 2a
-        Set<Double> results = Vector3DUtil.quadraticFormula(a, b, c);
+        Set<Double> results = MathUtil.quadraticFormula(a, b, c);
         Iterator iterator = results.iterator();
 
         double result;
