@@ -4,16 +4,14 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.avwc.gfx.Cube;
 import de.avwc.gfx.CubeBuilder;
-import de.avwc.gfx.Sphere;
-import de.avwc.gfx.SphereBuilder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class JsonCubeTest {
 
@@ -42,7 +40,7 @@ public class JsonCubeTest {
         Cube cube = new CubeBuilder().setMin(min).setMax(max).setRotate(rotate).setColor(color).setName(name).createCube();
 
         // assert
-        assertThat(cube.getName(), containsString("yellow cube"));
+        assertEquals(cube.getName(), "yellow cube");
     }
 
 }

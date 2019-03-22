@@ -2,14 +2,15 @@ package de.avwc.util;
 
 import org.hipparchus.analysis.solvers.LaguerreSolver;
 import org.hipparchus.complex.Complex;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Iterator;
 import java.util.Set;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
-import static org.junit.Assert.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Created by andichrist on 18.05.17.

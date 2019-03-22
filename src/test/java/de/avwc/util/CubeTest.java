@@ -4,12 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.avwc.gfx.Cube;
 import javafx.scene.paint.Color;
 import org.hipparchus.geometry.euclidean.threed.Vector3D;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class CubeTest {
 
@@ -26,7 +26,7 @@ public class CubeTest {
         Cube cube = new Cube(min, max, rotate, name, color);
 
         // assert
-        assertThat(cube.getName(), containsString("yellow cube"));
+        assertEquals(cube.getName(), "yellow cube");
     }
 
 }
