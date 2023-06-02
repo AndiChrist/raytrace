@@ -25,7 +25,7 @@ import java.util.function.Consumer;
 public final class RayTracingMain extends Application {
 
     public static void main(String[] args) {
-        Application.launch();
+        launch();
     }
 
     public static final double ε = 10e-10;
